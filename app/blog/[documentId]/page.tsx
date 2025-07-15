@@ -21,6 +21,7 @@ interface ArticleDetail {
   updatedAt: string
   publishedAt: string
   short_description: string | null
+  cover_url?: string
   category: {
     id: number
     documentId: string
@@ -208,20 +209,22 @@ export default function BlogDetailPage() {
           </motion.div>
 
           {/* Featured Image */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-12"
-          >
-            <div className="aspect-video bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl overflow-hidden">
-              <img
-                src="/placeholder.svg"
-                alt={article.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </motion.div>
+          {article.cover_url && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-12"
+            >
+              <div className="aspect-video bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl overflow-hidden">
+                <img
+                  src={article.cover_url}
+                  alt={article.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+          )}
 
           {/* Article Content */}
           <motion.div
