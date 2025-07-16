@@ -11,7 +11,7 @@ export async function GET(
     const config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `${process.env.STRAPI_API_URL}/api/articles/${documentId}?populate=category&populate=author&populate=cover`,
+      url: `${process.env.STRAPI_API_URL}/api/articles/${documentId}?populate[blocks][populate]=*&populate[cover]=true&populate[category]=true&populate[author]=true`,
       headers: { 
         'Authorization': `Bearer ${process.env.STRAPI_API_KEY}`
       }
@@ -24,6 +24,24 @@ export async function GET(
       const coverUrl = process.env.ENVIRONMENT === 'development' ? `${process.env.STRAPI_API_URL}${response.data.data.cover.url}` : response.data.data.cover.url
       console.log('coverUrl', coverUrl)
       response.data.data.cover_url = coverUrl
+    }
+
+    // Process media files in blocks if they exist
+    if (response.data.data?.blocks) {
+      response.data.data.blocks.forEach((block: any) => {
+        if (block.__component === 'shared.media' && block.file?.url) {
+          const mediaUrl = process.env.ENVIRONMENT === 'development' ? `${process.env.STRAPI_API_URL}${block.file.url}` : block.file.url
+          block.file.processed_url = mediaUrl
+        }
+        if (block.__component === 'shared.slider' && block.files) {
+          block.files.forEach((file: any) => {
+            if (file.url) {
+              const sliderUrl = process.env.ENVIRONMENT === 'development' ? `${process.env.STRAPI_API_URL}${file.url}` : file.url
+              file.processed_url = sliderUrl
+            }
+          })
+        }
+      })
     }
 
     return NextResponse.json(

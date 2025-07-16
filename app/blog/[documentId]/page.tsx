@@ -3,12 +3,65 @@
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { Calendar, User, ArrowLeft, Clock, Tag } from "lucide-react"
+import { Calendar, User, ArrowLeft, Clock, Tag, Quote } from "lucide-react"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import AnimatedBackground from "@/components/animated-background"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+
+// Block interfaces based on Strapi response
+interface RichTextBlock {
+  __component: "shared.rich-text"
+  id: number
+  body: string
+}
+
+interface QuoteBlock {
+  __component: "shared.quote"
+  id: number
+  title: string
+  body: string
+}
+
+interface MediaBlock {
+  __component: "shared.media"
+  id: number
+  desc?: string | null
+  file?: {
+    id?: number
+    url: string
+    processed_url?: string
+    alternativeText?: string
+    caption?: string
+    formats?: {
+      large?: { url: string }
+      medium?: { url: string }
+      small?: { url: string }
+      thumbnail?: { url: string }
+    }
+  }
+}
+
+interface SliderBlock {
+  __component: "shared.slider"
+  id: number
+  files?: Array<{
+    id?: number
+    url: string
+    processed_url?: string
+    alternativeText?: string
+    caption?: string
+    formats?: {
+      large?: { url: string }
+      medium?: { url: string }
+      small?: { url: string }
+      thumbnail?: { url: string }
+    }
+  }>
+}
+
+type Block = RichTextBlock | QuoteBlock | MediaBlock | SliderBlock
 
 // Article detail interface based on Strapi response
 interface ArticleDetail {
@@ -21,6 +74,15 @@ interface ArticleDetail {
   updatedAt: string
   publishedAt: string
   short_description: string | null
+  cover?: {
+    url: string
+    formats?: {
+      large?: { url: string }
+      medium?: { url: string }
+      small?: { url: string }
+      thumbnail?: { url: string }
+    }
+  }
   cover_url?: string
   category: {
     id: number
@@ -40,6 +102,161 @@ interface ArticleDetail {
     createdAt: string
     updatedAt: string
     publishedAt: string
+  }
+  blocks: Block[]
+}
+
+// Component to render markdown-like content
+const RichTextRenderer = ({ content }: { content: string }) => {
+  // Simple markdown-like rendering
+  const renderContent = (text: string) => {
+    return text.split('\n').map((line, index) => {
+      if (line.startsWith('## ')) {
+        return (
+          <h2 key={index} className="text-2xl font-bold text-white mt-8 mb-4">
+            {line.replace('## ', '')}
+          </h2>
+        )
+      }
+      if (line.startsWith('### ')) {
+        return (
+          <h3 key={index} className="text-xl font-semibold text-white mt-6 mb-3">
+            {line.replace('### ', '')}
+          </h3>
+        )
+      }
+      if (line.startsWith('- ')) {
+        return (
+          <li key={index} className="text-gray-300 ml-4">
+            {line.replace('- ', '')}
+          </li>
+        )
+      }
+      if (line.trim() === '') {
+        return <br key={index} />
+      }
+      return (
+        <p key={index} className="text-gray-300 leading-relaxed mb-4">
+          {line}
+        </p>
+      )
+    })
+  }
+
+  return <div className="prose prose-invert max-w-none">{renderContent(content)}</div>
+}
+
+// Component to render quote blocks
+const QuoteRenderer = ({ block }: { block: QuoteBlock }) => {
+  return (
+    <div className="my-8 p-6 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border-l-4 border-cyan-400 rounded-r-lg">
+      <div className="flex items-start space-x-3">
+        <Quote className="w-6 h-6 text-cyan-400 mt-1 flex-shrink-0" />
+        <div>
+          <blockquote className="text-lg text-gray-200 italic mb-2">
+            "{block.body}"
+          </blockquote>
+          <cite className="text-cyan-400 font-medium">— {block.title}</cite>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Component to render media blocks
+const MediaRenderer = ({ block }: { block: MediaBlock }) => {
+  if (!block.file) return null
+
+  const getImageUrl = (file: any) => {
+    // Use processed URL if available, otherwise fallback to original logic
+    if (file.processed_url) {
+      return file.processed_url
+    }
+    
+    const baseUrl = process.env.NODE_ENV === 'development' 
+      ? process.env.NEXT_PUBLIC_STRAPI_API_URL 
+      : ''
+    
+    if (file.formats?.large?.url) {
+      return `${baseUrl}${file.formats.large.url}`
+    }
+    if (file.formats?.medium?.url) {
+      return `${baseUrl}${file.formats.medium.url}`
+    }
+    return `${baseUrl}${file.url}`
+  }
+
+  return (
+    <div className="my-8">
+      <div className="aspect-video bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl overflow-hidden">
+        <img
+          src={getImageUrl(block.file)}
+          alt={block.desc || block.file.alternativeText || block.file.caption || "Article media"}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      {block.desc && (
+        <p className="text-gray-400 text-sm mt-2 text-center italic">
+          {block.desc}
+        </p>
+      )}
+    </div>
+  )
+}
+
+// Component to render slider blocks
+const SliderRenderer = ({ block }: { block: SliderBlock }) => {
+  if (!block.files || block.files.length === 0) return null
+
+  const getImageUrl = (file: any) => {
+    // Use processed URL if available, otherwise fallback to original logic
+    if (file.processed_url) {
+      return file.processed_url
+    }
+    
+    const baseUrl = process.env.NODE_ENV === 'development' 
+      ? process.env.NEXT_PUBLIC_STRAPI_API_URL 
+      : ''
+    
+    if (file.formats?.large?.url) {
+      return `${baseUrl}${file.formats.large.url}`
+    }
+    if (file.formats?.medium?.url) {
+      return `${baseUrl}${file.formats.medium.url}`
+    }
+    return `${baseUrl}${file.url}`
+  }
+
+  return (
+    <div className="my-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {block.files.map((file, index) => (
+          <div key={file.id || index} className="aspect-square bg-gradient-to-br from-slate-700 to-slate-800 rounded-lg overflow-hidden">
+            <img
+              src={getImageUrl(file)}
+              alt={file.alternativeText || file.caption || `Slider image ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// Component to render blocks
+const BlockRenderer = ({ block }: { block: Block }) => {
+  switch (block.__component) {
+    case "shared.rich-text":
+      return <RichTextRenderer content={block.body} />
+    case "shared.quote":
+      return <QuoteRenderer block={block} />
+    case "shared.media":
+      return <MediaRenderer block={block} />
+    case "shared.slider":
+      return <SliderRenderer block={block} />
+    default:
+      return null
   }
 }
 
@@ -92,6 +309,23 @@ export default function BlogDetailPage() {
     return gradients[categorySlug] || gradients.default
   }
 
+  // Helper function to get cover image URL
+  const getCoverImageUrl = (cover: any) => {
+    if (!cover) return null
+    
+    const baseUrl = process.env.NODE_ENV === 'development' 
+      ? process.env.NEXT_PUBLIC_STRAPI_API_URL 
+      : ''
+    
+    if (cover.formats?.large?.url) {
+      return `${baseUrl}${cover.formats.large.url}`
+    }
+    if (cover.formats?.medium?.url) {
+      return `${baseUrl}${cover.formats.medium.url}`
+    }
+    return `${baseUrl}${cover.url}`
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
@@ -139,6 +373,10 @@ export default function BlogDetailPage() {
     )
   }
 
+  // Handle missing fields gracefully
+  const category = article.category || { name: 'Uncategorized', slug: 'default' }
+  const author = article.author || { name: 'Unknown Author', email: 'unknown@example.com' }
+
   return (
     <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
       <AnimatedBackground />
@@ -173,10 +411,10 @@ export default function BlogDetailPage() {
             {/* Category Badge */}
             <div className="mb-6">
               <span
-                className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r ${getCategoryGradient(article.category.slug)} text-white`}
+                className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r ${getCategoryGradient(category.slug)} text-white`}
               >
                 <Tag className="w-3 h-3 mr-2" />
-                {article.category.name}
+                {category.name}
               </span>
             </div>
 
@@ -191,7 +429,7 @@ export default function BlogDetailPage() {
             <div className="flex flex-wrap items-center gap-6 text-gray-400 text-sm">
               <div className="flex items-center space-x-2">
                 <User className="w-4 h-4" />
-                <span>{article.author.name}</span>
+                <span>{author.name}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Calendar className="w-4 h-4" />
@@ -235,12 +473,27 @@ export default function BlogDetailPage() {
             <Card className="bg-gradient-to-br from-slate-800 to-slate-900 backdrop-blur-sm border border-cyan-500/20">
               <CardContent className="p-8">
                 {/* Description */}
-                <div className="prose prose-invert max-w-none">
-                  <p className="text-xl text-gray-300 leading-relaxed mb-8">
+                <div className="prose prose-invert max-w-none mb-8">
+                  <p className="text-xl text-gray-300 leading-relaxed">
                     {article.short_description || article.description}
                   </p>
-                  
-                  {/* Full Content - For now showing description as content */}
+                </div>
+                
+                {/* Blocks Content */}
+                {article.blocks && article.blocks.length > 0 ? (
+                  <div className="space-y-6">
+                    {article.blocks.map((block, index) => (
+                      <motion.div
+                        key={block.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 * index }}
+                      >
+                        <BlockRenderer block={block} />
+                      </motion.div>
+                    ))}
+                  </div>
+                ) : (
                   <div className="text-gray-400 leading-relaxed space-y-4">
                     <p>
                       {article.description}
@@ -250,12 +503,8 @@ export default function BlogDetailPage() {
                       you would have rich text content from Strapi that could include headings, 
                       paragraphs, lists, images, and other formatted content.
                     </p>
-                    <p>
-                      The article would be fully populated with the actual content from your CMS, 
-                      including any rich text formatting, embedded media, and structured data.
-                    </p>
                   </div>
-                </div>
+                )}
 
                 {/* Article Footer */}
                 <div className="mt-12 pt-8 border-t border-cyan-500/20">
@@ -265,8 +514,8 @@ export default function BlogDetailPage() {
                         <User className="w-6 h-6 text-cyan-400" />
                       </div>
                       <div>
-                        <p className="text-white font-medium">{article.author.name}</p>
-                        <p className="text-gray-400 text-sm">{article.author.email}</p>
+                        <p className="text-white font-medium">{author.name}</p>
+                        <p className="text-gray-400 text-sm">{author.email}</p>
                       </div>
                     </div>
                     <Button

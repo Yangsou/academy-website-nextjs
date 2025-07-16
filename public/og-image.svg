@@ -1,1 +1,43 @@
- 
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#22d3ee;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="50" fill="url(#textGradient)" opacity="0.1"/>
+  <circle cx="1100" cy="530" r="80" fill="url(#textGradient)" opacity="0.1"/>
+  <circle cx="1000" cy="150" r="30" fill="url(#textGradient)" opacity="0.15"/>
+  
+  <!-- Main content area -->
+  <g transform="translate(100, 150)">
+    <!-- Logo/Icon -->
+    <rect x="0" y="0" width="120" height="120" rx="20" fill="url(#textGradient)" opacity="0.2"/>
+    <text x="60" y="75" font-family="Arial, sans-serif" font-size="60" font-weight="bold" text-anchor="middle" fill="url(#textGradient)">A</text>
+    
+    <!-- Title -->
+    <text x="150" y="50" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white">AIDI</text>
+    <text x="150" y="90" font-family="Arial, sans-serif" font-size="24" fill="url(#textGradient)">AI that reflects. Not replaces.</text>
+    
+    <!-- Description -->
+    <text x="0" y="180" font-family="Arial, sans-serif" font-size="18" fill="#94a3b8" max-width="900">
+      Building AI that reflects human consciousness and enhances our potential for conscious living in the digital age.
+    </text>
+    
+    <!-- URL -->
+    <text x="0" y="220" font-family="Arial, sans-serif" font-size="16" fill="#64748b">www.aidi.world</text>
+  </g>
+  
+  <!-- Bottom accent -->
+  <rect x="0" y="580" width="1200" height="50" fill="url(#textGradient)" opacity="0.1"/>
+</svg> 
