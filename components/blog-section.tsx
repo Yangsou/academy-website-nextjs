@@ -299,8 +299,8 @@ export default function BlogSection() {
   }
 
   // Handle read more button click
-  const handleReadMore = (documentId: string) => {
-    router.push(`/blog/${documentId}`)
+  const handleReadMore = (slug: string) => {
+    router.push(`/blog/${slug}`)
   }
 
   // Handle load more articles
@@ -507,7 +507,7 @@ export default function BlogSection() {
                       {/* Read More Button */}
                       <Button
                         variant="ghost"
-                        onClick={() => handleReadMore(article.documentId)}
+                        onClick={() => handleReadMore(article.slug)}
                         className="w-full text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 p-0 h-auto justify-start group/btn border-t border-cyan-500/20 pt-4"
                       >
                         Read More

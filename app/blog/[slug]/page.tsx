@@ -411,13 +411,39 @@ export default function BlogDetailPage() {
   useEffect(() => {
     const fetchArticleDetail = async () => {
       try {
-        const response = await fetch(`/api/articles/${params.documentId}`)
-        const result = await response.json()
+        console.log('Looking for slug:', params.slug)
+        
+        // First, fetch all articles to find the one with matching slug
+        const articlesResponse = await fetch('/api/articles')
+        const articlesResult = await articlesResponse.json()
 
-        if (response.ok) {
-          setArticle(result.data.data)
+        if (!articlesResponse.ok) {
+          throw new Error('Failed to fetch articles')
+        }
+
+        console.log('Available articles:', articlesResult.data.data.map((a: any) => ({ slug: a.slug, title: a.title })))
+
+        // Find the article with matching slug
+        const targetArticle = articlesResult.data.data.find((article: any) => 
+          article.slug === params.slug
+        )
+
+        console.log('Target article found:', targetArticle)
+
+        if (!targetArticle) {
+          setError('Article not found')
+          setIsLoading(false)
+          return
+        }
+
+        // Now fetch the detailed article using the documentId
+        const detailResponse = await fetch(`/api/articles/${targetArticle.documentId}`)
+        const detailResult = await detailResponse.json()
+
+        if (detailResponse.ok) {
+          setArticle(detailResult.data.data)
         } else {
-          console.error('Failed to fetch article:', result.error)
+          console.error('Failed to fetch article:', detailResult.error)
           setError('Failed to load article')
         }
       } catch (error) {
@@ -428,10 +454,10 @@ export default function BlogDetailPage() {
       }
     }
 
-    if (params.documentId) {
+    if (params.slug) {
       fetchArticleDetail()
     }
-  }, [params.documentId])
+  }, [params.slug])
 
   const handleBackToBlog = () => {
     router.push('/blog')
@@ -450,22 +476,9 @@ export default function BlogDetailPage() {
     return gradients[categorySlug] || gradients.default
   }
 
-  // Helper function to get cover image URL
-  const getCoverImageUrl = (cover: any) => {
-    if (!cover) return null
-    
-    const baseUrl = process.env.NODE_ENV === 'development' 
-      ? process.env.NEXT_PUBLIC_STRAPI_API_URL 
-      : ''
-    
-    if (cover.formats?.large?.url) {
-      return `${baseUrl}${cover.formats.large.url}`
-    }
-    if (cover.formats?.medium?.url) {
-      return `${baseUrl}${cover.formats.medium.url}`
-    }
-    return `${baseUrl}${cover.url}`
-  }
+  // Handle missing fields gracefully
+  const category = article?.category || { name: 'Uncategorized', slug: 'default' }
+  const author = article?.author || { name: 'Unknown Author', email: 'unknown@example.com' }
 
   if (isLoading) {
     return (
@@ -513,10 +526,6 @@ export default function BlogDetailPage() {
       </div>
     )
   }
-
-  // Handle missing fields gracefully
-  const category = article.category || { name: 'Uncategorized', slug: 'default' }
-  const author = article.author || { name: 'Unknown Author', email: 'unknown@example.com' }
 
   return (
     <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
