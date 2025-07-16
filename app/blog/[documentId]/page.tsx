@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { Calendar, User, ArrowLeft, Clock, Tag, Quote } from "lucide-react"
+import { Calendar, User, ArrowLeft, Clock, Tag, Quote, ChevronLeft, ChevronRight } from "lucide-react"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import AnimatedBackground from "@/components/animated-background"
@@ -108,27 +108,100 @@ interface ArticleDetail {
 
 // Component to render markdown-like content
 const RichTextRenderer = ({ content }: { content: string }) => {
-  // Simple markdown-like rendering
+  // Function to parse and render links within text
+  const parseLinks = (text: string) => {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
+    const parts = []
+    let lastIndex = 0
+    let match
+
+    while ((match = linkRegex.exec(text)) !== null) {
+      // Add text before the link
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index))
+      }
+      
+      // Add the link
+      parts.push(
+        <a
+          key={`link-${match.index}`}
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-cyan-400 hover:text-cyan-300 underline transition-colors"
+        >
+          {match[1]}
+        </a>
+      )
+      
+      lastIndex = match.index + match[0].length
+    }
+    
+    // Add remaining text after the last link
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex))
+    }
+    
+    return parts.length > 0 ? parts : text
+  }
+
+  // Function to parse and render italic text
+  const parseItalic = (text: string | React.ReactNode) => {
+    if (typeof text !== 'string') return text
+    
+    const italicRegex = /\*([^*]+)\*/g
+    const parts = []
+    let lastIndex = 0
+    let match
+
+    while ((match = italicRegex.exec(text)) !== null) {
+      // Add text before the italic
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index))
+      }
+      
+      // Add the italic text
+      parts.push(
+        <em key={`italic-${match.index}`} className="italic">
+          {match[1]}
+        </em>
+      )
+      
+      lastIndex = match.index + match[0].length
+    }
+    
+    // Add remaining text after the last italic
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex))
+    }
+    
+    return parts.length > 0 ? parts : text
+  }
+
+  // Main rendering function
   const renderContent = (text: string) => {
     return text.split('\n').map((line, index) => {
       if (line.startsWith('## ')) {
+        const headingText = line.replace('## ', '')
         return (
           <h2 key={index} className="text-2xl font-bold text-white mt-8 mb-4">
-            {line.replace('## ', '')}
+            {parseItalic(headingText)}
           </h2>
         )
       }
       if (line.startsWith('### ')) {
+        const headingText = line.replace('### ', '')
         return (
           <h3 key={index} className="text-xl font-semibold text-white mt-6 mb-3">
-            {line.replace('### ', '')}
+            {parseItalic(headingText)}
           </h3>
         )
       }
       if (line.startsWith('- ')) {
+        const listText = line.replace('- ', '')
         return (
           <li key={index} className="text-gray-300 ml-4">
-            {line.replace('- ', '')}
+            {parseItalic(parseLinks(listText))}
           </li>
         )
       }
@@ -137,7 +210,7 @@ const RichTextRenderer = ({ content }: { content: string }) => {
       }
       return (
         <p key={index} className="text-gray-300 leading-relaxed mb-4">
-          {line}
+          {parseItalic(parseLinks(line))}
         </p>
       )
     })
@@ -206,6 +279,8 @@ const MediaRenderer = ({ block }: { block: MediaBlock }) => {
 
 // Component to render slider blocks
 const SliderRenderer = ({ block }: { block: SliderBlock }) => {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  
   if (!block.files || block.files.length === 0) return null
 
   const getImageUrl = (file: any) => {
@@ -227,18 +302,83 @@ const SliderRenderer = ({ block }: { block: SliderBlock }) => {
     return `${baseUrl}${file.url}`
   }
 
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % block.files!.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + block.files!.length) % block.files!.length)
+  }
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index)
+  }
+
   return (
     <div className="my-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {block.files.map((file, index) => (
-          <div key={file.id || index} className="aspect-square bg-gradient-to-br from-slate-700 to-slate-800 rounded-lg overflow-hidden">
-            <img
-              src={getImageUrl(file)}
-              alt={file.alternativeText || file.caption || `Slider image ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
+      <div className="relative group">
+        {/* Main Slider Container */}
+        <div className="aspect-video bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl overflow-hidden">
+          <motion.img
+            key={currentSlide}
+            src={getImageUrl(block.files![currentSlide])}
+            alt={block.files![currentSlide].alternativeText || block.files![currentSlide].caption || `Slider image ${currentSlide + 1}`}
+            className="w-full h-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          />
+          
+          {/* Navigation Arrows */}
+          {block.files!.length > 1 && (
+            <>
+              <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </>
+          )}
+          
+          {/* Slide Counter */}
+          {block.files!.length > 1 && (
+            <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+              {currentSlide + 1} / {block.files!.length}
+            </div>
+          )}
+        </div>
+
+        {/* Thumbnail Navigation */}
+        {block.files!.length > 1 && (
+          <div className="mt-4 flex gap-2 overflow-x-auto pb-2">
+            {block.files!.map((file, index) => (
+              <button
+                key={file.id || index}
+                onClick={() => goToSlide(index)}
+                className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                  index === currentSlide 
+                    ? 'border-cyan-400 scale-105' 
+                    : 'border-slate-600 hover:border-slate-400'
+                }`}
+              >
+                <img
+                  src={getImageUrl(file)}
+                  alt={file.alternativeText || file.caption || `Thumbnail ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </button>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </div>
   )
