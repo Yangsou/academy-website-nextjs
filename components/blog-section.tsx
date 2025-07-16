@@ -275,27 +275,49 @@ export default function BlogSection() {
   // Helper function to get gradient color based on category
   const getCategoryGradient = (categoryName: string): string => {
     const gradients: { [key: string]: string } = {
-      'tech': 'from-cyan-500 to-blue-600',
-      'news': 'from-blue-500 to-purple-600',
-      'food': 'from-amber-500 to-orange-600',
-      'nature': 'from-green-500 to-emerald-600',
-      'story': 'from-pink-500 to-rose-600',
+      'ai-humanity': 'from-cyan-500 to-blue-600',
+      'inner-balance': 'from-blue-500 to-purple-600',
+      'right-questions': 'from-purple-500 to-pink-600',
+      'real-stories': 'from-pink-500 to-rose-600',
+      'ai & humanity': 'from-cyan-500 to-blue-600',
+      'inner balance': 'from-blue-500 to-purple-600',
+      'right questions in a chaotic world': 'from-purple-500 to-pink-600',
+      'real stories from ai+di users': 'from-pink-500 to-rose-600',
       'default': 'from-slate-500 to-gray-600'
     }
-    return gradients[categoryName] || gradients.default
+    return gradients[categoryName.toLowerCase()] || gradients.default
   }
 
   // Helper function to get icon based on category
   const getCategoryIcon = (categoryName: string) => {
     const icons: { [key: string]: any } = {
-      'tech': Brain,
-      'news': Users,
-      'food': Heart,
-      'nature': Lightbulb,
-      'story': HelpCircle,
+      'ai-humanity': Brain,
+      'inner-balance': Heart,
+      'right-questions': HelpCircle,
+      'real-stories': Users,
+      'ai & humanity': Brain,
+      'inner balance': Heart,
+      'right questions in a chaotic world': HelpCircle,
+      'real stories from ai+di users': Users,
       'default': Zap
     }
-    return icons[categoryName] || icons.default
+    return icons[categoryName.toLowerCase()] || icons.default
+  }
+
+  // Helper function to get read time based on category
+  const getCategoryReadTime = (categoryName: string): string => {
+    const readTimes: { [key: string]: string } = {
+      'ai-humanity': '8 min read',
+      'inner-balance': '6 min read',
+      'right-questions': '7 min read',
+      'real-stories': '5 min read',
+      'ai & humanity': '8 min read',
+      'inner balance': '6 min read',
+      'right questions in a chaotic world': '7 min read',
+      'real stories from ai+di users': '5 min read',
+      'default': '6 min read'
+    }
+    return readTimes[categoryName.toLowerCase()] || readTimes.default
   }
 
   // Handle read more button click
@@ -441,8 +463,9 @@ export default function BlogSection() {
           ) : (
             // Articles
             filteredArticles.map((article, index) => {
-              const CategoryIcon = getCategoryIcon(article.category?.slug || 'default')
-              const gradient = getCategoryGradient(article.category?.slug || 'default')
+              const CategoryIcon = getCategoryIcon(article.category?.name || 'default')
+              const gradient = getCategoryGradient(article.category?.name || 'default')
+              const readTime = getCategoryReadTime(article.category?.name || 'default')
               
               return (
                 <motion.div
@@ -453,10 +476,10 @@ export default function BlogSection() {
                   viewport={{ once: true }}
                   whileHover={{ y: -8, scale: 1.02 }}
                 >
-                  <Card className="bg-gradient-to-br from-slate-800 to-slate-900 backdrop-blur-sm border border-cyan-500/20 hover:border-cyan-400/50 transition-all duration-300 h-full group overflow-hidden">
+                  <Card className="bg-gradient-to-br from-slate-800 to-slate-900 backdrop-blur-sm border border-cyan-500/20 hover:border-cyan-400/50 transition-all duration-300 h-full group overflow-hidden flex flex-col">
                     {/* Image Thumbnail */}
-                    <div className="relative overflow-hidden">
-                      <div className="aspect-video bg-gradient-to-br from-slate-700 to-slate-800">
+                    <div className="relative overflow-hidden flex-shrink-0">
+                      <div className="aspect-[3/2] bg-gradient-to-br from-slate-700 to-slate-800">
                         {article.cover_url ? (
                           <img
                             src={article.cover_url}
@@ -484,19 +507,22 @@ export default function BlogSection() {
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
 
-                    <CardContent className="p-6 flex flex-col flex-1">
+                    <CardContent className="p-4 flex flex-col flex-1">
                       {/* Title */}
-                      <h3 className="text-xl font-bold text-white mb-3 leading-tight group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
+                      <h3 className="text-lg font-bold text-white mb-2 leading-tight group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
                         {article.title}
                       </h3>
 
                       {/* Excerpt */}
-                      <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
+                      <p className="text-gray-400 text-sm leading-relaxed mb-3 line-clamp-2">
                         {article.short_description || article.description}
                       </p>
 
+                      {/* Spacer to push content to bottom */}
+                      <div className="flex-1"></div>
+
                       {/* Meta information */}
-                      <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
+                      <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
                         <div className="flex items-center space-x-4">
                           <div className="flex items-center space-x-1">
                             <User className="w-3 h-3" />
@@ -507,17 +533,19 @@ export default function BlogSection() {
                             <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
                           </div>
                         </div>
-                        <span className="text-cyan-400">5 min read</span>
+                        <span className="text-cyan-400">{readTime}</span>
                       </div>
 
                       {/* Read More Button */}
                       <Button
                         variant="ghost"
                         onClick={() => handleReadMore(article)}
-                        className="w-full text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 p-0 h-auto justify-start group/btn border-t border-cyan-500/20 pt-4"
+                        className="w-full text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 py-3 px-4 justify-center group/btn border-t border-cyan-500/20 transition-all duration-200"
                       >
-                        Read More
-                        <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                        <span className="flex items-center justify-center w-full">
+                          Read More
+                          <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
+                        </span>
                       </Button>
                     </CardContent>
 
