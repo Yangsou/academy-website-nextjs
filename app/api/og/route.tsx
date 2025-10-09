@@ -99,7 +99,7 @@ export async function GET(request: Request) {
               color: 'transparent',
             }}
           >
-            AIDI
+            AI+DI
           </h1>
           
           {/* Subtitle */}

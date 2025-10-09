@@ -43,7 +43,7 @@ export default function HeroSection() {
             className="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-sm border border-cyan-500/20 rounded-full px-6 py-3"
           >
             <Sparkles className="w-5 h-5 text-cyan-400" />
-            <span className="text-cyan-400 font-medium">Introducing AIDI</span>
+            <span className="text-cyan-400 font-medium">Introducing AI+DI</span>
           </motion.div>
 
           <motion.h1

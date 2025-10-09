@@ -137,10 +137,10 @@ export default function Footer() {
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 <div className="w-[200px] h-[200px] flex items-center justify-center">
-                  <img src="/aidi-logo-horizontal.svg" alt="AIDI Logo" className="w-[200px] h-[200px] object-contain" />
+                  <img src="/aidi-logo-horizontal.svg" alt="AI+DI Logo" className="w-[200px] h-[200px] object-contain" />
                 </div>
                 {/* <span className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                  AIDI
+                  AI+DI
                 </span> */}
               </Link>
 
@@ -268,7 +268,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Copyright */}
             <div className="flex items-center space-x-2 text-gray-400 text-sm">
-              <span>© 2025 AIDI. Made with</span>
+              <span>© 2025 AI+DI. Made with</span>
               <Heart className="w-4 h-4 text-red-400 fill-current animate-pulse" />
               <span>for conscious living.</span>
             </div>

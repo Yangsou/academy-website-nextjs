@@ -1,12 +1,12 @@
-# AIDI Company Website
+# AI+DI Company Website
 
 Building AI that reflects human consciousness and enhances our potential for conscious living in the digital age.
 
-This is a [Next.js](https://nextjs.org/) project for the AIDI Company website, featuring a modern, conscious approach to AI technology.
+This is a [Next.js](https://nextjs.org/) project for the AI+DI Company website, featuring a modern, conscious approach to AI technology.
 
-## About AIDI
+## About AI+DI
 
-AIDI (AI that reflects. Not replaces.) is dedicated to developing AI systems that enhance human wisdom, creativity, and connection. We create tools that respect human agency, promote well-being, and foster communities where technology serves humanity's highest aspirations while preserving what makes us uniquely human.
+AI+DI (AI that reflects. Not replaces.) is dedicated to developing AI systems that enhance human wisdom, creativity, and connection. We create tools that respect human agency, promote well-being, and foster communities where technology serves humanity's highest aspirations while preserving what makes us uniquely human.
 
 ## Features
 
@@ -66,4 +66,4 @@ This project is optimized for deployment on Vercel, but can be deployed to any p
 
 ## Contact
 
-For questions about this project or AIDI Company, please visit our website or contact us through the provided channels.
+For questions about this project or AI+DI Company, please visit our website or contact us through the provided channels.
