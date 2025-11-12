@@ -1,30 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 'use client'
 
 import { motion } from 'framer-motion'
-import {
-  Calendar,
-  User,
-  ArrowLeft,
-  Clock,
-  Quote,
-  ChevronLeft,
-  ChevronRight,
-  Brain,
-  Heart,
-  HelpCircle,
-  Users,
-  Zap,
-  type LucideIcon,
-} from 'lucide-react'
+import { Calendar, User, ArrowLeft, Clock, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useMemo, useState } from 'react'
 
 import AnimatedBackground from '@/components/animated-background'
 import ContactSection from '@/components/contact-section'
+import { ErrorBoundary } from '@/components/error-boundary'
 import Footer from '@/components/footer'
 import Navigation from '@/components/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { getCategoryGradient, getCategoryIcon, getCategoryReadTime } from '@/lib/blog-helpers'
+import { useArticleDetail } from '@/lib/hooks/use-blog-data'
 
 // Block interfaces based on Strapi response
 type RichTextBlock = {
@@ -112,29 +104,6 @@ type ArticleDetail = {
     publishedAt: string
   } | null
   blocks?: Block[] | null
-}
-
-type ArticleSummary = {
-  id: number
-  documentId: string
-  slug: string
-  title: string
-}
-
-type ArticlesApiResponse = {
-  success: boolean
-  data?: {
-    data?: ArticleSummary[]
-  }
-  error?: string
-}
-
-type ArticleDetailApiResponse = {
-  success: boolean
-  data?: {
-    data?: ArticleDetail | null
-  }
-  error?: string
 }
 
 type NormalizedArticleDetail = ArticleDetail & {
@@ -359,11 +328,13 @@ const MediaRenderer = ({ block }: { block: MediaBlock }) => {
 
   return (
     <div className="my-8">
-      <div className="aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-800">
-        <img
+      <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-800">
+        <Image
           src={imageUrl}
           alt={block.desc ?? getMediaAltText(file, 'Article media')}
-          className="h-full w-full object-cover"
+          fill
+          className="object-cover"
+          sizes="(max-width: 1200px) 100vw, 1200px"
         />
       </div>
       {block.desc && <p className="mt-2 text-center text-sm italic text-gray-400">{block.desc}</p>}
@@ -410,16 +381,23 @@ const SliderRenderer = ({ block }: { block: SliderBlock }) => {
     <div className="my-8">
       <div className="group relative">
         {/* Main Slider Container */}
-        <div className="aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-800">
-          <motion.img
+        <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-800">
+          <motion.div
             key={activeIndex}
-            src={activeImageUrl}
-            alt={getMediaAltText(activeFile, `Slider image ${activeIndex + 1}`)}
-            className="h-full w-full object-cover"
+            className="relative h-full w-full"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-          />
+          >
+            <Image
+              src={activeImageUrl}
+              alt={getMediaAltText(activeFile, `Slider image ${activeIndex + 1}`)}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              priority={activeIndex === 0}
+            />
+          </motion.div>
 
           {/* Navigation Arrows */}
           {normalizedFiles.length > 1 && (
@@ -462,16 +440,18 @@ const SliderRenderer = ({ block }: { block: SliderBlock }) => {
                 <button
                   key={file.id ?? index}
                   onClick={() => goToSlide(index)}
-                  className={`h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-200 ${
+                  className={`relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-200 ${
                     index === activeIndex
                       ? 'scale-105 border-cyan-400'
                       : 'border-slate-600 hover:border-slate-400'
                   }`}
                 >
-                  <img
+                  <Image
                     src={thumbnailUrl}
                     alt={getMediaAltText(file, `Thumbnail ${index + 1}`)}
-                    className="h-full w-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="64px"
                   />
                 </button>
               )
@@ -502,161 +482,28 @@ const BlockRenderer = ({ block }: { block: Block }) => {
 export default function BlogDetailPage() {
   const params = useParams()
   const router = useRouter()
-  const [article, setArticle] = useState<NormalizedArticleDetail | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   const slugParam = params.slug
   const slug = Array.isArray(slugParam) ? slugParam[0] : (slugParam ?? '')
 
-  useEffect(() => {
-    if (!slug) {
-      setError('Invalid article identifier')
-      setIsLoading(false)
-      return
-    }
+  const { article: rawArticle, isLoading, isError } = useArticleDetail(slug)
 
-    const fetchArticleDetail = async () => {
-      try {
-        const articlesResponse = await fetch('/api/articles')
-        const articlesResult = (await articlesResponse.json()) as ArticlesApiResponse
+  const article = useMemo<NormalizedArticleDetail | null>(() => {
+    if (!rawArticle) return null
 
-        if (!articlesResponse.ok) {
-          throw new Error('Failed to fetch articles')
-        }
+    const blocks = 'blocks' in rawArticle ? (rawArticle.blocks as Block[] | undefined) : undefined
 
-        const articleSummaries = articlesResult.data?.data ?? []
-        const targetArticle = articleSummaries.find(
-          (item) => item.slug === slug || item.documentId === slug
-        )
-
-        if (!targetArticle?.documentId) {
-          setError('Article not found')
-          setIsLoading(false)
-          return
-        }
-
-        const detailResponse = await fetch(`/api/articles/${targetArticle.documentId}`)
-        const detailResult = (await detailResponse.json()) as ArticleDetailApiResponse
-
-        if (detailResponse.ok) {
-          const detailArticle = detailResult.data?.data ?? null
-          if (!detailArticle) {
-            setError('Article not found')
-          } else {
-            const normalizedArticle: NormalizedArticleDetail = {
-              ...detailArticle,
-              category: detailArticle.category ?? FALLBACK_CATEGORY,
-              author: detailArticle.author ?? FALLBACK_AUTHOR,
-              blocks: (detailArticle.blocks ?? []).filter(isBlock),
-            }
-            setArticle(normalizedArticle)
-            setError(null)
-          }
-        } else {
-          console.error('Failed to fetch article:', detailResult.error)
-          setError('Failed to load article')
-        }
-      } catch (fetchError) {
-        console.error('Error fetching article:', fetchError)
-        setError('Failed to load article')
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    void fetchArticleDetail()
-  }, [slug])
+    return {
+      ...rawArticle,
+      slug: rawArticle.slug ?? rawArticle.documentId,
+      category: rawArticle.category ?? FALLBACK_CATEGORY,
+      author: rawArticle.author ?? FALLBACK_AUTHOR,
+      blocks: (blocks ?? []).filter(isBlock),
+    } as NormalizedArticleDetail
+  }, [rawArticle])
 
   const handleBackToBlog = () => {
     router.push('/blog')
-  }
-
-  // Helper function to get gradient color based on category
-  const getCategoryGradient = (categoryName: string | null | undefined): string => {
-    const gradients: Record<string, string> = {
-      'ai-humanity': 'from-cyan-500 to-blue-600',
-      'inner-balance': 'from-blue-500 to-purple-600',
-      'right-questions': 'from-purple-500 to-pink-600',
-      'real-stories': 'from-pink-500 to-rose-600',
-      'ai & humanity': 'from-cyan-500 to-blue-600',
-      'inner balance': 'from-blue-500 to-purple-600',
-      'right questions in a chaotic world': 'from-purple-500 to-pink-600',
-      'real stories from ai+di users': 'from-pink-500 to-rose-600',
-      default: 'from-slate-500 to-gray-600',
-    }
-    const normalized = categoryName?.toLowerCase() ?? 'default'
-    if (Object.prototype.hasOwnProperty.call(gradients, normalized)) {
-      const gradient = gradients[normalized]
-      if (gradient !== undefined) {
-        return gradient
-      }
-    }
-
-    const fallbackGradient = gradients.default
-    if (fallbackGradient !== undefined) {
-      return fallbackGradient
-    }
-
-    return 'from-slate-500 to-gray-600'
-  }
-
-  // Helper function to get icon based on category
-  const getCategoryIcon = (categoryName: string | null | undefined): LucideIcon => {
-    const icons: Record<string, LucideIcon> = {
-      'ai-humanity': Brain,
-      'inner-balance': Heart,
-      'right-questions': HelpCircle,
-      'real-stories': Users,
-      'ai & humanity': Brain,
-      'inner balance': Heart,
-      'right questions in a chaotic world': HelpCircle,
-      'real stories from ai+di users': Users,
-      default: Zap,
-    }
-    const normalized = categoryName?.toLowerCase() ?? 'default'
-    if (Object.prototype.hasOwnProperty.call(icons, normalized)) {
-      const icon = icons[normalized]
-      if (icon !== undefined) {
-        return icon
-      }
-    }
-
-    const fallbackIcon = icons.default
-    if (fallbackIcon !== undefined) {
-      return fallbackIcon
-    }
-
-    return Zap
-  }
-
-  // Helper function to get read time based on category
-  const getCategoryReadTime = (categoryName: string | null | undefined): string => {
-    const readTimes: Record<string, string> = {
-      'ai-humanity': '8 min read',
-      'inner-balance': '6 min read',
-      'right-questions': '7 min read',
-      'real-stories': '5 min read',
-      'ai & humanity': '8 min read',
-      'inner balance': '6 min read',
-      'right questions in a chaotic world': '7 min read',
-      'real stories from ai+di users': '5 min read',
-      default: '6 min read',
-    }
-    const normalized = categoryName?.toLowerCase() ?? 'default'
-    if (Object.prototype.hasOwnProperty.call(readTimes, normalized)) {
-      const readTime = readTimes[normalized]
-      if (readTime !== undefined) {
-        return readTime
-      }
-    }
-
-    const fallbackReadTime = readTimes.default
-    if (fallbackReadTime !== undefined) {
-      return fallbackReadTime
-    }
-
-    return '6 min read'
   }
 
   if (isLoading) {
@@ -683,7 +530,7 @@ export default function BlogDetailPage() {
     )
   }
 
-  if (error || !article) {
+  if (isError || (!isLoading && !article)) {
     return (
       <div className="min-h-screen overflow-x-hidden bg-slate-950 text-white">
         <AnimatedBackground />
@@ -692,7 +539,9 @@ export default function BlogDetailPage() {
           <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
             <h1 className="mb-4 text-2xl font-bold text-red-400">Article Not Found</h1>
             <p className="mb-8 text-gray-400">
-              {error ?? 'The article you are looking for does not exist.'}
+              {isError
+                ? 'Failed to load the article. Please try again later.'
+                : 'The article you are looking for does not exist.'}
             </p>
             <Button
               onClick={handleBackToBlog}
@@ -708,6 +557,11 @@ export default function BlogDetailPage() {
     )
   }
 
+  // Article must exist at this point (checked above)
+  if (!article) {
+    return null
+  }
+
   // Handle missing fields gracefully
   const { category, author, blocks } = article
 
@@ -717,164 +571,171 @@ export default function BlogDetailPage() {
       <Navigation />
 
       <main className="relative z-10 pt-16">
-        <div className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
-          {/* Back Button */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
-            <Button
-              onClick={handleBackToBlog}
-              variant="ghost"
-              className="font-spaceGrotesk text-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-300"
+        <ErrorBoundary>
+          <div className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
+            {/* Back Button */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8"
             >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Blog
-            </Button>
-          </motion.div>
+              <Button
+                onClick={handleBackToBlog}
+                variant="ghost"
+                className="font-spaceGrotesk text-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-300"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Blog
+              </Button>
+            </motion.div>
 
-          {/* Article Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-12"
-          >
-            {/* Category Badge */}
-            <div className="mb-6">
-              {(() => {
-                const CategoryIcon = getCategoryIcon(category.name)
-                const gradient = getCategoryGradient(category.name)
-                return (
-                  <span
-                    className={`inline-flex items-center rounded-full bg-gradient-to-r px-3 py-1 text-sm font-medium ${gradient} text-white`}
-                  >
-                    <CategoryIcon className="mr-2 h-3 w-3" />
-                    {category.name}
-                  </span>
-                )
-              })()}
-            </div>
-
-            {/* Title */}
-            <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl">
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                {article.title}
-              </span>
-            </h1>
-
-            {/* Meta Information */}
-            <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-              <div className="flex items-center space-x-2">
-                <User className="h-4 w-4" />
-                <span>{author.name}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Calendar className="h-4 w-4" />
-                <span>
-                  {new Date(article.publishedAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="h-4 w-4" />
-                <span>{getCategoryReadTime(category.name)}</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Featured Image */}
-          {article.cover_url && (
+            {/* Article Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.8 }}
               className="mb-12"
             >
-              <div className="aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-800">
-                <img
-                  src={article.cover_url}
-                  alt={article.title}
-                  className="h-full w-full object-cover"
-                />
+              {/* Category Badge */}
+              <div className="mb-6">
+                {(() => {
+                  const CategoryIcon = getCategoryIcon(category.name)
+                  const gradient = getCategoryGradient(category.name)
+                  return (
+                    <span
+                      className={`inline-flex items-center rounded-full bg-gradient-to-r px-3 py-1 text-sm font-medium ${gradient} text-white`}
+                    >
+                      <CategoryIcon className="mr-2 h-3 w-3" />
+                      {category.name}
+                    </span>
+                  )
+                })()}
+              </div>
+
+              {/* Title */}
+              <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl">
+                <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                  {article.title}
+                </span>
+              </h1>
+
+              {/* Meta Information */}
+              <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
+                <div className="flex items-center space-x-2">
+                  <User className="h-4 w-4" />
+                  <span>{author.name}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Calendar className="h-4 w-4" />
+                  <span>
+                    {new Date(article.publishedAt).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Clock className="h-4 w-4" />
+                  <span>{getCategoryReadTime(category.name)}</span>
+                </div>
               </div>
             </motion.div>
-          )}
 
-          {/* Article Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <Card className="border border-cyan-500/20 bg-gradient-to-br from-slate-800 to-slate-900 backdrop-blur-sm">
-              <CardContent className="p-8">
-                {/* Description */}
-                <div className="prose prose-invert mb-8 max-w-none">
-                  <p className="text-xl leading-relaxed text-gray-300">
-                    {article.short_description ?? article.description}
-                  </p>
+            {/* Featured Image */}
+            {article.cover_url && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="mb-12"
+              >
+                <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-800">
+                  <Image
+                    src={article.cover_url}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    priority
+                  />
                 </div>
+              </motion.div>
+            )}
 
-                {/* Blocks Content */}
-                {blocks.length > 0 ? (
-                  <div className="space-y-6">
-                    {blocks.map((block, index) => (
-                      <motion.div
-                        key={block.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 * index }}
-                      >
-                        <BlockRenderer block={block} />
-                      </motion.div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="space-y-4 leading-relaxed text-gray-400">
-                    <p>{article.description}</p>
-                    <p>
-                      This is a placeholder for the full article content. In a real implementation,
-                      you would have rich text content from Strapi that could include headings,
-                      paragraphs, lists, images, and other formatted content.
+            {/* Article Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <Card className="border border-cyan-500/20 bg-gradient-to-br from-slate-800 to-slate-900 backdrop-blur-sm">
+                <CardContent className="p-8">
+                  {/* Description */}
+                  <div className="prose prose-invert mb-8 max-w-none">
+                    <p className="text-xl leading-relaxed text-gray-300">
+                      {article.short_description ?? article.description}
                     </p>
                   </div>
-                )}
 
-                {/* Article Footer */}
-                <div className="mt-12 border-t border-cyan-500/20 pt-8">
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20">
-                        <User className="h-6 w-6 text-cyan-400" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-white">{author.name}</p>
-                        <p className="text-sm text-gray-400">{author.email}</p>
-                      </div>
+                  {/* Blocks Content */}
+                  {blocks.length > 0 ? (
+                    <div className="space-y-6">
+                      {blocks.map((block, index) => (
+                        <motion.div
+                          key={block.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.1 * index }}
+                        >
+                          <BlockRenderer block={block} />
+                        </motion.div>
+                      ))}
                     </div>
-                    <Button
-                      onClick={handleBackToBlog}
-                      variant="outline"
-                      className="font-spaceGrotesk border-cyan-500/30 text-cyan-400 hover:border-cyan-400/50 hover:bg-cyan-500/10"
-                    >
-                      <ArrowLeft className="mr-2 h-4 w-4" />
-                      Back to Blog
-                    </Button>
+                  ) : (
+                    <div className="space-y-4 leading-relaxed text-gray-400">
+                      <p>{article.description}</p>
+                      <p>
+                        This is a placeholder for the full article content. In a real
+                        implementation, you would have rich text content from Strapi that could
+                        include headings, paragraphs, lists, images, and other formatted content.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Article Footer */}
+                  <div className="mt-12 border-t border-cyan-500/20 pt-8">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20">
+                          <User className="h-6 w-6 text-cyan-400" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-white">{author.name}</p>
+                          <p className="text-sm text-gray-400">{author.email}</p>
+                        </div>
+                      </div>
+                      <Button
+                        onClick={handleBackToBlog}
+                        variant="outline"
+                        className="font-spaceGrotesk border-cyan-500/30 text-cyan-400 hover:border-cyan-400/50 hover:bg-cyan-500/10"
+                      >
+                        <ArrowLeft className="mr-2 h-4 w-4" />
+                        Back to Blog
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </ErrorBoundary>
       </main>
 
-      <ContactSection />
+      <ErrorBoundary>
+        <ContactSection />
+      </ErrorBoundary>
 
       <Footer />
     </div>

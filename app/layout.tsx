@@ -1,4 +1,5 @@
 import GoogleTagManager from '@/components/GoogleTagManager'
+import { SWRProvider } from '@/components/providers/swr-provider'
 
 import type { Metadata, Viewport } from 'next'
 
@@ -187,7 +188,7 @@ export default function RootLayout({
       </head>
       <body>
         <GoogleTagManager />
-        {children}
+        <SWRProvider>{children}</SWRProvider>
       </body>
     </html>
   )

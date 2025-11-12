@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Heart, ArrowUp, Mail, MapPin } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -137,11 +138,13 @@ export default function Footer() {
                 className="group flex items-center space-x-3"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               >
-                <div className="flex h-[200px] w-[200px] items-center justify-center">
-                  <img
+                <div className="relative flex h-[200px] w-[200px] items-center justify-center">
+                  <Image
                     src="/aidi-logo-horizontal.svg"
                     alt="Ai+Di Logo"
-                    className="h-[200px] w-[200px] object-contain"
+                    width={200}
+                    height={200}
+                    className="object-contain"
                   />
                 </div>
                 {/* <span className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">

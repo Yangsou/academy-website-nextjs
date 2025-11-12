@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
@@ -63,11 +64,14 @@ export default function Navigation() {
               whileHover={{ scale: 1.05 }}
               className="flex items-center space-x-2"
             >
-              <div className="flex h-[200px] w-[200px] items-center justify-center">
-                <img
+              <div className="relative flex h-[200px] w-[200px] items-center justify-center">
+                <Image
                   src="/aidi-logo-horizontal.svg"
                   alt="Ai+Di Logo"
-                  className="h-[200px] w-[200px] object-contain"
+                  width={200}
+                  height={200}
+                  className="object-contain"
+                  priority
                 />
               </div>
               {/* <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">

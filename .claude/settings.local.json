@@ -16,7 +16,11 @@
       "Bash(npm run check:*)",
       "Bash(tee:*)",
       "Bash(npm run format:*)",
-      "Bash(npm run build)"
+      "Bash(npm run build)",
+      "Bash(./node_modules/.bin/tsc:*)",
+      "Bash(tsc:*)",
+      "Bash(node node_modules/typescript/lib/tsc.js:*)",
+      "Bash(chmod:*)"
     ],
     "deny": [],
     "ask": []

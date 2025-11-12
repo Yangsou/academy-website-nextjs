@@ -1,174 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use client'
 
 import { motion } from 'framer-motion'
-import {
-  Calendar,
-  User,
-  ArrowRight,
-  Brain,
-  Heart,
-  HelpCircle,
-  Users,
-  Zap,
-  Clock,
-  type LucideIcon,
-} from 'lucide-react'
+import { Calendar, User, ArrowRight, Clock } from 'lucide-react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-
-// Category interface based on Strapi response
-type Category = {
-  id: number
-  documentId: string
-  name: string
-  slug: string
-  description: string | null
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-  articles: Array<{
-    id: number
-    documentId: string
-    title: string
-    description: string
-    slug: string
-    createdAt: string
-    updatedAt: string
-    publishedAt: string
-    short_description: string | null
-  }>
-}
-
-// Article interface based on Strapi response
-type Article = {
-  id: number
-  documentId: string
-  title: string
-  description: string
-  slug?: string | null
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-  short_description: string | null
-  category?: {
-    id: number
-    documentId: string
-    name: string
-    slug: string
-    description: string | null
-    createdAt: string
-    updatedAt: string
-    publishedAt: string
-  } | null
-  author?: {
-    id: number
-    documentId: string
-    name: string
-    email: string
-    createdAt: string
-    updatedAt: string
-    publishedAt: string
-  } | null
-  cover_url?: string
-}
-
-type CategoriesApiResponse = {
-  data?: {
-    data?: Category[]
-  }
-  error?: string
-  success?: boolean
-}
-
-type ArticlesApiResponse = {
-  data?: {
-    data?: Article[]
-    meta?: {
-      pagination?: {
-        page: number
-        pageSize: number
-        pageCount: number
-        total: number
-      }
-    }
-  }
-  error?: string
-  success?: boolean
-}
+import { getCategoryGradient, getCategoryIcon, getCategoryReadTime } from '@/lib/blog-helpers'
+import { useCategories, useInfiniteArticles, type Article } from '@/lib/hooks/use-blog-data'
 
 export default function BlogSection() {
   const router = useRouter()
-  const [categories, setCategories] = useState<Category[]>([])
-  const [articles, setArticles] = useState<Article[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [articlesLoading, setArticlesLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [articlesError, setArticlesError] = useState<string | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string>('All')
-  const [currentPage, setCurrentPage] = useState(1)
-  const [hasMorePages, setHasMorePages] = useState(true)
-  const [isLoadingMore, setIsLoadingMore] = useState(false)
 
-  // Fetch categories function
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch('/api/categories')
-      const result = (await response.json()) as CategoriesApiResponse
-
-      if (response.ok) {
-        setCategories(result.data?.data ?? [])
-      } else {
-        console.error('Failed to fetch categories:', result.error)
-        setError('Failed to load categories')
-      }
-    } catch (error) {
-      console.error('Error fetching categories:', error)
-      setError('Failed to load categories')
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  // Fetch articles function
-  const fetchArticles = async (page = 1, append = false) => {
-    try {
-      const response = await fetch(`/api/articles?page=${page}&pageSize=10`)
-      const result = (await response.json()) as ArticlesApiResponse
-
-      if (response.ok) {
-        const newArticles = result.data?.data ?? []
-        const pagination = result.data?.meta?.pagination
-
-        if (append) {
-          setArticles((prev) => [...prev, ...newArticles])
-        } else {
-          setArticles(newArticles)
-        }
-
-        // Check if there are more pages
-        if (pagination) {
-          setHasMorePages(page < pagination.pageCount)
-        }
-      } else {
-        console.error('Failed to fetch articles:', result.error)
-        setArticlesError('Failed to load articles')
-      }
-    } catch (error) {
-      console.error('Error fetching articles:', error)
-      setArticlesError('Failed to load articles')
-    } finally {
-      setArticlesLoading(false)
-      setIsLoadingMore(false)
-    }
-  }
-
-  useEffect(() => {
-    void fetchCategories()
-    void fetchArticles(1, false)
-  }, [])
+  // Use SWR hooks for data fetching with automatic caching
+  const { categories, isLoading, isError } = useCategories()
+  const {
+    articles,
+    isLoading: articlesLoading,
+    isError: articlesError,
+    hasMore,
+    loadMore,
+  } = useInfiniteArticles(10)
 
   // Calculate total articles count from articles data
   const totalArticlesCount = articles.length
@@ -205,10 +61,10 @@ export default function BlogSection() {
       ))
     }
 
-    if (error) {
+    if (isError) {
       return (
         <div className="col-span-full py-4 text-center">
-          <p className="text-sm text-red-400">{error}</p>
+          <p className="text-sm text-red-400">Failed to load categories</p>
           <button
             onClick={() => window.location.reload()}
             className="font-spaceGrotesk mt-2 rounded bg-cyan-500 px-4 py-1 text-sm text-white transition-colors duration-300 hover:bg-cyan-600"
@@ -283,7 +139,7 @@ export default function BlogSection() {
     if (articlesError) {
       return (
         <div className="col-span-full py-12 text-center">
-          <p className="text-lg text-red-400">{articlesError}</p>
+          <p className="text-lg text-red-400">Failed to load articles</p>
           <button
             onClick={() => window.location.reload()}
             className="font-spaceGrotesk mt-4 rounded-lg bg-cyan-500 px-6 py-2 text-white transition-colors duration-300 hover:bg-cyan-600"
@@ -324,20 +180,14 @@ export default function BlogSection() {
           <Card className="group flex h-full flex-col overflow-hidden border border-cyan-500/20 bg-gradient-to-br from-slate-800 to-slate-900 backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/50">
             {/* Image Thumbnail */}
             <div className="relative flex-shrink-0 overflow-hidden">
-              <div className="aspect-[3/2] bg-gradient-to-br from-slate-700 to-slate-800">
-                {article.cover_url ? (
-                  <img
-                    src={article.cover_url}
-                    alt={article.title}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                ) : (
-                  <img
-                    src="/placeholder.svg"
-                    alt={article.title}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                )}
+              <div className="relative aspect-[3/2] bg-gradient-to-br from-slate-700 to-slate-800">
+                <Image
+                  src={article.cover_url ?? '/placeholder.svg'}
+                  alt={article.title}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
               </div>
               {/* Category badge */}
               <div className="absolute left-4 top-4">
@@ -405,113 +255,24 @@ export default function BlogSection() {
     })
   }
 
-  // Helper function to get gradient color based on category
-  const getCategoryGradient = (categoryName: string | null | undefined): string => {
-    const gradients: Record<string, string> = {
-      'ai-humanity': 'from-cyan-500 to-blue-600',
-      'inner-balance': 'from-blue-500 to-purple-600',
-      'right-questions': 'from-purple-500 to-pink-600',
-      'real-stories': 'from-pink-500 to-rose-600',
-      'ai & humanity': 'from-cyan-500 to-blue-600',
-      'inner balance': 'from-blue-500 to-purple-600',
-      'right questions in a chaotic world': 'from-purple-500 to-pink-600',
-      'real stories from ai+di users': 'from-pink-500 to-rose-600',
-      default: 'from-slate-500 to-gray-600',
-    }
-    const normalized = categoryName?.toLowerCase() ?? 'default'
-    if (Object.prototype.hasOwnProperty.call(gradients, normalized)) {
-      const gradient = gradients[normalized]
-      if (gradient !== undefined) {
-        return gradient
-      }
-    }
-
-    const fallbackGradient = gradients.default
-    if (fallbackGradient !== undefined) {
-      return fallbackGradient
-    }
-
-    return 'from-slate-500 to-gray-600'
-  }
-
-  // Helper function to get icon based on category
-  const getCategoryIcon = (categoryName: string | null | undefined): LucideIcon => {
-    const icons: Record<string, LucideIcon> = {
-      'ai-humanity': Brain,
-      'inner-balance': Heart,
-      'right-questions': HelpCircle,
-      'real-stories': Users,
-      'ai & humanity': Brain,
-      'inner balance': Heart,
-      'right questions in a chaotic world': HelpCircle,
-      'real stories from ai+di users': Users,
-      default: Zap,
-    }
-    const normalized = categoryName?.toLowerCase() ?? 'default'
-    if (Object.prototype.hasOwnProperty.call(icons, normalized)) {
-      const icon = icons[normalized]
-      if (icon !== undefined) {
-        return icon
-      }
-    }
-
-    const fallbackIcon = icons.default
-    if (fallbackIcon !== undefined) {
-      return fallbackIcon
-    }
-
-    return Zap
-  }
-
-  // Helper function to get read time based on category
-  const getCategoryReadTime = (categoryName: string | null | undefined): string => {
-    const readTimes: Record<string, string> = {
-      'ai-humanity': '8 min read',
-      'inner-balance': '6 min read',
-      'right-questions': '7 min read',
-      'real-stories': '5 min read',
-      'ai & humanity': '8 min read',
-      'inner balance': '6 min read',
-      'right questions in a chaotic world': '7 min read',
-      'real stories from ai+di users': '5 min read',
-      default: '6 min read',
-    }
-    const normalized = categoryName?.toLowerCase() ?? 'default'
-    if (Object.prototype.hasOwnProperty.call(readTimes, normalized)) {
-      const readTime = readTimes[normalized]
-      if (readTime !== undefined) {
-        return readTime
-      }
-    }
-
-    const fallbackReadTime = readTimes.default
-    if (fallbackReadTime !== undefined) {
-      return fallbackReadTime
-    }
-
-    return '6 min read'
-  }
-
   // Handle read more button click
-  const handleReadMore = (article: Article) => {
-    // Use slug if available, otherwise fallback to documentId
-    const identifier = article.slug ?? article.documentId
-    if (identifier) {
-      router.push(`/blog/${identifier}`)
-    } else {
-      console.error('No slug or documentId found for article:', article)
-    }
-  }
+  const handleReadMore = useCallback(
+    (article: Article) => {
+      // Use slug if available, otherwise fallback to documentId
+      const identifier = article.slug ?? article.documentId
+      if (identifier) {
+        router.push(`/blog/${identifier}`)
+      } else {
+        console.error('No slug or documentId found for article:', article)
+      }
+    },
+    [router]
+  )
 
   // Handle load more articles
-  const handleLoadMore = async () => {
-    if (isLoadingMore || !hasMorePages) return
-
-    setIsLoadingMore(true)
-    const nextPage = currentPage + 1
-    setCurrentPage(nextPage)
-    await fetchArticles(nextPage, true)
-  }
+  const handleLoadMore = useCallback(() => {
+    loadMore()
+  }, [loadMore])
 
   return (
     <section
@@ -552,7 +313,7 @@ export default function BlogSection() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">{renderArticleGrid()}</div>
 
         {/* Load More Button */}
-        {hasMorePages && (
+        {hasMore && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -563,10 +324,10 @@ export default function BlogSection() {
             <Button
               size="lg"
               onClick={handleLoadMore}
-              disabled={isLoadingMore}
+              disabled={articlesLoading}
               className="font-spaceGrotesk group border-0 bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-3 text-lg font-medium text-white shadow-lg transition-all duration-300 hover:from-cyan-600 hover:to-blue-700 hover:shadow-cyan-500/25 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isLoadingMore ? (
+              {articlesLoading ? (
                 <>
                   Loading...
                   <div className="ml-2 h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
