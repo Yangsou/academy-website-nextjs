@@ -238,4 +238,4 @@ For questions about this project or Ai+Di Company:
 
 - **Website**: [https://aidi.world](https://aidi.world)
 - **Email**: contact@aidi.world
-- **Location**: Ho Chi Minh City, Vietnam
+- **Location**: Ho Chi Minh City, Vietnam.
