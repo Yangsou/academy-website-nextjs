@@ -45,7 +45,7 @@ type TeamMembersResponse = {
 }
 
 type TransformedTeamMember = {
-  avatar_url: string | null
+  avatarUrl: string | null
 } & StrapiTeamMember
 
 export async function GET(_request: NextRequest) {
@@ -77,12 +77,12 @@ export async function GET(_request: NextRequest) {
 
         return {
           ...member,
-          avatar_url: avatarUrl,
+          avatarUrl,
         }
       }),
     }
 
-    return NextResponse.json({ success: true, data: transformedData }, { status: 200 })
+    return NextResponse.json({ success: true, ...transformedData }, { status: 200 })
   } catch (error: unknown) {
     if (isAxiosError(error)) {
       console.error('Team members fetch error:', error.response?.data ?? error.message)

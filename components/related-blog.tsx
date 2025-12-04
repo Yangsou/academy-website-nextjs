@@ -17,6 +17,10 @@ export default function RelatedBlog({ excludeSlug, categoryName }: Props) {
     return null
   }
 
+  if (!isLoading && articles.length === 0) {
+    return null
+  }
+
   return (
     <div className="relative overflow-hidden bg-[#DAF3F4] pb-32 pt-8">
       <div className="absolute left-0 top-0 h-full w-full bg-[url('/blog/related-blog-bg.svg')] bg-cover bg-center" />
