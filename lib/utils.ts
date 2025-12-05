@@ -16,6 +16,6 @@ export const FORMAT_DATE = {
 export const formatDateString = (date: Date | string, format: string = FORMAT_DATE.DATE) => {
   return dayjs(date).format(format)
 }
-export function fromNow(date: Date | string) {
+export function fromNow(date: Date | string): string {
   return dayjs(date).fromNow()
 }

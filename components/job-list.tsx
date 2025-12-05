@@ -42,22 +42,6 @@ export default function JobList() {
     pageSize: 10,
     location,
   })
-  // const tagColors: Record<string, string> = {
-  //   Manager: 'bg-blue-100 text-blue-600',
-  //   'On-site': 'bg-indigo-100 text-indigo-600',
-  //   '10+ years': 'bg-purple-100 text-purple-600',
-
-  //   Specialist: 'bg-green-100 text-green-600',
-  //   Hybrid: 'bg-yellow-100 text-yellow-600',
-  //   '2 years': 'bg-blue-100 text-blue-600',
-
-  //   Executive: 'bg-yellow-100 text-yellow-600',
-  //   '8 years': 'bg-blue-100 text-blue-600',
-
-  //   'Entry-level': 'bg-teal-100 text-teal-600',
-  //   Remote: 'bg-pink-100 text-pink-600',
-  //   '1 year': 'bg-blue-100 text-blue-600',
-  // }
 
   const tagTheme: Record<string, ClassNameValue> = {
     blue: 'bg-blue-100 text-blue-600',
@@ -80,6 +64,11 @@ export default function JobList() {
     <div className="col-span-12 md:col-span-8">
       <div className="space-y-4">
         {isLoading && <JobSkeleton />}
+        {!isLoading && jobs.length === 0 && (
+          <div className="border border-gray-200 bg-white shadow-sm">
+            <div className="p-6 text-black">Empty Data</div>
+          </div>
+        )}
         {jobs.map((job, index) => (
           <motion.div key={index.toString()}>
             <div
