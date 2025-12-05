@@ -44,7 +44,10 @@ type JobsApiResponse = {
 export function useJobLocations() {
   const { data, error, isLoading, mutate } = useSWR<JobLocationsApiResponse>(
     '/api/job-locations',
-    fetcher
+    fetcher,
+    {
+      revalidateOnFocus: false,
+    }
   )
 
   return {

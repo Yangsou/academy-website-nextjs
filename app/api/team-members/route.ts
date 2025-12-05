@@ -47,6 +47,7 @@ type TeamMembersResponse = {
 type TransformedTeamMember = {
   avatarUrl: string | null
 } & StrapiTeamMember
+export const dynamic = 'force-dynamic'
 
 export async function GET(_request: NextRequest) {
   try {

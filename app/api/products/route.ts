@@ -25,6 +25,7 @@ type ProductResponse = {
     }
   }
 }
+export const dynamic = 'force-dynamic'
 
 export async function GET(_request: NextRequest) {
   try {

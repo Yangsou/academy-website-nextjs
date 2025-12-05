@@ -24,7 +24,8 @@ type JobLocationResponse = {
     }
   }
 }
-
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 export async function GET(_request: NextRequest) {
   try {
     const baseUrl = trimTrailingSlash(requireEnv('STRAPI_API_URL'))
@@ -33,7 +34,7 @@ export async function GET(_request: NextRequest) {
     const config: AxiosRequestConfig = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `${baseUrl}/api/job-locations`,
+      url: `${baseUrl}/api/job-locations?timestamp=${Date.now()}`,
       headers: {
         Authorization: `Bearer ${apiKey}`,
       },
