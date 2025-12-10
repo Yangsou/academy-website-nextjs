@@ -50,7 +50,7 @@ export default function OurPartners() {
           Natural Intelligence to enhance human awareness, happiness, and growth.
         </div>
       </div>
-      <div className="relative flex justify-center bg-[#0036AF] py-12">
+      <div className="relative flex justify-center bg-[#0036AF] pb-28 pt-12">
         <div className="grid w-[88%] grid-cols-12 gap-[20px] text-[#0036AF] md:gap-[40px]">
           <div className="col-span-12 flex justify-center bg-white p-[20px] md:col-span-4">
             <img

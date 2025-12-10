@@ -104,34 +104,48 @@ export default function Footer() {
   //     setIsSubmitting(false)
   //   }
   // }
+  const data = [
+    {
+      key: 'contact',
+      title: 'Contact',
+      content: 'contact@aidi.world',
+    },
+    {
+      key: 'head-office',
+      title: 'Head office',
+      content: '2 Ton Duc Thang, Saigon Ward, \n HCM City',
+    },
+    {
+      key: 'business-office',
+      title: 'Business office',
+      content: '1st and 4th Floors, 46 Bach Dang, \n Tan Son Hoa Ward, HCM City',
+    },
+  ]
 
   return (
     <footer className="flex justify-center bg-[#0036AF] p-10">
       <div className="w-[88%]">
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-12 lg:col-span-3">
-            <div className="align-middle font-[Manrope] text-[20px] font-bold leading-[150%] tracking-[0%] text-[#EEEEEE]">
-              Head office
+          {data.map((item) => (
+            <div
+              key={item.key}
+              className="col-span-12 lg:col-span-3"
+            >
+              <div className="align-middle font-[Manrope] text-[20px] font-bold leading-[150%] tracking-[0%] text-[#EEEEEE]">
+                {item.title}
+              </div>
+              <div className="font-manrope mt-3 whitespace-pre-line align-middle font-[Manrope] text-[18px] font-normal leading-[150%] tracking-[0%] text-[#EEEEEE]">
+                {item.content}
+              </div>
             </div>
-            <div className="font-manrope align-middle font-[Manrope] text-[18px] font-normal leading-[150%] tracking-[0%] text-[#EEEEEE]">
-              2 Ton Duc Thang, Saigon Ward, <br /> HCM City
-            </div>
-          </div>
-          <div className="col-span-12 lg:col-span-3">
-            <div className="align-middle font-[Manrope] text-[20px] font-bold leading-[150%] tracking-[0%] text-[#EEEEEE]">
-              Business office
-            </div>
-            <div className="font-manrope align-middle font-[Manrope] text-[18px] font-normal leading-[150%] tracking-[0%] text-[#EEEEEE]">
-              1st and 4th Floors, 46 Bach Dang, <br /> Tan Son Hoa Ward, HCM City
-            </div>
-          </div>
-          <div className="align-start col-span-12 flex justify-start gap-4 lg:col-span-6 lg:justify-end">
+          ))}
+          <div className="align-start col-span-12 flex justify-start gap-4 lg:col-span-3 lg:justify-end">
             <FacebookIcon />
             <LinkedInIcon />
             <YouTubeIcon />
           </div>
           <div className="col-span-12 flex w-full flex-col items-center justify-between gap-4 border-b-2 border-[#EEEEEE] pb-4 lg:flex-row">
-            <div className="flex items-start items-end justify-start gap-4">
+            <div className="flex items-end justify-start gap-4">
               <img
                 src="/footer/logo-footer.svg"
                 alt="AI+DI Logo"

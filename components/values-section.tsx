@@ -85,7 +85,7 @@ export default function ValuesSection() {
                   size="lg"
                   className="font-spaceGrotesk group h-[64px] rounded-none border-0 bg-[#DAF3F4] px-[30px] align-middle font-[Manrope] text-[18px] font-semibold leading-[150%] tracking-[0%] text-[#0036AF] shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-cyan-500/25"
                 >
-                  Explore Products
+                  View our products
                   <ArrowRight className="ml-[10px] h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
@@ -118,9 +118,7 @@ export default function ValuesSection() {
             >
               <Card className="group h-full overflow-hidden rounded-none border-none shadow-none">
                 <CardContent className="p-0 text-center shadow-none">
-                  <motion.div
-                    className="relative mx-auto flex h-[320px] items-center justify-start"
-                  >
+                  <motion.div className="relative mx-auto flex h-[320px] items-center justify-start">
                     <Image
                       src="/home/values-bg.svg"
                       alt="AI and human connection"

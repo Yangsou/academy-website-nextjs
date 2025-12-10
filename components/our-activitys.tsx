@@ -67,6 +67,26 @@ type ApiResponse = {
   }
 }
 
+function MaskImage() {
+  return (
+    <>
+      <Image
+        src="/home/mask-activities.svg"
+        alt="Mask Decoration"
+        width={400}
+        height={44}
+        className="absolute left-1/2 top-0 z-10 h-auto w-auto -translate-x-1/2"
+      />
+      <Image
+        src="/home/mask-activities.svg"
+        alt="Mask Decoration"
+        width={400}
+        height={44}
+        className="absolute left-1/2 top-0 z-10 h-auto w-auto -translate-x-1/2 -translate-y-full rotate-180"
+      />
+    </>
+  )
+}
 export default function OurActivitys() {
   const [activities, setActivities] = useState<Activity[]>([])
   const [loading, setLoading] = useState(true)
@@ -75,7 +95,7 @@ export default function OurActivitys() {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await fetch('/api/activities?pageSize=5')
+        const response = await fetch('/api/activities?pageSize=5&sort=createdAt:DESC')
         if (!response.ok) {
           throw new Error('Failed to fetch activities')
         }
@@ -92,10 +112,11 @@ export default function OurActivitys() {
   }, [])
   if (loading) {
     return (
-      <section className="bg-[#DAF3F4]">
+      <section className="bg-[#DAF3F4] pt-12">
+        <MaskImage />
         <div className="gap-4 py-12">
           <div className="text-center font-[Manrope] text-[56px] font-bold leading-[110%] tracking-[0%] text-[#202222]">
-            Our Activitys
+            Our Activities
           </div>
           <div className="flex items-center justify-center py-12">
             <p className="text-[#525757]">Loading activities...</p>
@@ -107,10 +128,11 @@ export default function OurActivitys() {
 
   if (error) {
     return (
-      <section className="bg-[#DAF3F4]">
+      <section className="bg-[#DAF3F4] pt-12">
+        <MaskImage />
         <div className="gap-4 py-12">
           <div className="text-center font-[Manrope] text-[56px] font-bold leading-[110%] tracking-[0%] text-[#202222]">
-            Our Activitys
+            Our Activities
           </div>
           <div className="flex items-center justify-center py-12">
             <p className="text-red-500">{error}</p>
@@ -123,10 +145,11 @@ export default function OurActivitys() {
   const [firstActivity, ...restActivities] = activities
 
   return (
-    <section className="bg-[#DAF3F4]">
-      <div className="gap-4 py-12">
+    <section className="relative bg-[#DAF3F4] pt-12">
+      <MaskImage />
+      <div className="gap-4 space-y-3 py-12">
         <div className="text-center font-[Manrope] text-[56px] font-bold leading-[110%] tracking-[0%] text-[#202222]">
-          Our Activitys
+          Our Activities
         </div>
         <div className="font-regular text-center align-middle font-[Manrope] text-[20px] leading-[150%] tracking-[0%] text-[#525757]">
           To create an AI grounded in trust and humanity — one that blends Artificial and <br />{' '}
@@ -167,10 +190,10 @@ export default function OurActivitys() {
                         </motion.div>
 
                         <div className="h-[206px] p-[20px] text-left">
-                          <h3 className="align-middle font-[Manrope] text-[42px] font-semibold leading-[110%] tracking-[0%] text-[#202222]">
+                          <h3 className="truncate align-middle font-[Manrope] text-[42px] font-semibold leading-[110%] tracking-[0%] text-[#202222]">
                             {firstActivity.title}
                           </h3>
-                          <p className="align-middle font-[Manrope] text-[18px] font-normal leading-[150%] tracking-[0%] text-[#626262x]">
+                          <p className="text- mt-2 line-clamp-4 align-middle font-[Manrope] text-[18px] font-normal leading-[150%] tracking-[0%] text-[#626262x]">
                             {extractText(firstActivity.description)}
                           </p>
                         </div>
@@ -211,10 +234,10 @@ export default function OurActivitys() {
                             </motion.div>
 
                             <div className="h-[206px] bg-[#F7F9FD] p-[20px] text-left">
-                              <h3 className="align-middle font-[Manrope] text-[42px] font-semibold leading-[110%] tracking-[0%] text-[#202222]">
+                              <h3 className="truncate align-middle font-[Manrope] text-2xl font-semibold leading-[110%] tracking-[0%] text-[#202222]">
                                 {activity.title}
                               </h3>
-                              <p className="align-middle font-[Manrope] text-[18px] font-normal leading-[150%] tracking-[0%] text-[#626262x]">
+                              <p className="line-clamp-3 align-middle font-[Manrope] text-[16px] font-normal leading-[150%] tracking-[0%] text-[#626262x]">
                                 {extractText(activity.description)}
                               </p>
                             </div>

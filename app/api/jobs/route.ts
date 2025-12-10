@@ -3,27 +3,9 @@ import { NextResponse } from 'next/server'
 
 import { requireEnv, trimTrailingSlash } from '@/lib/env'
 
+import type { JobResponse } from './type'
 import type { AxiosRequestConfig } from 'axios'
 import type { NextRequest } from 'next/server'
-
-type StrapiJob = {
-  id: number
-  description: string | null
-  name: string
-  publishedAt: string
-}
-
-type JobResponse = {
-  data: StrapiJob[]
-  meta: {
-    pagination: {
-      page: number
-      pageSize: number
-      pageCount: number
-      total: number
-    }
-  }
-}
 
 export async function GET(_request: NextRequest) {
   try {
@@ -33,6 +15,7 @@ export async function GET(_request: NextRequest) {
     const page = searchParams.get('page') ?? '1'
     const pageSize = searchParams.get('pageSize') ?? '10'
     const locations = searchParams.getAll('location')
+    const excludeSlug = searchParams.get('excludeSlug')
 
     const newSearchParams = new URLSearchParams()
     newSearchParams.set('populate', '*')
@@ -42,6 +25,9 @@ export async function GET(_request: NextRequest) {
       locations.forEach((location, index) => {
         newSearchParams.set(`filters[job_location][name][$in][${index}]`, location)
       })
+    }
+    if (excludeSlug) {
+      newSearchParams.set('filters[slug][$ne]', excludeSlug)
     }
 
     const config: AxiosRequestConfig = {

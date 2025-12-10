@@ -57,6 +57,7 @@ export async function GET(_request: NextRequest) {
 
     const newSearchParams = new URLSearchParams()
     newSearchParams.set('populate', 'avatar')
+    newSearchParams.set('sort', 'priority:ASC')
 
     const config: AxiosRequestConfig = {
       method: 'get',

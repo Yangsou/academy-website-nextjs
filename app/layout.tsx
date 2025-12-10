@@ -1,3 +1,4 @@
+import BtnScrollTop from '@/components/btn-scroll-top'
 import Footer from '@/components/footer'
 import GoogleTagManager from '@/components/GoogleTagManager'
 import Navigation from '@/components/navigation'
@@ -197,6 +198,7 @@ export default function RootLayout({
 
             <div className="relative z-10">{children}</div>
             <Footer />
+            <BtnScrollTop />
           </main>
         </SWRProvider>
       </body>

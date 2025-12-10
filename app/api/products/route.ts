@@ -12,6 +12,14 @@ type StrapiProduct = {
   description: string | null
   name: string
   publishedAt: string
+  logo?: {
+    id: number
+    url: string
+  } | null
+  icon?: {
+    id: number
+    url: string
+  } | null
 }
 
 type ProductResponse = {
@@ -35,14 +43,24 @@ export async function GET(_request: NextRequest) {
     const config: AxiosRequestConfig = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `${baseUrl}/api/products?populate=*`,
+      url: `${baseUrl}/api/products?populate=*&sort=priority:ASC`,
       headers: {
         Authorization: `Bearer ${apiKey}`,
       },
     }
 
     const response = await axios.request<ProductResponse>(config)
-    const products = response.data.data
+    const products = response.data.data.map((product) => ({
+      ...product,
+      logo: {
+        ...product.logo,
+        url: product.logo ? `${baseUrl}${product.logo.url}` : undefined,
+      },
+      icon: {
+        ...product.icon,
+        url: product.icon ? `${baseUrl}${product.icon.url}` : undefined,
+      },
+    }))
 
     return NextResponse.json(
       { success: true, data: products, meta: response.data.meta },

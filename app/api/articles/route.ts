@@ -105,8 +105,8 @@ export async function GET(request: NextRequest) {
 
     const newSearchParams = new URLSearchParams()
     newSearchParams.set('populate', 'category')
-    newSearchParams.set('populate', 'author')
-    newSearchParams.set('populate', 'cover')
+    newSearchParams.append('populate', 'author')
+    newSearchParams.append('populate', 'cover')
     newSearchParams.set('pagination[page]', page)
     newSearchParams.set('pagination[pageSize]', pageSize)
     if (isPopular) {

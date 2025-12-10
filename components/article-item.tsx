@@ -31,7 +31,7 @@ export function ArticelItemSkeleton({ count }: { count: number }) {
 }
 
 export default function ArticleItem({ article }: { article: Article }) {
-  const { title, slug, category, cover_url: coverUrl, publishedAt } = article
+  const { title, slug, category, cover_url: coverUrl, publishedAt, date } = article
   return (
     <div className="col-span-12 flex flex-col gap-4 bg-white shadow-sm hover:shadow-md md:col-span-6 lg:col-span-4">
       {/* Image */}
@@ -63,12 +63,12 @@ export default function ArticleItem({ article }: { article: Article }) {
         {/* Meta info */}
         <div className="mt-4 flex items-center justify-start gap-12">
           <div className="font-manrope text-[16px] font-normal leading-[150%] text-[#525757]">
-            {formatDateString(publishedAt)}
+            {formatDateString(date ? date : publishedAt)}
           </div>
 
           <div className="font-manrope flex items-center gap-2 text-[16px] font-normal leading-[150%] text-[#525757]">
             <div className="h-[13px] w-[13px] rounded-full bg-[#00C8B3]" />
-            {getCategoryReadTime(category?.name)}
+            {getCategoryReadTime(article)}
           </div>
         </div>
       </div>

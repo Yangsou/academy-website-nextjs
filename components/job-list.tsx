@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
 import { useInfiniteJobs } from '@/lib/hooks/use-job-data'
@@ -97,9 +98,12 @@ export default function JobList() {
                   </div>
                 </div>
                 <div className="flex w-full flex-col">
-                  <h3 className="font-[Manrope] text-[24px] font-semibold leading-[140%] text-[#202222]">
+                  <Link
+                    href={`/career/${job.slug}`}
+                    className="font-[Manrope] text-[24px] font-semibold leading-[140%] text-[#202222]"
+                  >
                     {job.title}
-                  </h3>
+                  </Link>
 
                   <p className="font-[Manrope] text-[18px] font-normal leading-[150%] text-[#525757]">
                     {job.shortDescription}

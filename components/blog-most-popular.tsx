@@ -44,6 +44,9 @@ export default function BlogMostPopular() {
                   </div>
                   <div className="col-span-12 flex flex-col gap-4 bg-[#FFFFFF] lg:col-span-8">
                     <div className="p-8">
+                      <div className="font-manrope text-[18px] font-semibold uppercase leading-[140%] text-[#00C8B3]">
+                        {blog.category?.name}
+                      </div>
                       <Link
                         href={`/blog/${blog.slug ?? ''}`}
                         className="font-[Manrope] text-[28px] font-semibold leading-[130%] text-[#202222]"
@@ -56,7 +59,7 @@ export default function BlogMostPopular() {
                         </div>
                         <div className="flex items-center gap-2 font-[Manrope] text-[16px] font-normal leading-[150%] text-[#525757]">
                           <div className="h-[13px] w-[13px] rounded-full bg-[#00C8B3]" />{' '}
-                          {getCategoryReadTime(blog.category?.name)}
+                          {getCategoryReadTime(blog)}
                         </div>
                       </div>
                       <div className="pt-4">

@@ -38,6 +38,8 @@ export type Article = {
   updatedAt: string
   publishedAt: string
   short_description: string | null
+  date: string
+  readingTime: number
   category?: {
     id: number
     documentId: string

@@ -106,7 +106,7 @@ export async function GET(request: NextRequest) {
     const config: AxiosRequestConfig<ActivityListResponse> = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `${baseUrl}/api/activities?populate=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
+      url: `${baseUrl}/api/activities?populate=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort=date:DESC`,
       headers: {
         Authorization: `Bearer ${apiKey}`,
       },

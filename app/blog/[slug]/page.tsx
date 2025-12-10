@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 'use client'
 
+import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
@@ -18,6 +19,8 @@ import { getCategoryReadTime } from '@/lib/blog-helpers'
 import { useArticleDetail } from '@/lib/hooks/use-blog-data'
 import { formatDateString } from '@/lib/utils'
 
+import type { Article } from '@/lib/hooks/use-blog-data'
+import type { BlocksContent } from '@strapi/blocks-react-renderer'
 // Block interfaces based on Strapi response
 type RichTextBlock = {
   __component: 'shared.rich-text'
@@ -68,7 +71,7 @@ type ArticleDetail = {
   id: number
   documentId: string
   title: string
-  description: string
+  description: BlocksContent
   slug: string
   createdAt: string
   updatedAt: string
@@ -499,7 +502,7 @@ export default function BlogDetailPage() {
       category: rawArticle.category ?? FALLBACK_CATEGORY,
       author: rawArticle.author ?? FALLBACK_AUTHOR,
       blocks: (blocks ?? []).filter(isBlock),
-    } as NormalizedArticleDetail
+    } as unknown as NormalizedArticleDetail
   }, [rawArticle])
 
   const handleBackToBlog = () => {
@@ -580,7 +583,7 @@ export default function BlogDetailPage() {
                 {category?.name}
               </span>
               <p>{formatDateString(publishedAt)}</p>
-              <p>{getCategoryReadTime(category.name)}</p>
+              <p>{getCategoryReadTime(article as unknown as Article)}</p>
             </div>
 
             {/* Title */}
@@ -618,12 +621,7 @@ export default function BlogDetailPage() {
           >
             <Card className="border-transparent shadow-none">
               <CardContent className="p-0">
-                {/* Description */}
-                <div className="prose prose-invert mb-8 max-w-none">
-                  <p className="text-xl leading-relaxed text-[#525757]">
-                    {article.short_description ?? description}
-                  </p>
-                </div>
+                <BlocksRenderer content={description ?? []} />
 
                 {/* Blocks Content */}
                 {blocks.length > 0 && (

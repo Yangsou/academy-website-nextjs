@@ -35,7 +35,8 @@ type ArticleBlock = (SharedMediaBlock | SharedSliderBlock | Record<string, unkno
 type ArticleData = {
   cover?: StrapiMedia | null
   cover_url?: string | null
-  blocks?: Array<ArticleBlock | null | undefined> | null
+  blocks?: ArticleBlock[] | null
+  description?: ArticleBlock[] | null
 } & Record<string, unknown>
 
 type ArticleResponse = {
@@ -161,32 +162,33 @@ export async function GET(_request: NextRequest, { params }: { params: { documen
       }
     }
 
-    const normalizedBlocks = (article.blocks ?? [])
-      .filter((block): block is ArticleBlock => Boolean(block && typeof block === 'object'))
-      .map((block) => {
-        if (!block.__component) {
+    const normalizedBlocks = (blocks: ArticleBlock[]) =>
+      blocks
+        // .filter((block): block is ArticleBlock => Boolean(block && typeof block === 'object'))
+        .map((block) => {
+          if (!block.__component) {
+            return block
+          }
+
+          if (block.__component === 'shared.media') {
+            const mediaBlock = block as SharedMediaBlock
+            mediaBlock.file = normalizeMedia(mediaBlock.file) ?? null
+            return mediaBlock
+          }
+
+          if (block.__component === 'shared.slider') {
+            const sliderBlock = block as SharedSliderBlock
+            const normalizedFiles =
+              sliderBlock.files
+                ?.map((file) => normalizeMedia(file))
+                .filter((file): file is StrapiMedia => Boolean(file)) ?? []
+
+            sliderBlock.files = normalizedFiles
+            return sliderBlock
+          }
+
           return block
-        }
-
-        if (block.__component === 'shared.media') {
-          const mediaBlock = block as SharedMediaBlock
-          mediaBlock.file = normalizeMedia(mediaBlock.file) ?? null
-          return mediaBlock
-        }
-
-        if (block.__component === 'shared.slider') {
-          const sliderBlock = block as SharedSliderBlock
-          const normalizedFiles =
-            sliderBlock.files
-              ?.map((file) => normalizeMedia(file))
-              .filter((file): file is StrapiMedia => Boolean(file)) ?? []
-
-          sliderBlock.files = normalizedFiles
-          return sliderBlock
-        }
-
-        return block
-      })
+        })
 
     const coverSourceUrl = getMediaSourceUrl(article.cover ?? null)
     const normalizedCover = normalizeMedia(article.cover) ?? null
@@ -195,7 +197,8 @@ export async function GET(_request: NextRequest, { params }: { params: { documen
       ...article,
       cover: normalizedCover,
       cover_url: resolveUrl(coverSourceUrl),
-      blocks: normalizedBlocks,
+      blocks: normalizedBlocks(article.blocks ?? []),
+      // description: normalizedBlocks(article.description ?? []),
     }
 
     return NextResponse.json(

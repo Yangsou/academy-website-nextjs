@@ -1,5 +1,7 @@
 import { Brain, Heart, HelpCircle, Users, Zap, type LucideIcon } from 'lucide-react'
 
+import type { Article } from './hooks/use-blog-data'
+
 export const getCategoryGradient = (categoryName: string | null | undefined): string => {
   const gradients: Record<string, string> = {
     'ai-humanity': 'from-cyan-500 to-blue-600',
@@ -40,7 +42,11 @@ export const getCategoryIcon = (categoryName: string | null | undefined): Lucide
 /**
  * Helper function to get read time based on category
  */
-export const getCategoryReadTime = (categoryName: string | null | undefined): string => {
+export const getCategoryReadTime = (article?: Article): string => {
+  if (!article) return ''
+
+  const { category, readingTime } = article
+  const categoryName = category?.name
   const readTimes: Record<string, string> = {
     'ai-humanity': '8 min read',
     'inner-balance': '6 min read',
@@ -53,6 +59,8 @@ export const getCategoryReadTime = (categoryName: string | null | undefined): st
     default: '6 min read',
   }
   const normalized = categoryName?.toLowerCase() ?? 'default'
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return readTimes[normalized] ?? readTimes.default!
+  return readingTime
+    ? `${readingTime.toString()} min read`
+    : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      (readTimes[normalized] ?? readTimes.default!)
 }

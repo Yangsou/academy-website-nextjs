@@ -45,7 +45,7 @@ export default function ProductSectionList() {
           <ProductSkeleton />
         </>
       )}
-      {products.map(({ id, title, name, description, contact_email: email, icon }, index) => (
+      {products.map(({ id, title, name, description, contact_email: email, icon, logo }, index) => (
         <div
           className="col-span-12 flex h-full lg:col-span-6"
           key={id.toString()}
@@ -100,7 +100,7 @@ export default function ProductSectionList() {
                 </div>
                 <div className="flex items-center justify-between">
                   <img
-                    src="product/logo-aidi-product.png"
+                    src={logo?.url ?? ''}
                     className="h-[38px] w-[154px]"
                     alt=""
                   />

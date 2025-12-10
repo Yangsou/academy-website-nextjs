@@ -166,7 +166,7 @@ export default function BlogSection() {
       const categoryName = article.category?.name ?? 'default'
       const CategoryIcon = getCategoryIcon(categoryName)
       const gradient = getCategoryGradient(categoryName)
-      const readTime = getCategoryReadTime(categoryName)
+      const readTime = getCategoryReadTime(article)
 
       return (
         <motion.div

@@ -50,7 +50,7 @@ function BannerItem({ article }: { article: Article }) {
             </div>
             <div className="flex items-center gap-2 font-[Manrope] text-[20px] font-normal leading-[150%] text-[#525757]">
               <div className="h-[13px] w-[13px] rounded-full bg-[#00C8B3]" />{' '}
-              {getCategoryReadTime(category?.name ?? '')}
+              {getCategoryReadTime(article)}
             </div>
           </div>
           <div className="pt-4">

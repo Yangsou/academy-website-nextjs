@@ -4,6 +4,8 @@ import useSWRInfinite from 'swr/infinite'
 
 import { fetcher } from '../swr-config'
 
+import type { BlocksContent } from '@strapi/blocks-react-renderer'
+
 export type JobLocation = {
   id: number
   name: string
@@ -19,7 +21,9 @@ type JobLocationsApiResponse = {
 export type Job = {
   id: number
   title: string
+  slug: string
   shortDescription: string | null
+  description: BlocksContent
   publishedAt: string
   job_location: JobLocation | null
   job_tags: Array<{
@@ -40,6 +44,11 @@ type JobsApiResponse = {
       total: number
     }
   }
+}
+type JobDetailAPiResponse = {
+  data?: Job | null
+  error?: string
+  success?: boolean
 }
 export function useJobLocations() {
   const { data, error, isLoading, mutate } = useSWR<JobLocationsApiResponse>(
@@ -94,5 +103,46 @@ export function useInfiniteJobs({ pageSize, location }: { pageSize: number; loca
     loadMore,
     size,
     mutate,
+  }
+}
+
+export function useJobDetail(slug: string | undefined) {
+  const { data, error, isLoading, mutate } = useSWR<JobDetailAPiResponse | null>(
+    slug ? `/api/jobs/${slug}` : null,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+    }
+  )
+
+  return {
+    job: data?.data ?? null,
+    isLoading,
+    isError: error as string,
+    mutate,
+  }
+}
+
+export function useRelatedJobs({
+  location,
+  excludeSlug,
+  pageSize = 3,
+}: {
+  excludeSlug: string
+  location: string
+  pageSize: number
+}) {
+  const { data, error, isLoading } = useSWR<JobsApiResponse>(
+    `/api/jobs?page=${1}&pageSize=${pageSize}&location=${location}&excludeSlug=${excludeSlug}`,
+    fetcher,
+    {
+      keepPreviousData: true,
+    }
+  )
+
+  return {
+    jobs: data?.data ?? [],
+    isLoading,
+    isError: error as string,
   }
 }
