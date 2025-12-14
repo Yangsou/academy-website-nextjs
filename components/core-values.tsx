@@ -9,7 +9,7 @@ export default function CoreValues() {
   const coreValData = [
     {
       title: 'Honesty',
-      icon: 'core-val-H.svg',
+      icon: 'core-val-h.svg',
       highlightColor: 'text-4xl text-[#00A5C3]',
       className: cn(
         ' text-[#626262] space-y-2',
@@ -21,7 +21,7 @@ export default function CoreValues() {
     },
     {
       title: 'Empathy',
-      icon: 'core-val-H.svg',
+      icon: 'core-val-e.svg',
       highlightColor: 'text-4xl text-[#F94725]',
       className: cn(
         'text-[#626262]',
@@ -33,19 +33,19 @@ export default function CoreValues() {
     },
     {
       title: 'Tuning',
-      icon: 'core-val-H.svg',
+      icon: 'core-val-t.png',
       highlightColor: 'text-4xl text-[#32B6AE]',
       className: cn(
         'text-[#626262]',
         'xl:w-52 xl:translate-x-[-428px] xl:translate-y-[10px]',
-        'lg:w-32 lg:translate-x-[-328px] lg:translate-y-[-36px] lg:absolute lg:left-1/2 lg:top-1/2 lg:z-10 lg:w-52'
+        'lg:w-32 lg:translate-x-[-328px] lg:translate-y-[-36px] lg:absolute lg:left-1/2 lg:top-1/2 lg:z-10'
       ),
       description:
         'We simplify and clarify — keeping things practical, understandable, and applicable for everyone.',
     },
     {
       title: 'Accompaniment',
-      icon: 'core-val-H.svg',
+      icon: 'core-val-a.png',
       highlightColor: 'text-4xl text-[#FF9800]',
       className: cn(
         ' text-[#626262]',
@@ -57,7 +57,7 @@ export default function CoreValues() {
     },
     {
       title: 'Reinvention',
-      icon: 'core-val-H.svg',
+      icon: 'core-val-r.png',
       highlightColor: 'text-4xl text-[#8ED332]',
       className: cn(
         'text-[#626262]',
@@ -84,7 +84,7 @@ export default function CoreValues() {
                 themselves. From this trust, five core values were born to nurture and protect it.
               </div>
             </div>
-            <div className="relative col-span-12">
+            <div className="relative col-span-12 lg:flex lg:justify-center">
               <div className="relative space-y-8 sm:grid sm:grid-cols-2 sm:gap-4 lg:h-[940px] lg:w-[940px] lg:space-y-0 xl:h-[1146px] xl:w-[1146px]">
                 {/* Background Image */}
                 <Image
