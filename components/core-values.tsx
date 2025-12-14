@@ -1,10 +1,12 @@
 'use client'
 
+import Image from 'next/image'
+
+import { cn } from '@/lib/utils'
 // import { motion } from 'framer-motion'
 // import { Heart, Zap, Shield, ArrowRight } from 'lucide-react'
 // import { Card, CardContent } from '@/components/ui/card'
 // import { Button } from '@/components/ui/button'
-import Image from 'next/image'
 // import Link from 'next/link'
 
 // const features = [
@@ -39,6 +41,63 @@ import Image from 'next/image'
 // ]
 
 export default function CoreValues() {
+  const coreValData = [
+    {
+      title: 'Honesty',
+      highlightColor: 'text-4xl text-[#00A5C3]',
+      className: cn(
+        'absolute left-1/2 top-1/2 z-10 w-52 text-[#626262]',
+        'xl:translate-x-[-286px] xl:translate-y-[-324px]',
+        'lg:translate-x-[-250px] lg:translate-y-[-276px]'
+      ),
+      description:
+        'We act with transparency, truth, and integrity — doing what we say and keeping our promises.',
+    },
+    {
+      title: 'Empathy',
+      highlightColor: 'text-4xl text-[#F94725]',
+      className: cn(
+        'absolute left-1/2 top-1/2 z-10 w-52 text-[#626262]',
+        'xl:translate-x-24 xl:translate-y-[-324px]',
+        'lg:translate-x-16 lg:translate-y-[-276px]'
+      ),
+      description:
+        'We respect and understand others, always placing people at the heart of every decision.',
+    },
+    {
+      title: 'Tuning',
+      highlightColor: 'text-4xl text-[#32B6AE]',
+      className: cn(
+        'absolute left-1/2 top-1/2 z-10 w-52 text-[#626262]',
+        'xl:w-52 xl:translate-x-[-428px] xl:translate-y-[10px]',
+        'lg:w-32 lg:translate-x-[-328px] lg:translate-y-[10px]'
+      ),
+      description:
+        'We simplify and clarify — keeping things practical, understandable, and applicable for everyone.',
+    },
+    {
+      title: 'Accompaniment',
+      highlightColor: 'text-4xl text-[#FF9800]',
+      className: cn(
+        'absolute left-1/2 top-1/2 z-10 text-[#626262]',
+        'xl:w-52 xl:translate-x-[224px] xl:translate-y-[10px]',
+        'lg:w-36 lg:translate-x-[184px] lg:translate-y-[10px]'
+      ),
+      description:
+        'We grow together — listening, supporting, and collaborating in both work and life.',
+    },
+    {
+      title: 'Reinvention',
+      highlightColor: 'text-4xl text-[#8ED332]',
+      className: cn(
+        'absolute left-1/2 top-1/2 z-10 w-52 text-[#626262]',
+        'xl:translate-x-[-80px] xl:translate-y-[290px]',
+        'lg:translate-x-[-80px] lg:translate-y-[220px]'
+      ),
+      description:
+        'We dare to try, to fail, and to learn — embracing creativity and openness in every challenge.',
+    },
+  ]
   return (
     <section className="bg-white">
       <div className="gap-4 py-12">
@@ -48,7 +107,7 @@ export default function CoreValues() {
               <div className="font-[Manrope] text-[56px] font-semibold leading-[110%] tracking-[0%] text-[#0036AF]">
                 Core Values
               </div>
-              <div className="align-middle font-[Manrope] text-[20px] font-normal leading-[150%] tracking-[0%] text-[#525757]">
+              <div className="align-middle font-[Manrope] text-[20px] font-normal leading-[150%] tracking-[0%] text-[#626262]">
                 "Trust is the life energy of human beings, and it is also the foundation of all
                 creativity." <br /> Trust lies at the heart of AI+DI’s culture — the trust between
                 people, between humans and technology, and <br /> between individuals and
@@ -56,14 +115,26 @@ export default function CoreValues() {
               </div>
             </div>
             <div className="relative col-span-12 flex justify-center">
-              <div className="relative flex h-[300px] w-full flex-col items-center justify-center md:h-[1146px]">
+              <div className="relative lg:h-[940px] lg:w-[940px] xl:h-[1146px] xl:w-[1146px]">
                 {/* Background Image */}
                 <Image
                   src="/about/core-value-images.png"
                   alt="Core Values"
                   fill
-                  className="pointer-events-none z-10 object-contain"
+                  className="pointer-events-none z-10 object-cover"
                 />
+                {coreValData.map((value) => (
+                  <div
+                    key={value.title}
+                    className={value.className}
+                  >
+                    <p className="font-[Manrope] text-3xl">
+                      <span className={value.highlightColor}>{value.title.charAt(0)}</span>
+                      {value.title.slice(1)}
+                    </p>
+                    <p className="font-[Manrope] text-xs">{value.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
