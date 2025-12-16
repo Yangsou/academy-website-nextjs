@@ -10,7 +10,7 @@ export default function WeAreSeeking() {
     <section className="bg-[#EDF3FF]">
       <Suspense>
         <div className="flex justify-center">
-          <div className="grid h-full w-[88%] grid-cols-12 gap-8 py-12">
+          <div className="container grid h-full grid-cols-12 gap-8 py-12">
             <div className="col-span-12 align-middle font-[Manrope] text-[32px] font-semibold leading-[130%] tracking-normal text-[#202222]">
               We are seeking for
             </div>

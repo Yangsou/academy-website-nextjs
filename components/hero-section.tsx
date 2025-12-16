@@ -17,7 +17,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex h-[500px] overflow-hidden px-6 pb-6 pt-20 md:h-[810px] md:px-20 md:pb-20 md:pt-36"
+      className="relative flex h-[500px] overflow-hidden pb-6 pt-20 md:h-[810px] md:pb-20 md:pt-36"
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
@@ -37,7 +37,7 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl text-left">
+      <div className="container relative z-10 text-left">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

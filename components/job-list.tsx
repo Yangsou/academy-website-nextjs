@@ -64,7 +64,6 @@ export default function JobList() {
   return (
     <div className="col-span-12 md:col-span-8">
       <div className="space-y-4">
-        {isLoading && <JobSkeleton />}
         {!isLoading && jobs.length === 0 && (
           <div className="border border-gray-200 bg-white shadow-sm">
             <div className="p-6 text-black">Empty Data</div>
@@ -139,15 +138,18 @@ export default function JobList() {
                     {job.job_location?.name}
                   </span>
                 </div>
-
-                {/* <button className="border border-[#4162CF] px-4 py-2 align-middle font-[Manrope] text-[18px] font-normal leading-[150%] text-[#4162CF]">
-                      View job
-                      <span className="ml-2">→</span>
-                    </button> */}
+                <Link href={`/career/${job.slug}`}>
+                  <button className="hover:border-tranparent border border-[#4162CF] px-4 py-2 align-middle font-[Manrope] text-[18px] font-normal leading-[150%] text-[#4162CF] hover:bg-[#4162CF] hover:bg-opacity-70 hover:text-white">
+                    View job
+                    <span className="ml-2">→</span>
+                  </button>
+                </Link>
               </div>
             </div>
           </motion.div>
         ))}
+        {isLoading && <JobSkeleton />}
+
         {hasMore && (
           <div className="flex justify-center pt-4">
             <button

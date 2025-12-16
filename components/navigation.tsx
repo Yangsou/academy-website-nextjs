@@ -51,7 +51,7 @@ export default function Navigation() {
           : 'bg-white shadow-lg backdrop-blur-md'
       }`}
     >
-      <div className="px-[80px]">
+      <div className="container mx-auto">
         <div className="flex h-[64px] items-center justify-between">
           <Link
             href="/"

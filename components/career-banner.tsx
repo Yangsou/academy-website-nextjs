@@ -1,49 +1,14 @@
 'use client'
 
 // import { motion } from 'framer-motion'
-// import { Heart, Zap, Shield, ArrowRight } from 'lucide-react'
-// import { Card, CardContent } from '@/components/ui/card'
-// import { Button } from '@/components/ui/button'
 import Image from 'next/image'
-// import Link from 'next/link'
-
-// const features = [
-//   {
-//     icon: 'home/values-1.png',
-//     title: 'Learning Rhythm',
-//     description:
-//       'Personalized learning journeys that adapt to your natural patterns and optimal growth moments.',
-//     gradient: 'from-pink-500 to-rose-600',
-//   },
-//   {
-//     icon: 'home/values-2.png',
-//     title: 'Working Rhythm',
-//     description:
-//       'Seamless integration of AI tools that amplify your capabilities while maintaining human creativity.',
-//     gradient: 'from-cyan-500 to-blue-600',
-//   },
-//   {
-//     icon: 'home/values-3.png',
-//     title: 'Life Rhythm',
-//     description:
-//       'Embrace conscious living where technology enhances rather than overwhelms your daily experience.',
-//     gradient: 'from-purple-500 to-indigo-600',
-//   },
-//   {
-//     icon: 'home/values-4.png',
-//     title: 'Organization Rhythm',
-//     description:
-//       'Foster a living system where businesses, data, and intelligence move in harmony — aligning purpose with performance.',
-//     gradient: 'from-purple-500 to-indigo-600',
-//   },
-// ]
 
 export default function CareerBanner() {
   return (
     <section className="bg-white">
       <div className="gap-4 py-12">
         <div className="flex justify-center">
-          <div className="grid h-full w-[88%] grid-cols-12 gap-8 py-12">
+          <div className="container grid h-full grid-cols-12 gap-8 py-12">
             <div className="col-span-12 mb-8 flex flex-col items-center justify-center gap-4">
               <div className="text-center align-middle font-[Manrope] text-[50px] font-semibold leading-[130%] tracking-normal text-[#202222] md:text-[56px]">
                 Find your <span className="bg-[#0036AF] text-[#FFFFFF]">dream jobs</span> at <br />{' '}

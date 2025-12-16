@@ -40,39 +40,63 @@ function TeamMemberCard({ teamMember }: { teamMember: TeamMember }) {
     </div>
   )
 }
+function TeamMemberSkeleton() {
+  return (
+    <>
+      <div className="col-span-12 md:col-span-6 lg:col-span-3">
+        <div className="h-[180px] w-[180px] rounded-full bg-gray-300" />
+        <div className="mt-4 flex flex-col items-start justify-start gap-2">
+          <div className="h-6 w-32 rounded bg-gray-300" />
+          <div className="h-4 w-full rounded bg-gray-300" />
+          <div className="mt-3 h-4 w-5/6 rounded bg-gray-300" />
+          <div className="h-3 w-4/5 rounded bg-gray-300" />
+          <div className="h-3 w-4/5 rounded bg-gray-300" />
+        </div>
+      </div>
+      <div className="col-span-12 md:col-span-6 lg:col-span-3">
+        <div className="h-[180px] w-[180px] rounded-full bg-gray-300" />
+        <div className="mt-4 flex flex-col items-start justify-start gap-2">
+          <div className="h-6 w-32 rounded bg-gray-300" />
+          <div className="h-4 w-full rounded bg-gray-300" />
+          <div className="mt-3 h-4 w-5/6 rounded bg-gray-300" />
+          <div className="h-3 w-4/5 rounded bg-gray-300" />
+          <div className="h-3 w-4/5 rounded bg-gray-300" />
+        </div>
+      </div>
+    </>
+  )
+}
+
 export default function OurTeam() {
-  const { teamMembers } = useMembers()
+  const { teamMembers, isLoading } = useMembers()
 
   return (
     <section className="z-20 mt-0 bg-[#F7F9FD] lg:mt-[-240px]">
-      <div className="gap-4 py-12">
-        <div className="flex justify-center">
-          <div className="grid h-full w-[88%] grid-cols-12 gap-8 py-12">
-            <div className="col-span-12 flex flex-col items-start justify-start gap-4">
-              <div className="font-[Manrope] text-[56px] font-semibold leading-[110%] tracking-[0%] text-[#0036AF]">
-                Our team
-              </div>
-              <div className="font-regular align-middle font-[Manrope] text-[20px] leading-[150%] tracking-[0%] text-[#525757]">
-                Ai+Di is led by a diverse team of visionaries, engineers, educators, and strategists
-                — united by one shared belief: that Artificial Intelligence should elevate humanity,
-                not replace it. From the founders who shaped the vision to the experts driving
-                innovation every day, each person at Ai+Di contributes to building a conscious
-                ecosystem where technology grows with people, not against them.
-              </div>
-            </div>
+      <div className="container grid h-full grid-cols-12 gap-8 py-12">
+        <div className="col-span-12 flex flex-col items-start justify-start gap-4">
+          <div className="font-[Manrope] text-[56px] font-semibold leading-[110%] tracking-[0%] text-[#0036AF]">
+            Our team
+          </div>
+          <div className="font-regular align-middle font-[Manrope] text-[20px] leading-[150%] tracking-[0%] text-[#525757]">
+            Ai+Di is led by a diverse team of visionaries, engineers, educators, and strategists —
+            united by one shared belief: that Artificial Intelligence should elevate humanity, not
+            replace it. From the founders who shaped the vision to the experts driving innovation
+            every day, each person at Ai+Di contributes to building a conscious ecosystem where
+            technology grows with people, not against them.
+          </div>
+        </div>
 
-            {teamMembers.map((teamMember) => (
-              <TeamMemberCard
-                teamMember={teamMember}
-                key={teamMember.id.toString()}
-              />
-            ))}
+        {isLoading && <TeamMemberSkeleton />}
+        {teamMembers.map((teamMember) => (
+          <TeamMemberCard
+            teamMember={teamMember}
+            key={teamMember.id.toString()}
+          />
+        ))}
 
-            <div className="col-span-12 bg-[#DAF3F4] p-16 lg:col-span-6">
-              <div className="font-[Manrope] text-[48px] font-semibold leading-[70px] tracking-[0%] text-[#0036AF]">
-                And over 100 members who share the same mission.
-              </div>
-            </div>
+        <div className="col-span-12 bg-[#DAF3F4] p-4 md:p-16 lg:col-span-6">
+          <div className="font-[Manrope] text-4xl font-semibold tracking-[0%] text-[#0036AF] md:text-[48px] md:leading-[70px]">
+            And over 100 members who share the same mission.
           </div>
         </div>
       </div>

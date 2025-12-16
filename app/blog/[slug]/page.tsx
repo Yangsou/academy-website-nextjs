@@ -514,7 +514,7 @@ export default function BlogDetailPage() {
       <div className="min-h-screen overflow-x-hidden text-white">
         <Navigation />
         <main className="relative z-10 pt-16">
-          <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="container py-20">
             <div className="animate-pulse">
               <div className="mb-4 h-8 rounded bg-slate-300" />
               <div className="mb-8 h-12 rounded bg-slate-300" />
@@ -569,7 +569,7 @@ export default function BlogDetailPage() {
   return (
     <div className="relative z-10 min-h-[calc(100vh_-_240px)] pt-16">
       <ErrorBoundary>
-        <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="container mx-auto py-20">
           {/* Article Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}

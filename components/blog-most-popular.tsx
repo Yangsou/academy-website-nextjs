@@ -17,7 +17,7 @@ export default function BlogMostPopular() {
   return (
     <section className="bg-[#F7F9FD]">
       <div className="flex justify-center">
-        <div className="grid h-full w-[88%] grid-cols-12 gap-8 py-8">
+        <div className="container grid h-full grid-cols-12 gap-8 py-8">
           <div className="col-span-12 mb-2 flex flex-col items-start justify-start gap-4">
             <div className="align-middle font-[Manrope] text-[28px] font-semibold leading-[110%] text-[#202222]">
               Most popular

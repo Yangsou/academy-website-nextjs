@@ -147,11 +147,11 @@ export default function OurActivitys() {
   return (
     <section className="relative bg-[#DAF3F4] pt-12">
       <MaskImage />
-      <div className="gap-4 space-y-3 py-12">
-        <div className="text-center font-[Manrope] text-[56px] font-bold leading-[110%] tracking-[0%] text-[#202222]">
+      <div className="container gap-4 space-y-3 py-12">
+        <div className="text-center font-[Manrope] text-4xl font-bold leading-[110%] tracking-[0%] text-[#202222] md:text-[56px]">
           Our Activities
         </div>
-        <div className="font-regular text-center align-middle font-[Manrope] text-[20px] leading-[150%] tracking-[0%] text-[#525757]">
+        <div className="font-regular text-center align-middle font-[Manrope] text-lg leading-[150%] tracking-[0%] text-[#525757] md:text-[20px]">
           To create an AI grounded in trust and humanity — one that blends Artificial and <br />{' '}
           Natural Intelligence to enhance human awareness, happiness, and growth.
         </div>
@@ -162,7 +162,7 @@ export default function OurActivitys() {
           </div>
         ) : (
           <div className="flex justify-center">
-            <div className="grid h-full w-[88%] grid-cols-12 gap-8 py-12">
+            <div className="grid h-full grid-cols-12 gap-8 py-12">
               {/* First Large Activity */}
               {firstActivity && (
                 <div className="col-span-12 h-full lg:col-span-6">

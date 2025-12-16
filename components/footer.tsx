@@ -123,8 +123,8 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="flex justify-center bg-[#0036AF] p-10">
-      <div className="w-[88%]">
+    <footer className="flex justify-center bg-[#0036AF] py-10">
+      <div className="container">
         <div className="grid grid-cols-12 gap-4">
           {data.map((item) => (
             <div
@@ -140,9 +140,27 @@ export default function Footer() {
             </div>
           ))}
           <div className="align-start col-span-12 flex justify-start gap-4 lg:col-span-3 lg:justify-end">
-            <FacebookIcon />
-            <LinkedInIcon />
-            <YouTubeIcon />
+            <Link
+              href="https://www.facebook.com/aidijsc"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FacebookIcon />
+            </Link>
+            <Link
+              href="https://www.linkedin.com/company/ai-di-world/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <LinkedInIcon />
+            </Link>
+            <Link
+              href="https://www.youtube.com/@AiplusDiJSC"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <YouTubeIcon />
+            </Link>
           </div>
           <div className="col-span-12 flex w-full flex-col items-center justify-between gap-4 border-b-2 border-[#EEEEEE] pb-4 lg:flex-row">
             <div className="flex items-end justify-start gap-4">

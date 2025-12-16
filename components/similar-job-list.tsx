@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { useRelatedJobs } from '@/lib/hooks/use-job-data'
 
 import { Separator } from './ui/separator'
@@ -42,7 +44,7 @@ export default function SimilarJobList({
     location: location ?? '',
   })
   return (
-    <div className="w-[296px] bg-white py-4">
+    <div className="mt-6 bg-white py-4 md:mt-0 md:w-[296px]">
       <p className="px-4 pb-4 font-[Manrope] text-2xl text-[#202222]">Similar works</p>
       <Separator />
 
@@ -60,7 +62,12 @@ export default function SimilarJobList({
             className="border-b border-gray-200 last:border-0"
           >
             <div className="p-4">
-              <p className="font-[Manrope] text-lg font-semibold text-[#202222]">{job.title}</p>
+              <Link
+                href={`/career/${job.slug}`}
+                className="font-[Manrope] text-lg font-semibold text-[#202222]"
+              >
+                {job.title}
+              </Link>
               <p className="mt-2 font-[Manrope] text-sm text-[#626262]">{job.shortDescription}</p>
               <div className="mt-3 flex space-x-2">
                 {job.job_tags.map((tag) => (

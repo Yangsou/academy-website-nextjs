@@ -29,7 +29,7 @@ export default function MissionAndVision() {
           priority
         />
         <div className="flex h-full w-full items-start justify-center lg:items-center">
-          <div className="flex grid h-full w-[88%] grid-cols-12 py-4 lg:py-32">
+          <div className="container grid h-full grid-cols-12 py-4 lg:py-32">
             <div className="relative col-span-12 flex flex-col gap-4 lg:col-span-6">
               <Image
                 src="/home/mission-image.png"

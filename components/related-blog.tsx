@@ -24,7 +24,7 @@ export default function RelatedBlog({ excludeSlug, categoryName }: Props) {
   return (
     <div className="relative overflow-hidden bg-[#DAF3F4] pb-32 pt-8">
       <div className="absolute left-0 top-0 h-full w-full bg-[url('/blog/related-blog-bg.svg')] bg-cover bg-center" />
-      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="container relative z-10">
         <div className="mb-6 align-middle font-[Manrope] text-xl font-semibold leading-[130%] text-[#202222]">
           Related Topic
         </div>

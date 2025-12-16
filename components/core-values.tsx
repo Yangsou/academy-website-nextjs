@@ -1,9 +1,9 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
-// import { motion } from 'framer-motion'
 
 export default function CoreValues() {
   const coreValData = [
@@ -72,17 +72,31 @@ export default function CoreValues() {
     <section className="bg-white">
       <div className="gap-4 py-12">
         <div className="flex justify-center">
-          <div className="grid h-full w-[88%] grid-cols-12 gap-4 py-12">
+          <div className="container grid h-full grid-cols-12 gap-4 py-12">
             <div className="col-span-12 flex flex-col items-start justify-start gap-4">
-              <div className="font-[Manrope] text-[56px] font-semibold leading-[110%] tracking-[0%] text-[#0036AF]">
-                Core Values
-              </div>
-              <div className="align-middle font-[Manrope] text-[20px] font-normal leading-[150%] tracking-[0%] text-[#626262]">
-                "Trust is the life energy of human beings, and it is also the foundation of all
-                creativity." <br /> Trust lies at the heart of AI+DI’s culture — the trust between
-                people, between humans and technology, and <br /> between individuals and
-                themselves. From this trust, five core values were born to nurture and protect it.
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div className="font-[Manrope] text-[56px] font-semibold leading-[110%] tracking-[0%] text-[#0036AF]">
+                  Core Values
+                </div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <div className="align-middle font-[Manrope] text-[20px] font-normal leading-[150%] tracking-[0%] text-[#626262]">
+                  "Trust is the life energy of human beings, and it is also the foundation of all
+                  creativity." <br /> Trust lies at the heart of AI+DI’s culture — the trust between
+                  people, between humans and technology, and <br /> between individuals and
+                  themselves. From this trust, five core values were born to nurture and protect it.
+                </div>
+              </motion.div>
             </div>
             <div className="relative col-span-12 lg:flex lg:justify-center">
               <div className="relative space-y-8 sm:grid sm:grid-cols-2 sm:gap-4 lg:h-[940px] lg:w-[940px] lg:space-y-0 xl:h-[1146px] xl:w-[1146px]">
