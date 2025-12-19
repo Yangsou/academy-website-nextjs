@@ -88,6 +88,7 @@ export function useInfiniteJobs({ pageSize, location }: { pageSize: number; loca
 
   const pagination = data?.[data.length - 1]?.meta?.pagination
   const hasMore = pagination ? size < pagination.pageCount : false
+  const countMore = pagination ? pagination.total - jobs.length : 0
 
   const loadMore = () => {
     if (!isLoading && hasMore) {
@@ -103,6 +104,7 @@ export function useInfiniteJobs({ pageSize, location }: { pageSize: number; loca
     loadMore,
     size,
     mutate,
+    countMore,
   }
 }
 

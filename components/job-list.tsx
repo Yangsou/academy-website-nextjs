@@ -39,8 +39,8 @@ function JobSkeleton() {
 export default function JobList() {
   const searchParams = useSearchParams()
   const location = searchParams.getAll('location')
-  const { jobs, hasMore, isError, isLoading, loadMore } = useInfiniteJobs({
-    pageSize: 10,
+  const { jobs, hasMore, isError, isLoading, loadMore, countMore } = useInfiniteJobs({
+    pageSize: 2,
     location,
   })
 
@@ -155,9 +155,9 @@ export default function JobList() {
             <button
               onClick={loadMore}
               disabled={isLoading}
-              className="bg-[#DAF3F4] px-4 py-2 align-middle font-[Manrope] text-[18px] font-normal leading-[150%] text-[#4162CF]"
+              className="bg-[#DAF3F4] bg-opacity-100 px-4 py-2 align-middle font-[Manrope] text-[18px] font-normal leading-[150%] text-[#4162CF] hover:bg-opacity-40"
             >
-              View more
+              View more ({countMore})
             </button>
           </div>
         )}

@@ -1,7 +1,7 @@
 'use client'
 
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
-import { useParams } from 'next/navigation'
+import { notFound, useParams } from 'next/navigation'
 
 import SimilarJobList from '@/components/similar-job-list'
 import { useJobDetail } from '@/lib/hooks/use-job-data'
@@ -30,7 +30,7 @@ export default function CareerDetailPage() {
   }
 
   if (isError) {
-    return <div className="min-h-screen">Error</div>
+    return notFound()
   }
   return (
     <div className="">
