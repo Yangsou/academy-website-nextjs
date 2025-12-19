@@ -4,7 +4,7 @@
 // import { Heart, ArrowUp, Mail, Phone, MapPin, Globe } from 'lucide-react'
 import Link from 'next/link'
 
-import { FacebookIcon, YouTubeIcon, LinkedInIcon } from './social-icons'
+import { FacebookIcon, YouTubeIcon, LinkedInIcon, TikTokIcon } from './social-icons'
 // import { useState } from 'react'
 // import Image from 'next/image'
 
@@ -160,6 +160,13 @@ export default function Footer() {
               rel="noopener noreferrer"
             >
               <YouTubeIcon />
+            </Link>
+            <Link
+              href="https://www.tiktok.com/@aidiworld"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <TikTokIcon />
             </Link>
           </div>
           <div className="col-span-12 flex w-full flex-col items-center justify-between gap-4 border-b-2 border-[#EEEEEE] pb-4 lg:flex-row">

@@ -8,7 +8,7 @@ export default function LastBlog() {
   const { articles, hasMore, loadMore, isLoading } = useInfiniteArticles()
 
   return (
-    <section className="min-h-[calc(100vh_-_420px)] bg-[#F7F9FD]">
+    <section className="min-h-[calc(100vh_-_420px)] bg-[#F7F9FD] pb-8">
       <div className="flex justify-center">
         <div className="container grid h-full grid-cols-12 gap-8 pb-6">
           <div className="col-span-12 mb-2 flex flex-col items-start justify-start gap-4">

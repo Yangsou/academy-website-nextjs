@@ -6,7 +6,7 @@ import { ErrorBoundary } from '@/components/error-boundary'
 
 const BlogSection = dynamic(() => import('@/components/last-blog'), {
   loading: () => (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center pb-8">
       <div className="text-center">
         <div className="mb-4 inline-block h-16 w-16 animate-spin rounded-full border-4 border-cyan-500 border-t-transparent" />
         <p className="text-lg text-gray-400">Loading articles...</p>
@@ -18,12 +18,11 @@ const BlogSection = dynamic(() => import('@/components/last-blog'), {
 
 export default function BlogPage() {
   return (
-    <div className="py-16">
+    <div className="pt-16">
       <ErrorBoundary>
         <BlogBanner />
         <BlogMostPopular />
         <BlogSection />
-        {/* <LastBlog /> */}
       </ErrorBoundary>
     </div>
   )
