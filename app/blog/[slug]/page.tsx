@@ -13,6 +13,7 @@ import { ErrorBoundary } from '@/components/error-boundary'
 import Footer from '@/components/footer'
 import Navigation from '@/components/navigation'
 import RelatedBlog from '@/components/related-blog'
+import SubscriberForm from '@/components/subscriber-form'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { getCategoryReadTime } from '@/lib/blog-helpers'
@@ -569,78 +570,81 @@ export default function BlogDetailPage() {
   return (
     <div className="relative z-10 min-h-[calc(100vh_-_240px)] pt-16">
       <ErrorBoundary>
-        <div className="container mx-auto py-20">
-          {/* Article Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-12"
-          >
-            {/* Category Badge */}
-            <div className="mb-6 flex items-center space-x-3">
-              <span className="font-[Manrope] text-[24px] font-semibold uppercase leading-[140%] text-[#00C8B3]">
-                {category?.name}
-              </span>
-              <p>{formatDateString(publishedAt)}</p>
-              <p>{getCategoryReadTime(article as unknown as Article)}</p>
-            </div>
-
-            {/* Title */}
-            <h1 className="font-[Manrope] text-[28px] font-semibold leading-[130%] text-[#202222]">
-              {article.title}
-            </h1>
-          </motion.div>
-
-          {/* Featured Image */}
-          {article.cover_url && (
+        <div className="container flex-wrap py-20 lg:flex">
+          <div className="flex-1 lg:pr-8">
+            {/* Article Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.8 }}
               className="mb-12"
             >
-              <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-800">
-                <Image
-                  src={article.cover_url}
-                  alt={article.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1200px) 100vw, 1200px"
-                  priority
-                />
+              {/* Category Badge */}
+              <div className="mb-6 flex items-center space-x-3">
+                <span className="font-[Manrope] text-[24px] font-semibold uppercase leading-[140%] text-[#00C8B3]">
+                  {category?.name}
+                </span>
+                <p className="text-[#525757]">{formatDateString(publishedAt)}</p>
+                <p className="text-[#525757]">
+                  {getCategoryReadTime(article as unknown as Article)}
+                </p>
               </div>
+
+              {/* Title */}
+              <h1 className="font-[Manrope] text-[28px] font-semibold leading-[130%] text-[#202222]">
+                {article.title}
+              </h1>
             </motion.div>
-          )}
 
-          {/* Article Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <Card className="border-transparent shadow-none">
-              <CardContent className="p-0">
-                <BlocksRenderer content={description ?? []} />
+            {/* Featured Image */}
+            {article.cover_url && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="mb-12"
+              >
+                <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-800">
+                  <Image
+                    src={article.cover_url}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    priority
+                  />
+                </div>
+              </motion.div>
+            )}
 
-                {/* Blocks Content */}
-                {blocks.length > 0 && (
-                  <div className="space-y-6">
-                    {blocks.map((block, index) => (
-                      <motion.div
-                        key={block.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 * index }}
-                      >
-                        <BlockRenderer block={block} />
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
+            {/* Article Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <Card className="border-transparent shadow-none">
+                <CardContent className="p-0">
+                  <BlocksRenderer content={description ?? []} />
 
-                {/* Article Footer */}
-                {/* <div className="mt-12 border-t border-cyan-500/20 pt-8">
+                  {/* Blocks Content */}
+                  {blocks.length > 0 && (
+                    <div className="space-y-6">
+                      {blocks.map((block, index) => (
+                        <motion.div
+                          key={block.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.1 * index }}
+                        >
+                          <BlockRenderer block={block} />
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Article Footer */}
+                  {/* <div className="mt-12 border-t border-cyan-500/20 pt-8">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="flex items-center space-x-4">
                         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20">
@@ -661,9 +665,13 @@ export default function BlogDetailPage() {
                       </Button>
                     </div>
                   </div> */}
-              </CardContent>
-            </Card>
-          </motion.div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+          <div className="lg:w-[296px]">
+            <SubscriberForm />
+          </div>
         </div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}

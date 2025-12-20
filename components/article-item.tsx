@@ -33,7 +33,10 @@ export function ArticelItemSkeleton({ count }: { count: number }) {
 export default function ArticleItem({ article }: { article: Article }) {
   const { title, slug, category, cover_url: coverUrl, publishedAt, date } = article
   return (
-    <div className="col-span-12 flex flex-col gap-4 bg-white shadow-sm hover:shadow-md md:col-span-6 lg:col-span-4">
+    <Link
+      href={`/blog/${slug ?? ''}`}
+      className="col-span-12 flex flex-col gap-4 bg-white shadow-sm hover:shadow-md md:col-span-6 lg:col-span-4"
+    >
       {/* Image */}
       <div className="relative h-[285px] w-full">
         <Image
@@ -61,7 +64,7 @@ export default function ArticleItem({ article }: { article: Article }) {
         </Link>
 
         {/* Meta info */}
-        <div className="mt-4 flex items-center justify-start gap-12">
+        <div className="mt-4 flex items-center justify-between gap-12">
           <div className="font-manrope text-[16px] font-normal leading-[150%] text-[#525757]">
             {formatDateString(date ? date : publishedAt)}
           </div>
@@ -72,6 +75,6 @@ export default function ArticleItem({ article }: { article: Article }) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }

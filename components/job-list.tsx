@@ -3,11 +3,10 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
 import { useInfiniteJobs } from '@/lib/hooks/use-job-data'
-import { cn, fromNow } from '@/lib/utils'
+import { fromNow } from '@/lib/utils'
 
+import JobTag from './job-tag'
 import { Skeleton } from './ui/skeleton'
-
-import type { ClassNameValue } from 'tailwind-merge'
 
 function JobSkeleton() {
   return (
@@ -40,20 +39,10 @@ export default function JobList() {
   const searchParams = useSearchParams()
   const location = searchParams.getAll('location')
   const { jobs, hasMore, isError, isLoading, loadMore, countMore } = useInfiniteJobs({
-    pageSize: 2,
+    pageSize: 10,
     location,
   })
 
-  const tagTheme: Record<string, ClassNameValue> = {
-    blue: 'bg-blue-100 text-blue-600',
-    indigo: 'bg-indigo-100 text-indigo-600',
-    purple: 'bg-purple-100 text-purple-600',
-    yellow: 'bg-yellow-100 text-yellow-600',
-    teal: 'bg-teal-100 text-teal-600',
-    pink: 'bg-pink-100 text-pink-600',
-    green: 'bg-green-100 text-green-600',
-    '': '',
-  }
   if (isError) {
     return (
       <div className="col-span-12 md:col-span-8">
@@ -79,15 +68,11 @@ export default function JobList() {
                 <div className="flex w-full items-center justify-between">
                   <div className="flex flex-wrap gap-2">
                     {job.job_tags.map((tag) => (
-                      <span
-                        key={tag.id.toString()}
-                        className={cn(
-                          'px-3 py-1 font-[manrope] text-[16px] text-xs font-normal leading-[150%] text-[#254BC8]',
-                          tagTheme[tag.theme]
-                        )}
-                      >
-                        {tag.name}
-                      </span>
+                      <JobTag
+                        key={tag.id}
+                        label={tag.name}
+                        theme={tag.theme}
+                      />
                     ))}
                   </div>
                   <div>

@@ -1,7 +1,9 @@
 import Link from 'next/link'
 
 import { useRelatedJobs } from '@/lib/hooks/use-job-data'
+import { fromNow } from '@/lib/utils'
 
+import JobTag from './job-tag'
 import { Separator } from './ui/separator'
 
 function SimilarJobSkeleton() {
@@ -71,13 +73,20 @@ export default function SimilarJobList({
               <p className="mt-2 font-[Manrope] text-sm text-[#626262]">{job.shortDescription}</p>
               <div className="mt-3 flex space-x-2">
                 {job.job_tags.map((tag) => (
-                  <span
+                  <JobTag
                     key={tag.id}
-                    className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800"
-                  >
-                    {tag.name}
-                  </span>
+                    label={tag.name}
+                    theme={tag.theme}
+                  />
                 ))}
+              </div>
+              <div className="mt-3 flex items-center justify-between">
+                <span className="font-[Manrope] text-sm font-medium text-[#202222]">
+                  {job.job_location?.name}
+                </span>
+                <span className="font-[Manrope] text-sm font-medium text-[#202222]">
+                  {fromNow(job.publishedAt)}
+                </span>
               </div>
             </div>
           </div>
