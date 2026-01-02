@@ -672,6 +672,8 @@ export default function BlogDetailPage() {
           <div className="lg:w-[296px]">
             <SubscriberForm />
           </div>
+
+          {/* <Toaster /> */}
         </div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}

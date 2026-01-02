@@ -3,6 +3,7 @@ import Footer from '@/components/footer'
 import GoogleTagManager from '@/components/GoogleTagManager'
 import Navigation from '@/components/navigation'
 import { SWRProvider } from '@/components/providers/swr-provider'
+import { Toaster } from '@/components/ui/sonner'
 
 import type { Metadata, Viewport } from 'next'
 
@@ -201,6 +202,7 @@ export default function RootLayout({
             <BtnScrollTop />
           </main>
         </SWRProvider>
+        <Toaster />
       </body>
     </html>
   )
