@@ -71,7 +71,7 @@ export default function CoreValues() {
   return (
     <section className="bg-white">
       <div className="gap-4 pt-12">
-        <div className="flex justify-center">
+        <div className="relative flex justify-center">
           <div className="container relative gap-4 lg:flex">
             <div className="relative z-10 flex w-full flex-col items-start justify-start gap-4 lg:w-1/2 lg:pt-24">
               <motion.div
@@ -128,8 +128,8 @@ export default function CoreValues() {
                 ))} */}
               </div>
             </div>
-            <div className="absolute bottom-0 left-0 h-[584px] w-full bg-[url('/about/footer-core-values.svg')] bg-cover" />
           </div>
+          <div className="absolute bottom-0 left-0 h-[584px] w-full bg-[url('/about/footer-core-values.svg')] bg-cover" />
         </div>
       </div>
     </section>

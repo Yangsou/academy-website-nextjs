@@ -115,6 +115,10 @@ const nextConfig = {
 
   // PoweredBy header removal
   poweredByHeader: false,
+
+  env: {
+    disableCareer: true,
+  },
 }
 
 export default nextConfig

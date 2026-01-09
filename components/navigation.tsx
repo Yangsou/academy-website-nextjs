@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-// import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
@@ -11,7 +10,7 @@ const navItems = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Solutions', href: '/products' },
-  { name: 'Career', href: '/career' },
+  ...(process.env.disableCareer ? [] : [{ name: 'Career', href: '/career' }]),
   { name: 'Blog', href: '/blog' },
 ]
 
@@ -34,13 +33,6 @@ export default function Navigation() {
     return false
   }
 
-  // const scrollToContact = () => {
-  //   const contactSection = document.getElementById('contact')
-  //   if (contactSection) {
-  //     contactSection.scrollIntoView({ behavior: 'smooth' })
-  //   }
-  // }
-
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -58,19 +50,13 @@ export default function Navigation() {
             className="group mr-2 flex items-center space-x-2"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <motion.div
-              // whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-2"
-            >
+            <motion.div className="flex items-center space-x-2">
               <div className="flex items-center justify-center">
                 <img
                   src="/header/logo.svg"
                   alt="AI+DI Logo"
                 />
               </div>
-              {/* <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                AI+DI
-              </span> */}
             </motion.div>
           </Link>
 
