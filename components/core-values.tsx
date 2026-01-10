@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 // import { cn } from '@/lib/utils'
 
@@ -70,6 +70,8 @@ export default function CoreValues() {
   //   },
   // ]
   const t = useTranslations('AboutPage.CoreValues')
+  const locale = useLocale()
+
   return (
     <section className="bg-white">
       <div className="gap-4 pt-12">
@@ -92,7 +94,7 @@ export default function CoreValues() {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 viewport={{ once: true }}
               >
-                <div className="align-middle font-[Manrope] text-[20px] font-normal leading-[150%] tracking-[0%] text-[#626262]">
+                <div className="whitespace-break-spaces align-middle font-[Manrope] text-[20px] font-normal leading-[150%] tracking-[0%] text-[#626262]">
                   {t('description')}
                 </div>
               </motion.div>
@@ -101,7 +103,7 @@ export default function CoreValues() {
               <div className="h-80 w-full md:h-[768px] lg:h-[928px] lg:w-[928px]">
                 {/* Background Image */}
                 <Image
-                  src="/about/core-value-images.png"
+                  src={`/about/${locale}-core-value-images.png`}
                   alt="Core Values"
                   fill
                   className="pointer-events-none z-10 block object-cover"

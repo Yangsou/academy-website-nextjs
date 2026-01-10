@@ -207,13 +207,14 @@ export default function OurActivitys() {
               {activities.map((activity, index) => (
                 <div
                   key={activity.id}
-                  className=""
+                  className="h-full"
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     whileHover={{ y: -10 }}
+                    className="h-full bg-[#F7F9FD]"
                   >
                     <Card className="group h-full overflow-hidden rounded-none border-none shadow-none">
                       <CardContent className="p-0 text-center shadow-none">
@@ -231,7 +232,7 @@ export default function OurActivitys() {
                           )}
                         </motion.div>
 
-                        <div className="bg-[#F7F9FD] p-[20px] text-left">
+                        <div className="p-[20px] text-left">
                           <h3 className="line-clamp-3 align-middle font-[Manrope] text-2xl font-semibold leading-[1.25] tracking-[0%] text-[#202222]">
                             {activity.title}
                           </h3>
