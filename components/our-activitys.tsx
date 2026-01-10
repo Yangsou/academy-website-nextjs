@@ -97,7 +97,7 @@ export default function OurActivitys() {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await fetch('/api/activities?pageSize=3&sort=createdAt:DESC')
+        const response = await fetch('/api/activities?sort=createdAt:DESC')
         if (!response.ok) {
           throw new Error('Failed to fetch activities')
         }
@@ -151,9 +151,9 @@ export default function OurActivitys() {
         <div className="text-center font-[Manrope] text-4xl font-bold leading-[110%] tracking-[0%] text-[#202222] md:text-[56px]">
           {t('our_activities')}
         </div>
-        <div className="font-regular mx-auto mt-2 max-w-[730px] text-center align-middle font-[Manrope] text-lg leading-[150%] tracking-[0%] text-[#525757] md:text-[20px]">
+        {/* <div className="font-regular mx-auto mt-2 max-w-[730px] text-center align-middle font-[Manrope] text-lg leading-[150%] tracking-[0%] text-[#525757] md:text-[20px]">
           {t('our_activities_desc')}
-        </div>
+        </div> */}
 
         {activities.length === 0 ? (
           <div className="flex items-center justify-center py-12">

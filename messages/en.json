@@ -5,12 +5,13 @@
     "solutions": "Solutions",
     "career": "Career",
     "blog": "Blog",
-    "title": "Ai+Di",
     "head_office": "Head office",
     "head_office_desc": "2 Ton Duc Thang, Saigon Ward, \n HCM City",
     "business_office": "Business office",
     "business_office_desc": "1st and 4th Floors, 46 Bach Dang, \n Tan Son Hoa Ward, HCM City",
     "HeroSection": {
+      "title": "Ai that reflects.",
+      "sub_title": "Not replaces.",
       "description": "An operating system for conscious living in the age of AI.",
       "button": "Explore about us"
     },
@@ -73,7 +74,7 @@
     "most_popular": "Most popular",
     "no_blogs_available": "No blogs available",
     "last_blog": "Last blog",
-    "view_more": "view_more",
+    "view_more": "View more",
     "article_not_found": "Article Not Found",
     "back_to_blog": "Back to blog",
     "related_topic": "Related Topic"

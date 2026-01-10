@@ -9,9 +9,9 @@ export default function OurPartners() {
         <div className="text-center font-[Manrope] text-[56px] font-bold leading-[110%] tracking-[0%] text-[#0036AF]">
           {t('our_partners')}
         </div>
-        <div className="mx-auto mt-3 max-w-[730px] text-center align-middle font-[Manrope] text-xl font-normal leading-[150%] tracking-[0%] text-[#525757]">
+        {/* <div className="mx-auto mt-3 max-w-[730px] text-center align-middle font-[Manrope] text-xl font-normal leading-[150%] tracking-[0%] text-[#525757]">
           {t('our_partners_desc')}
-        </div>
+        </div> */}
       </div>
       <div className="relative flex justify-center bg-[#0036AF] pb-28 pt-12">
         <div className="container grid grid-cols-12 gap-[20px] text-[#0036AF] md:gap-[40px]">
