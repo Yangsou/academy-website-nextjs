@@ -56,11 +56,11 @@ export default function HeroSection() {
             className="mb-6 text-5xl font-bold leading-tight md:text-7xl lg:text-8xl"
           >
             <span className="font-[Manrope] text-[40px] font-extrabold leading-[110%] tracking-[-2%] text-[#FFFFFF] md:text-[96px]">
-              Ai that reflects.
+              {t('HeroSection.title')}
             </span>
             <br />
             <span className="font-[Manrope] text-[40px] font-extrabold leading-[110%] tracking-[-2%] text-[#A0DCDD] md:text-[96px]">
-              Not replaces.
+              {t('HeroSection.sub_title')}
             </span>
           </motion.h1>
 
