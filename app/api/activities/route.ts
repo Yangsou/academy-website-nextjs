@@ -1,6 +1,7 @@
 import axios, { isAxiosError } from 'axios'
 import { NextResponse } from 'next/server'
 
+import { routing } from '@/i18n/routing'
 import { requireEnv, trimTrailingSlash } from '@/lib/env'
 
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
@@ -103,10 +104,12 @@ export async function GET(request: NextRequest) {
     const pageSize = searchParams.get('pageSize') ?? '10'
     const baseUrl = trimTrailingSlash(requireEnv('STRAPI_API_URL'))
     const apiKey = requireEnv('STRAPI_API_KEY')
+    const locale = searchParams.get('locale') ?? routing.defaultLocale
+
     const config: AxiosRequestConfig<ActivityListResponse> = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `${baseUrl}/api/activities?populate=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort=date:DESC`,
+      url: `${baseUrl}/api/activities?populate=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort=date:DESC&locale=${locale}`,
       headers: {
         Authorization: `Bearer ${apiKey}`,
       },

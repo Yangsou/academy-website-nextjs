@@ -27,7 +27,7 @@
       "life_rhythm": "Cuộc sống",
       "life_rhythm_desc": "Sống tỉnh thức cùng AI để cân bằng và nâng cao trải nghiệm mỗi ngày.",
       "organization_rhythm": "Tổ chức",
-      "organization_rhythm_desc": ": Đồng bộ hóa mục tiêu và hiệu năng cùng AI qua hệ thống vận hành thông minh."
+      "organization_rhythm_desc": "Đồng bộ hóa mục tiêu và hiệu năng cùng AI qua hệ thống vận hành thông minh."
     },
     "MissionVisionSection": {
       "mission": "Sứ mệnh",
@@ -77,6 +77,7 @@
     "view_more": "xem thêm",
     "article_not_found": "Bài viết không tìm thấy",
     "back_to_blog": "Quay lại blog",
-    "related_topic": "Bai viết liên quan"
+    "related_topic": "Bài viết liên quan",
+    "blog_not_exist": "Không tìm thấy bài viết"
   }
 }

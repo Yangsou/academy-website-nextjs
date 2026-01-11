@@ -1,10 +1,11 @@
 'use client'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 import { Card, CardContent } from '@/components/ui/card'
+import { Link } from '@/i18n/navigation'
 
 type RichTextBlock = {
   type?: string
@@ -15,6 +16,7 @@ type RichTextBlock = {
 type Activity = {
   id: number
   documentId: string
+  slug: string
   title: string
   description: string | RichTextBlock | RichTextBlock[]
   image_url?: string | null
@@ -89,6 +91,7 @@ function MaskImage() {
   )
 }
 export default function OurActivitys() {
+  const locale = useLocale()
   const t = useTranslations('HomePage.ActivitiesSection')
   const [activities, setActivities] = useState<Activity[]>([])
   const [loading, setLoading] = useState(true)
@@ -97,7 +100,7 @@ export default function OurActivitys() {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await fetch('/api/activities?sort=createdAt:DESC')
+        const response = await fetch(`/api/activities?locale=${locale}&sort=createdAt:DESC`)
         if (!response.ok) {
           throw new Error('Failed to fetch activities')
         }
@@ -111,7 +114,7 @@ export default function OurActivitys() {
     }
 
     void fetchActivities()
-  }, [])
+  }, [locale])
   if (loading) {
     return (
       <section className="bg-[#DAF3F4] pt-12">
@@ -213,10 +216,10 @@ export default function OurActivitys() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    whileHover={{ y: -10 }}
+                    // whileHover={{ y: -10 }}
                     className="h-full bg-[#F7F9FD]"
                   >
-                    <Card className="group h-full overflow-hidden rounded-none border-none shadow-none">
+                    <Card className="group h-full overflow-hidden rounded-none border-none shadow-none hover:shadow-md">
                       <CardContent className="p-0 text-center shadow-none">
                         <motion.div className="relative mx-auto flex items-center justify-start md:h-[184px] lg:h-[286px]">
                           {activity.image_url ? (
@@ -233,9 +236,12 @@ export default function OurActivitys() {
                         </motion.div>
 
                         <div className="p-[20px] text-left">
-                          <h3 className="line-clamp-3 align-middle font-[Manrope] text-2xl font-semibold leading-[1.25] tracking-[0%] text-[#202222]">
+                          <Link
+                            className="line-clamp-3 align-middle font-[Manrope] text-2xl font-semibold leading-[1.25] tracking-[0%] text-[#202222]"
+                            href={`/activity/${activity.slug}`}
+                          >
                             {activity.title}
-                          </h3>
+                          </Link>
                           <p className="mt-2 line-clamp-4 align-middle font-[Manrope] text-[16px] font-normal leading-[150%] tracking-[0] text-[#626262x]">
                             {extractText(activity.description)}
                           </p>

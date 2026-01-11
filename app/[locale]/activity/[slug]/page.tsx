@@ -13,17 +13,16 @@ import { useMemo, useState } from 'react'
 import { ErrorBoundary } from '@/components/error-boundary'
 import Footer from '@/components/footer'
 import Navigation from '@/components/navigation'
-import RelatedBlog from '@/components/related-blog'
 import SubscriberForm from '@/components/subscriber-form'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 // import { getCategoryReadTime } from '@/lib/blog-helpers'
 import { useRouter } from '@/i18n/navigation'
-import { useArticleDetail } from '@/lib/hooks/use-blog-data'
+import { useActivityDetail } from '@/lib/hooks/use-activity-data'
 import { formatDateString } from '@/lib/utils'
 
-// import type { Article } from '@/lib/hooks/use-blog-data'
 import type { BlocksContent } from '@strapi/blocks-react-renderer'
+
 // Block interfaces based on Strapi response
 type RichTextBlock = {
   __component: 'shared.rich-text'
@@ -69,8 +68,8 @@ type SliderBlock = {
 
 type Block = RichTextBlock | QuoteBlock | MediaBlock | SliderBlock
 
-// Article detail interface based on Strapi response
-type ArticleDetail = {
+// Activity detail interface based on Strapi response
+type ActivityDetail = {
   id: number
   documentId: string
   title: string
@@ -112,9 +111,9 @@ type ArticleDetail = {
   blocks?: Block[] | null
 }
 
-type NormalizedArticleDetail = ArticleDetail & {
-  category: NonNullable<ArticleDetail['category']>
-  author: NonNullable<ArticleDetail['author']>
+type NormalizedActivityDetail = ActivityDetail & {
+  category: NonNullable<ActivityDetail['category']>
+  author: NonNullable<ActivityDetail['author']>
   blocks: Block[]
 }
 
@@ -155,27 +154,6 @@ const getMediaAltText = (file: MediaFile | null | undefined, fallback: string): 
 
 const isBlock = (block: Block | null | undefined): block is Block =>
   Boolean(block && typeof block === 'object' && '__component' in block)
-
-const FALLBACK_CATEGORY: NonNullable<ArticleDetail['category']> = {
-  id: 0,
-  documentId: 'fallback-category',
-  name: 'Uncategorized',
-  slug: 'default',
-  description: null,
-  createdAt: '',
-  updatedAt: '',
-  publishedAt: '',
-}
-
-const FALLBACK_AUTHOR: NonNullable<ArticleDetail['author']> = {
-  id: 0,
-  documentId: 'fallback-author',
-  name: 'Unknown Author',
-  email: 'unknown@example.com',
-  createdAt: '',
-  updatedAt: '',
-  publishedAt: '',
-}
 
 // Component to render markdown-like content
 const RichTextRenderer = ({ content }: { content: string }) => {
@@ -337,7 +315,7 @@ const MediaRenderer = ({ block }: { block: MediaBlock }) => {
       <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-800">
         <Image
           src={imageUrl}
-          alt={block.desc ?? getMediaAltText(file, 'Article media')}
+          alt={block.desc ?? getMediaAltText(file, 'Activity media')}
           fill
           className="object-cover"
           sizes="(max-width: 1200px) 100vw, 1200px"
@@ -485,7 +463,7 @@ const BlockRenderer = ({ block }: { block: Block }) => {
   }
 }
 
-export default function BlogDetailPage() {
+export default function ActivityDetailPage() {
   const params = useParams()
   const router = useRouter()
   const t = useTranslations('BlogPage')
@@ -493,21 +471,21 @@ export default function BlogDetailPage() {
   const slugParam = params.slug
   const slug = Array.isArray(slugParam) ? slugParam[0] : (slugParam ?? '')
 
-  const { article: rawArticle, isLoading, isError } = useArticleDetail(slug)
+  const { activity: rawActivity, isLoading, isError } = useActivityDetail(slug)
 
-  const article = useMemo<NormalizedArticleDetail | null>(() => {
-    if (!rawArticle) return null
+  const Activity = useMemo<NormalizedActivityDetail | null>(() => {
+    if (!rawActivity) return null
 
-    const blocks = 'blocks' in rawArticle ? (rawArticle.blocks as Block[] | undefined) : undefined
+    const blocks = 'blocks' in rawActivity ? (rawActivity.blocks as Block[] | undefined) : undefined
 
     return {
-      ...rawArticle,
-      slug: rawArticle.slug ?? rawArticle.documentId,
-      category: rawArticle.category ?? FALLBACK_CATEGORY,
-      author: rawArticle.author ?? FALLBACK_AUTHOR,
+      ...rawActivity,
+      slug: rawActivity.slug ?? rawActivity.documentId,
+      // category: rawActivity.category ?? FALLBACK_CATEGORY,
+      // author: rawActivity.author ?? FALLBACK_AUTHOR,
       blocks: (blocks ?? []).filter(isBlock),
-    } as unknown as NormalizedArticleDetail
-  }, [rawArticle])
+    } as unknown as NormalizedActivityDetail
+  }, [rawActivity])
 
   const handleBackToBlog = () => {
     router.push(`/blog`)
@@ -536,16 +514,16 @@ export default function BlogDetailPage() {
     )
   }
 
-  if (isError || (!isLoading && !article)) {
+  if (isError || (!isLoading && !Activity)) {
     return (
       <div className="min-h-screen overflow-x-hidden text-white">
         <main className="relative z-10 pt-16">
           <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
-            <h1 className="mb-4 text-2xl font-bold text-red-400">{t('article_not_found')}</h1>
+            <h1 className="mb-4 text-2xl font-bold text-red-400">{t('Activity_not_found')}</h1>
             <p className="mb-8 text-gray-400">
               {isError
-                ? 'Failed to load the article. Please try again later.'
-                : t('blog_not_exist')}
+                ? 'Failed to load the Activity. Please try again later.'
+                : 'The Activity you are looking for does not exist.'}
             </p>
             <Button
               onClick={handleBackToBlog}
@@ -560,20 +538,20 @@ export default function BlogDetailPage() {
     )
   }
 
-  // Article must exist at this point (checked above)
-  if (!article) {
+  // Activity must exist at this point (checked above)
+  if (!Activity) {
     return null
   }
 
   // Handle missing fields gracefully
-  const { category, blocks, publishedAt, description } = article
+  const { category, blocks, publishedAt, description } = Activity
 
   return (
     <div className="relative z-10 min-h-[calc(100vh_-_240px)] pt-16">
       <ErrorBoundary>
         <div className="container flex-wrap py-20 lg:flex">
           <div className="flex-1 lg:pr-8">
-            {/* Article Header */}
+            {/* Activity Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -587,18 +565,18 @@ export default function BlogDetailPage() {
                 </span>
                 <p className="text-[#525757]">{formatDateString(publishedAt)}</p>
                 {/* <p className="text-[#525757]">
-                  {getCategoryReadTime(article as unknown as Article)}
+                  {getCategoryReadTime(Activity as unknown as Activity)}
                 </p> */}
               </div>
 
               {/* Title */}
               <h1 className="font-[Manrope] text-[28px] font-semibold leading-[130%] text-[#202222]">
-                {article.title}
+                {Activity.title}
               </h1>
             </motion.div>
 
             {/* Featured Image */}
-            {article.cover_url && (
+            {Activity.cover_url && (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -607,8 +585,8 @@ export default function BlogDetailPage() {
               >
                 <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-800">
                   <Image
-                    src={article.cover_url}
-                    alt={article.title}
+                    src={Activity.cover_url}
+                    alt={Activity.title}
                     fill
                     className="object-cover"
                     sizes="(max-width: 1200px) 100vw, 1200px"
@@ -618,7 +596,7 @@ export default function BlogDetailPage() {
               </motion.div>
             )}
 
-            {/* Article Content */}
+            {/* Activity Content */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -644,7 +622,7 @@ export default function BlogDetailPage() {
                     </div>
                   )}
 
-                  {/* Article Footer */}
+                  {/* Activity Footer */}
                   {/* <div className="mt-12 border-t border-cyan-500/20 pt-8">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="flex items-center space-x-4">
@@ -676,16 +654,6 @@ export default function BlogDetailPage() {
 
           {/* <Toaster /> */}
         </div>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <RelatedBlog
-            categoryName={article.category.name}
-            excludeSlug={slug ?? ''}
-          />
-        </motion.div>
       </ErrorBoundary>
     </div>
   )

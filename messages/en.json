@@ -77,6 +77,7 @@
     "view_more": "View more",
     "article_not_found": "Article Not Found",
     "back_to_blog": "Back to blog",
-    "related_topic": "Related Topic"
+    "related_topic": "Related Topic",
+    "blog_not_exist": "The article you are looking for does not exist."
   }
 }
