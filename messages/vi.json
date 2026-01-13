@@ -10,7 +10,7 @@
     "head_office_address": "Số 2 Tôn Đức Thắng,\n Phường Sài Gòn, TP HCM, Việt Nam",
     "business_office": "Văn phòng kinh doanh",
     "business_office_desc": "Công ty Cổ phần AI+DI ERP",
-    "business_office_address": "Lầu 1, Tòa nhà KicoTrans,\n Số 44-46 Bạch Đằng 2, Phường Tân Sơn Hòa, TP HCM, Việt Nam",
+    "business_office_address": "Lầu 1, Tòa nhà KicoTrans,\n Số 44-46 Bạch Đằng 2, Phường Tân Sơn Hòa,\nTP HCM, Việt Nam",
     "academy_desc": "Công ty Cổ phần AI+DI ACADEMY",
     "academy_address": "Số 2 Tôn Đức Thắng,\n Phường Sài Gòn, TP HCM, Việt Nam",
     "HeroSection": {
@@ -65,9 +65,9 @@
     }
   },
   "ProductPage": {
-    "two_pillars": "Two pillars",
-    "one_human": "One human-centered ecosystem.",
-    "description": "Ai+Di's two core platforms — Ai+Di ERP and Ai+Di Academy — form a complete ecosystem that connects people and organizations, measuring and nurturing both happiness and performance. Together, they create Organizational and Human Intelligence — a powerful foundation where businesses optimize with AI, and individuals grow toward balance and sustainable progress."
+    "two_pillars": "Bộ đôi giải pháp",
+    "one_human": "Một hệ sinh thái lấy con người làm trung tâm.",
+    "description": "Hai giải pháp cốt lõi của Ai+Di — Giải pháp AI cho doanh nghiệp và Giải pháp AI cho giáo dục — tạo nên một hệ sinh thái hoàn chỉnh giúp kết nối con người và tổ chức, đồng thời đo lường và nuôi dưỡng cả sự hạnh phúc lẫn hiệu suất làm việc. Sự kết hợp này mang đến Trí tuệ Tổ chức và Trí tuệ Con người — bệ phóng mạnh mẽ giúp doanh nghiệp tối ưu hóa bằng AI, còn cá nhân phát triển hướng tới sự cân bằng và tiến bộ bền vững."
   },
   "BlogPage": {
     "Banner": {
