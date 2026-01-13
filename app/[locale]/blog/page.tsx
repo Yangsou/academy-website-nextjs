@@ -17,11 +17,15 @@ const BlogSection = dynamic(() => import('@/components/last-blog'), {
 
 export default function BlogPage() {
   return (
-    <div className="pt-16">
+    <div className="relative bg-[#F7F9FD] pb-44 pt-16">
+      <div className="absolute bottom-0 left-0 h-[400px] w-full bg-[url('/blog/related-blog-bg.svg')] bg-contain bg-bottom bg-no-repeat lg:h-[524px] lg:bg-cover xl:h-[632px] 2xl:h-[776px]" />
+
       <ErrorBoundary>
-        <BlogBanner />
-        <BlogMostPopular />
-        <BlogSection />
+        <div className="relative">
+          <BlogBanner />
+          <BlogMostPopular />
+          <BlogSection />
+        </div>
       </ErrorBoundary>
     </div>
   )
