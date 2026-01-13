@@ -14,18 +14,21 @@ export default function Footer() {
       title: t('head_office'),
       content: t('head_office_desc'),
       address: t('head_office_address'),
+      tax: '0318917743',
     },
     {
       key: 'business-office',
       title: t('business_office'),
       content: t('business_office_desc'),
       address: t('business_office_address'),
+      tax: '0319119673',
     },
     {
       key: 'academy',
       title: '  ',
       content: t('academy_desc'),
       address: t('academy_address'),
+      tax: '0319129022',
     },
   ]
 
@@ -46,6 +49,9 @@ export default function Footer() {
               </div>
               <p className="mt-2 whitespace-pre-line font-[Manrope] text-sm font-normal leading-[150%] tracking-[0%] text-[#EEEEEE]">
                 {item.address}
+              </p>
+              <p className="mt-2 font-[Manrope] text-sm font-normal leading-[150%] tracking-[0%] text-[#EEEEEE]">
+                MST: {item.tax}
               </p>
             </div>
           ))}
