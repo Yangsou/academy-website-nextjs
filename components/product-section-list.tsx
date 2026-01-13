@@ -80,11 +80,13 @@ export default function ProductSectionList() {
 
             {/* Body */}
             <div className="flex flex-1 flex-col justify-between bg-white px-8 py-4 shadow-2xl">
-              <div className="font-[Manrope] text-[24px] font-semibold leading-[140%] text-[#000]">
-                {title}
-              </div>
-              <div className="mb-4 mt-2 whitespace-break-spaces font-[Manrope] text-[16px] leading-[150%] text-[#525757]">
-                {description}
+              <div>
+                <div className="font-[Manrope] text-[24px] font-semibold leading-[140%] text-[#000]">
+                  {title}
+                </div>
+                <div className="mb-4 mt-2 whitespace-break-spaces font-[Manrope] text-[16px] leading-[150%] text-[#525757]">
+                  {description}
+                </div>
               </div>
               <a
                 className="mt-4 text-[18px] text-[#007AFF] underline"

@@ -63,10 +63,10 @@ export default function ValuesSection() {
               />
             </div>
             <div className="align-center col-span-12 flex flex-col justify-center gap-4 px-0 md:col-span-6 md:px-4">
-              <motion.div className="font-[Manrope] text-[30px] font-semibold leading-[110%] tracking-[0%] text-[#0036AF] md:text-[40px] lg:text-[56px]">
+              <motion.div className="pt-3 font-[Manrope] text-3xl font-semibold leading-[110%] tracking-[0%] text-[#0036AF] md:text-[40px] lg:text-[56px]">
                 {t('what_we_do')}
               </motion.div>
-              <motion.p className="align-middle font-[Manrope] text-[14px] font-normal leading-[150%] tracking-[0%] text-[#525757] md:text-[20px]">
+              <motion.p className="whitespace-break-spaces align-middle font-[Manrope] text-[14px] font-normal leading-[150%] tracking-[0%] text-[#525757] md:text-[20px]">
                 {t('what_we_do_long_txt')}
               </motion.p>
               <motion.div
