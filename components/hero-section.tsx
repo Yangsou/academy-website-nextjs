@@ -68,7 +68,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="font-manrope max-w-xl text-[24px] font-normal leading-[140%] tracking-[0%]"
+            className="font-manrope max-w-xl whitespace-break-spaces text-[24px] font-normal leading-[140%] tracking-[0%]"
           >
             {t('HeroSection.description')}
           </motion.p>

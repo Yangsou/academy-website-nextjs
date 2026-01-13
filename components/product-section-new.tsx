@@ -42,9 +42,14 @@ export default function ProductSectionNew() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <div className="font-[Manrope] text-[16px] font-normal leading-[150%] tracking-[0%] text-[#525757]">
-                  {t('description')}
-                </div>
+                <div
+                  className="whitespace-break-spaces font-[Manrope] text-[16px] font-normal leading-[150%] tracking-[0%] text-[#525757]"
+                  dangerouslySetInnerHTML={{
+                    __html: t.markup('description', {
+                      b: (content) => `<b>${content}</b>`,
+                    }),
+                  }}
+                />
               </motion.div>
             </div>
             <div className="col-span-12 flex items-center justify-center lg:col-span-6">

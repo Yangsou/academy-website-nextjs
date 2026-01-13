@@ -29,7 +29,7 @@ export default function MissionAndVision() {
                 width={162}
                 height={165}
               />
-              <div className="font-[Manrope] text-[42px] font-semibold uppercase leading-[110%] tracking-normal text-[#0036AF] lg:text-[#FFFFFF]">
+              <div className="font-[Manrope] text-[42px] font-semibold leading-[110%] tracking-normal text-[#0036AF] lg:text-[#FFFFFF]">
                 {t('mission')}
               </div>
               <p className="w-auto align-middle font-[Manrope] text-[20px] font-normal leading-[150%] tracking-normal text-[#202222] lg:w-[486px] lg:text-[#FFFFFF]">
