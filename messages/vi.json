@@ -6,17 +6,21 @@
     "career": "Tuyển dụng",
     "blog": "Bài viết",
     "head_office": "Trụ sở chính",
-    "head_office_desc": "Số 2 Tôn Đức Thắng,\n Phường Sài Gòn, HCM City",
+    "head_office_desc": "Công ty Cổ phần AI+DI",
+    "head_office_address": "Số 2 Tôn Đức Thắng,\n Phường Sài Gòn, TP HCM, Việt Nam",
     "business_office": "Văn phòng kinh doanh",
-    "business_office_desc": "Tầng 1 và 4, số 46 Bạch Đằng, \n phường Tân Sơn Hòa, TP HCM",
+    "business_office_desc": "Công ty Cổ phần AI+DI ERP",
+    "business_office_address": "Lầu 1, Tòa nhà KicoTrans,\n Số 44-46 Bạch Đằng 2, Phường Tân Sơn Hòa, TP HCM, Việt Nam",
+    "academy_desc": "Công ty Cổ phần AI+DI ACADEMY",
+    "academy_address": "Số 2 Tôn Đức Thắng,\n Phường Sài Gòn, TP HCM, Việt Nam",
     "HeroSection": {
-      "title": "Reflects.",
+      "title": "Reflects,",
       "sub_title": "Not Replaces.",
       "description": "Định vị Ai+Di là nền tảng AI nhân văn. AI đồng hành cùng con người trong học tập, công việc và cuộc sống của người Việt.",
-      "button": "Tìm hiểu thêm về chúng tôi"
+      "button": "Tìm hiểu thêm"
     },
     "ValuesSection": {
-      "what_we_do": "What We Do",
+      "what_we_do": "Giải pháp của chúng tôi",
       "what_we_do_long_txt": "Ai+Di là nền tảng AI lấy con người làm trung tâm, được phát triển để đồng hành chứ không thay thế con người. Chúng tôi tập trung xây dựng hệ sinh thái AI hỗ trợ làm việc hiệu quả, học tập tích cực và sống cân bằng theo nhịp điệu tự nhiên của con người. Ai+Di đề cao tính nhân văn, sự bền vững và hiệu suất dài hạn, tránh tối ưu cực đoan dẫn đến kiệt sức. Với nền tảng minh bạch và tôn trọng dữ liệu cá nhân, Ai+Di hướng tới chuẩn mực AI phục vụ con người một cách có trách nhiệm.",
       "what_we_do_btn": "Xem giải pháp",
       "insight_rhythm": "Sản phẩm cốt lõi",
@@ -47,7 +51,7 @@
   },
   "AboutPage": {
     "Banner": {
-      "title": "Khởi nguồn từ Việt Nam – hướng đến tương lai có ý thức.",
+      "title": "Khởi nguồn từ Việt Nam,\nhướng đến tương lai có ý thức.",
       "description": "Ai+Di được thành lập vào năm 2025, với một niềm tin giản dị mà sâu sắc: Ai+Di không chỉ tạo ra sản phẩm, mà đang khởi tạo một cuộc dịch chuyển trong nhận thức — nơi AI không thay thế con người, mà giúp con người thấu hiểu bản thân và sống hòa nhịp hơn với quy luật tự nhiên."
     },
     "CoreValues": {

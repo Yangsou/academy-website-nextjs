@@ -26,7 +26,7 @@ export default function BlogMostPopular() {
             </div>
           </div>
 
-          <div className="col-span-12 flex w-full flex-col gap-4">
+          <div className="col-span-8 flex w-full flex-col gap-4">
             {articles.length === 0 ? (
               <p className="text-[#525757]">{t('no_blogs_available')}</p>
             ) : (
@@ -70,6 +70,9 @@ export default function BlogMostPopular() {
                 </Link>
               ))
             )}
+          </div>
+          <div className="col-span-4">
+            <div className="h-full w-full bg-[url(/blog/most-popular-banner.png)] bg-cover bg-center bg-no-repeat" />
           </div>
         </div>
       </div>

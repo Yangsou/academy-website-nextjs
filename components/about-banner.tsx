@@ -14,15 +14,15 @@ export default function AboutBanner() {
     >
       <div className="gap-4 py-12">
         <div className="flex justify-center">
-          <div className="container grid h-full grid-cols-12 gap-4 py-12">
-            <div className="col-span-12 flex flex-col items-start justify-center gap-4 lg:col-span-6">
+          <div className="container grid h-full grid-cols-12 gap-y-4 py-12">
+            <div className="col-span-12 flex flex-col items-start justify-center gap-4 lg:col-span-7">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
               >
-                <div className="font-manrope font-[Manrope] text-[30px] font-semibold leading-[110%] tracking-[0%] text-[#FFFFFF] lg:text-[56px]">
+                <div className="font-manrope whitespace-break-spaces font-[Manrope] text-3xl font-semibold leading-[110%] tracking-[0%] text-[#FFFFFF] lg:text-[56px]">
                   {t('title')}
                 </div>
               </motion.div>
@@ -37,7 +37,7 @@ export default function AboutBanner() {
                 </div>
               </motion.div>
             </div>
-            <div className="col-span-12 flex items-center justify-center lg:col-span-6">
+            <div className="col-span-12 flex items-center justify-center lg:col-span-5">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}

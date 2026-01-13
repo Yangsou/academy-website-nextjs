@@ -149,8 +149,10 @@ export default function OurActivitys() {
 
   return (
     <section className="relative bg-[#DAF3F4] pt-12">
+      <div className="absolute bottom-0 left-0 h-[400px] w-full bg-[url('/blog/related-blog-bg.svg')] bg-contain bg-bottom bg-no-repeat lg:h-[524px] lg:bg-cover xl:h-[632px] 2xl:h-[776px]" />
+
       <MaskImage />
-      <div className="container gap-4 space-y-3 py-12">
+      <div className="container relative z-10 gap-4 space-y-3 py-12">
         <div className="text-center font-[Manrope] text-4xl font-bold leading-[110%] tracking-[0%] text-[#202222] md:text-[56px]">
           {t('our_activities')}
         </div>

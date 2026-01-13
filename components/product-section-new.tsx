@@ -9,9 +9,11 @@ export default function ProductSectionNew() {
   const t = useTranslations('ProductPage')
 
   return (
-    <section className="bg-white">
-      <div className="gap-4 py-12">
-        <div className="flex flex-col items-center justify-center">
+    <section className="relative bg-white">
+      <div className="absolute bottom-0 left-0 h-[400px] w-full bg-[url('/blog/related-blog-bg.svg')] bg-contain bg-bottom bg-no-repeat lg:h-[524px] lg:bg-cover xl:h-[632px] 2xl:h-[776px]" />
+
+      <div className="relative z-10 gap-4 pb-36 pt-12">
+        <div className="flex flex-col items-center justify-center pb-12">
           <div className="container grid h-full grid-cols-12 gap-8">
             <div className="col-span-12 flex flex-col items-start justify-center gap-4 lg:col-span-6">
               <motion.div
@@ -53,15 +55,15 @@ export default function ProductSectionNew() {
                 viewport={{ once: true }}
               >
                 <img
-                  src="product/products-banner.svg"
+                  src="/product/products-banner.svg"
                   alt=""
                   className="h-[363px] object-contain"
                 />
               </motion.div>
             </div>
           </div>
-          <ProductSectionList />
         </div>
+        <ProductSectionList />
       </div>
     </section>
   )

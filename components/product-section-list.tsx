@@ -79,28 +79,19 @@ export default function ProductSectionList() {
             </div>
 
             {/* Body */}
-            <div className="flex flex-1 flex-col justify-between gap-4 bg-white px-8 py-4 shadow-2xl">
-              <div>
-                <div className="font-[Manrope] text-[24px] font-semibold leading-[140%] text-[#000]">
-                  {title}
-                </div>
-                <div className="mb-4 mt-2 font-[Manrope] text-[16px] leading-[150%] text-[#525757]">
-                  {description}
-                </div>
-                <a
-                  className="mt-4 text-[18px] text-[#007AFF] underline"
-                  href={`mailto:${email}`}
-                >
-                  Contact us: {email}
-                </a>
+            <div className="flex flex-1 flex-col justify-between bg-white px-8 py-4 shadow-2xl">
+              <div className="font-[Manrope] text-[24px] font-semibold leading-[140%] text-[#000]">
+                {title}
               </div>
-              {/* <div className="flex items-center justify-between">
-                <Link href="/products">
-                  <Button className="bg-white text-[18px] font-semibold text-[#A0DCDD]">
-                    Learn more →
-                  </Button>
-                </Link>
-              </div> */}
+              <div className="mb-4 mt-2 whitespace-break-spaces font-[Manrope] text-[16px] leading-[150%] text-[#525757]">
+                {description}
+              </div>
+              <a
+                className="mt-4 text-[18px] text-[#007AFF] underline"
+                href={`mailto:${email}`}
+              >
+                Contact us: {email}
+              </a>
             </div>
           </motion.div>
         </div>

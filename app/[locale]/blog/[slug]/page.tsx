@@ -14,7 +14,7 @@ import { ErrorBoundary } from '@/components/error-boundary'
 import Footer from '@/components/footer'
 import Navigation from '@/components/navigation'
 import RelatedBlog from '@/components/related-blog'
-import SubscriberForm from '@/components/subscriber-form'
+// import SubscriberForm from '@/components/subscriber-form'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 // import { getCategoryReadTime } from '@/lib/blog-helpers'
@@ -670,8 +670,14 @@ export default function BlogDetailPage() {
               </Card>
             </motion.div>
           </div>
-          <div className="hidden lg:w-[296px]">
-            <SubscriberForm />
+          <div className="pt-8 lg:w-[296px]">
+            {/* <SubscriberForm /> */}
+            <RelatedBlog
+              layout="vertical"
+              hideMask
+              categoryName={article.category.name}
+              excludeSlug={slug ?? ''}
+            />
           </div>
 
           {/* <Toaster /> */}
@@ -682,6 +688,7 @@ export default function BlogDetailPage() {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <RelatedBlog
+            layout="horizontal"
             categoryName={article.category.name}
             excludeSlug={slug ?? ''}
           />

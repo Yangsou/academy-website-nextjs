@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation'
 // import { getCategoryReadTime } from '@/lib/blog-helpers'
 import { formatDateString } from '@/lib/utils'
 
+import { AspectRatio } from './ui/aspect-ratio'
 import { Skeleton } from './ui/skeleton'
 
 import type { Article } from '@/lib/hooks/use-blog-data'
@@ -38,15 +39,15 @@ export default function ArticleItem({ article }: { article: Article }) {
       className="col-span-12 flex flex-col gap-4 bg-white shadow-sm hover:shadow-md md:col-span-6 lg:col-span-4"
     >
       {/* Image */}
-      <div className="relative h-[285px] w-full">
+      <AspectRatio ratio={16 / 9}>
         <Image
           src={coverUrl ?? '/blog/blog-banner-image.svg'}
-          alt="AI and human connection"
+          alt={title}
           fill
           className="h-full w-full object-cover object-center"
           priority
         />
-      </div>
+      </AspectRatio>
 
       {/* Text */}
       <div className="p-4">

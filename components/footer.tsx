@@ -9,20 +9,26 @@ export default function Footer() {
   const t = useTranslations('HomePage')
 
   const data = [
-    // {
-    //   key: 'contact',
-    //   title: 'Contact',
-    //   content: 'contact@aidi.world',
-    // },
     {
       key: 'head-office',
       title: t('head_office'),
       content: t('head_office_desc'),
+      address: t('head_office_address'),
+      tax: '0318917743',
     },
     {
       key: 'business-office',
       title: t('business_office'),
       content: t('business_office_desc'),
+      address: t('business_office_address'),
+      tax: '0319119673',
+    },
+    {
+      key: 'academy',
+      title: '',
+      content: t('academy_desc'),
+      address: t('academy_address'),
+      tax: '0319129022',
     },
   ]
 
@@ -33,17 +39,25 @@ export default function Footer() {
           {data.map((item) => (
             <div
               key={item.key}
-              className="col-span-12 lg:col-span-4"
+              className="col-span-12 flex flex-col justify-between lg:col-span-3"
             >
-              <div className="align-middle font-[Manrope] text-[20px] font-bold leading-[150%] tracking-[0%] text-[#EEEEEE]">
+              <div className="min-h-[30px] align-middle font-[Manrope] text-[20px] font-bold leading-[150%] tracking-[0%] text-[#EEEEEE]">
                 {item.title}
               </div>
-              <div className="font-manrope mt-3 whitespace-pre-line align-middle font-[Manrope] text-[18px] font-normal leading-[150%] tracking-[0%] text-[#EEEEEE]">
-                {item.content}
+              <div className="flex-1">
+                <div className="font-manrope mt-3 whitespace-pre-line align-middle font-[Manrope] text-[18px] font-semibold leading-[150%] tracking-[0%] text-[#EEEEEE]">
+                  {item.content}
+                </div>
+                <p className="mt-2 whitespace-pre-line font-[Manrope] text-sm font-normal leading-[150%] tracking-[0%] text-[#EEEEEE]">
+                  {item.address}
+                </p>
               </div>
+              <p className="mt-2 font-[Manrope] text-sm font-normal leading-[150%] tracking-[0%] text-[#EEEEEE]">
+                <span className="font-bold">MST:</span> {item.tax}
+              </p>
             </div>
           ))}
-          <div className="align-start col-span-12 flex justify-start gap-4 lg:col-span-4 lg:justify-end">
+          <div className="align-start col-span-12 flex justify-start gap-4 lg:col-span-3 lg:justify-end">
             <Link
               href="https://www.facebook.com/aidijsc"
               target="_blank"
