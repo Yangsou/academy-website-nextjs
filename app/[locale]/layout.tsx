@@ -128,7 +128,7 @@ export default async function RootLayout({
           content="Ai+Di"
         />
         <meta
-          name="apple-mobile-web-app-capable"
+          name="mobile-web-app-capable"
           content="yes"
         />
         <meta

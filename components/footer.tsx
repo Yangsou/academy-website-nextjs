@@ -62,6 +62,7 @@ export default function Footer() {
               href="https://www.facebook.com/aidijsc"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="aidijsc"
             >
               <FacebookIcon />
             </Link>
@@ -69,6 +70,7 @@ export default function Footer() {
               href="https://www.linkedin.com/company/ai-di-world/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="ai-di-world"
             >
               <LinkedInIcon />
             </Link>
@@ -76,6 +78,7 @@ export default function Footer() {
               href="https://www.youtube.com/@AiplusDiJSC"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="AiplusDiJSC"
             >
               <YouTubeIcon />
             </Link>
@@ -83,6 +86,7 @@ export default function Footer() {
               href="https://www.tiktok.com/@aidiworld"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="aidiworld"
             >
               <TikTokIcon />
             </Link>
