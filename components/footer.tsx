@@ -33,7 +33,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="flex justify-center bg-[#0036AF] py-10">
+    <footer className="flex justify-center bg-[#0036AF] py-16">
       <div className="container">
         <div className="grid grid-cols-12 gap-4">
           {data.map((item) => (
@@ -87,7 +87,7 @@ export default function Footer() {
               <TikTokIcon />
             </Link>
           </div>
-          <div className="col-span-12 mt-8 flex w-full flex-col items-center justify-between gap-4 border-b-2 border-[#EEEEEE] pb-4 lg:flex-row">
+          <div className="col-span-12 mt-16 flex w-full flex-col items-center justify-between gap-4 border-b-2 border-[#EEEEEE] pb-4 lg:flex-row">
             <div className="flex items-end justify-start gap-4">
               <img
                 src="/footer/logo-footer.svg"

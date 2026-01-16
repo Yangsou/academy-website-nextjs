@@ -46,10 +46,10 @@ export default function ValuesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="grid h-full grid-cols-12 gap-2 p-4"
+            className="grid h-full grid-cols-12 gap-8 p-4"
           >
             <div
-              className="relative col-span-12 h-[200px] w-full md:col-span-6 md:h-[463px]"
+              className="relative col-span-12 h-full w-full md:col-span-6"
               style={{
                 background: 'linear-gradient(180deg, #0036AF 0%, #001749 100%)',
               }}
@@ -62,10 +62,10 @@ export default function ValuesSection() {
                 priority
               />
             </div>
-            <div className="align-center col-span-12 flex flex-col justify-center gap-4 px-0 md:col-span-6 md:px-4">
-              <motion.div className="pt-3 font-[Manrope] text-3xl font-semibold leading-[110%] tracking-[0%] text-[#0036AF] md:text-[40px] lg:text-[56px]">
+            <div className="align-center col-span-12 flex flex-col justify-center gap-4 px-0 pt-6 md:col-span-6 md:px-4 md:pr-8">
+              <motion.p className="font-[Manrope] text-4xl font-semibold tracking-[0%] text-[#0036AF] md:text-[42px]">
                 {t('what_we_do')}
-              </motion.div>
+              </motion.p>
               <motion.p className="whitespace-break-spaces align-middle font-[Manrope] text-[14px] font-normal leading-[150%] tracking-[0%] text-[#525757] md:text-[20px]">
                 {t('what_we_do_long_txt')}
               </motion.p>
@@ -96,7 +96,7 @@ export default function ValuesSection() {
             viewport={{ once: true }}
             className="mb-8 text-left"
           >
-            <h2 className="font-[Manrope] text-[32px] font-semibold leading-[110%] tracking-[0%] text-[#0036AF] md:text-[42px]">
+            <h2 className="pt-4 font-[Manrope] text-[32px] font-semibold leading-[110%] tracking-[0%] text-[#0036AF] md:text-[42px]">
               {t('insight_rhythm')}
             </h2>
           </motion.div>
