@@ -59,7 +59,7 @@ export default function PdtAcademyHero() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative h-[340px] w-full max-w-[536px]"
+            className="relative h-[390px] w-full max-w-[730px]"
           >
             <Image
               fill

@@ -31,10 +31,10 @@ export default function Navigation() {
 
   const navItems = [
     { name: t('home'), href: '/' },
-    { name: t('about'), href: '/about' },
-    { name: t('solutions'), href: '/products' },
-    ...(process.env.disableCareer === 'true' ? [] : [{ name: t('career'), href: '/career' }]),
-    { name: t('blog'), href: '/blog' },
+    // { name: t('about'), href: '/about' },
+    // { name: t('solutions'), href: '/products' },
+    // ...(process.env.disableCareer === 'true' ? [] : [{ name: t('career'), href: '/career' }]),
+    // { name: t('blog'), href: '/blog' },
   ]
 
   return (
@@ -51,7 +51,7 @@ export default function Navigation() {
         <div className="flex h-[64px] items-center justify-between">
           <Link
             href="/"
-            className="group mr-2 flex items-center space-x-2"
+            className="group flex items-center space-x-2"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             <motion.div className="flex items-center space-x-2">

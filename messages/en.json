@@ -85,5 +85,30 @@
     "back_to_blog": "Back to blog",
     "related_topic": "Related Topic",
     "blog_not_exist": "The article you are looking for does not exist."
+  },
+  "AcademyPage": {
+    "Hero": {
+      "title": "AI đồng hành phát triển",
+      "highlight": "giáo dục toàn diện",
+      "description": "Nền tảng AI Agents khai phá tiềm năng giáo dục giúp mọi người phát triển toàn diện và bắt nhịp thời đại"
+    },
+    "contact_us": "Liên hệ chúng tôi",
+    "ContactForm": {
+      "firstname": "Tên",
+      "firstname_placeholder": "Nhập tên của bạn",
+      "lastname": "Họ",
+      "lastname_placeholder": "Nhập họ của bạn",
+      "email": "Địa chỉ email",
+      "email_placeholder": "Nhập email của bạn",
+      "phone_number": "Số điện thoại",
+      "phone_number_placeholder": "Nhập số điện thoại của bạn",
+      "country": "Quốc gia bạn muốn du học",
+      "country_placeholder": "Nhập quốc gia",
+      "expected_time": "Khi nào bạn dự định học",
+      "expected_time_placeholder": "Nhập thời gian",
+      "register": "Đăng ký",
+      "error": "Xin lỗi, đã có lỗi trong quá trình đăng ký, vui lòng gửi lại!",
+      "message_success": "Cảm ơn sự quan tâm của bạn, chúng tôi sẽ liên hệ với bạn qua email hoặc số điện thoại!"
+    }
   }
 }
