@@ -15,7 +15,15 @@ function Item({ text, className }: { text: string; className?: string }) {
     </div>
   )
 }
-function BlockItems({ title, items }: { title: string; items: string[] }) {
+function BlockItems({
+  title,
+  items,
+  itemClassName,
+}: {
+  title: string
+  items: string[]
+  itemClassName?: string
+}) {
   return (
     <>
       <p className="text-xl font-medium text-[#202222]">{title}</p>
@@ -25,7 +33,10 @@ function BlockItems({ title, items }: { title: string; items: string[] }) {
             className="text-[32px] text-[#202222]"
             key={index}
           >
-            <Item text={item} />
+            <Item
+              text={item}
+              className={itemClassName ?? ''}
+            />
           </div>
         ))}
       </div>
@@ -113,7 +124,7 @@ học sinh thi thử và nhận phản hồi tức thời từ AI (hỏi, đáp,
         </div>
       </div>
 
-      <div className="mt-10 gap-6 space-y-6 lg:flex">
+      <div className="mt-12 gap-12 space-y-6 lg:flex lg:space-y-0">
         <div className="relative h-[186px] w-[340px] rounded-[20px]">
           <Image
             src="/product/pdt-aca-ai-icon-03.jpg"
@@ -138,6 +149,7 @@ học sinh thi thử và nhận phản hồi tức thời từ AI (hỏi, đáp,
           <BlockItems
             items={dataSection3.items}
             title={dataSection3.title}
+            itemClassName="text-[#202222] font-medium"
           />
         </div>
       </div>

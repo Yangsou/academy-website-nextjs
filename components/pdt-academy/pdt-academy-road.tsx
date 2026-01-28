@@ -42,7 +42,7 @@ export default function PdtAcademyRoad() {
           <motion.p className="text-3xl font-semibold text-white lg:text-[42px]">
             Tư vấn hướng nghiệp và du học thông minh
           </motion.p>
-          <p className="mt-2 text-2xl font-semibold text-white lg:text-[32px] lg:leading-normal">
+          <p className="mt-4 text-2xl font-semibold text-white lg:text-[32px] lg:leading-normal">
             Hệ thống AI Career & Scholarship Matching
           </p>
 
