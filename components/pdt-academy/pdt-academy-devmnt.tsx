@@ -154,7 +154,7 @@ học sinh thi thử và nhận phản hồi tức thời từ AI (hỏi, đáp,
         </div>
       </div>
 
-      <div className="mt-10 gap-6 lg:flex">
+      <div className="mt-10 justify-between gap-6 lg:flex">
         <div className="lg:w-2/5">
           <p className="text-[32px] text-[#202222]">{dataSection4.title}</p>
 
@@ -165,7 +165,7 @@ học sinh thi thử và nhận phản hồi tức thời từ AI (hỏi, đáp,
                   text={title}
                   className="text-xl font-medium text-[#202222]"
                 />
-                <p className="mt-1 text-base font-normal text-[#525757] lg:max-w-[446px]">{sub}</p>
+                <p className="mt-1 text-base font-normal text-[#525757] lg:max-w-[464px]">{sub}</p>
               </div>
             ))}
           </div>
@@ -175,6 +175,7 @@ học sinh thi thử và nhận phản hồi tức thời từ AI (hỏi, đáp,
             src="/product/pdt-aca-ai-image-03.png"
             objectFit="cover"
             objectPosition="center"
+            className="rounded-[20px]"
             fill
             alt=""
           />

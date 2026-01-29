@@ -25,7 +25,7 @@ export default function PdtAcademyRoad() {
   ]
   return (
     <div>
-      <div className="relative py-14">
+      <div className="relative py-20">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-[#6DC9CB]" />
           <Image
@@ -50,18 +50,18 @@ export default function PdtAcademyRoad() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="border-1 mt-8 flex w-full max-w-[1062px] flex-col overflow-hidden rounded-[20px] border-solid border-[#fff] lg:h-[356px] lg:flex-row"
+            className="border-1 mt-12 flex w-full max-w-[1062px] flex-col overflow-hidden rounded-[20px] border-solid border-[#fff] lg:h-[356px] lg:flex-row"
           >
-            <div className="relative h-[356px] w-full lg:flex-1">
+            <div className="relative h-[356px] w-full bg-[#D4ECFF] lg:flex-1">
               <Image
                 src="/product/pdt-aca-image-04.png"
                 objectFit="cover"
-                objectPosition="left"
+                className="object-[0_32px]"
                 fill
                 alt=""
               />
             </div>
-            <div className="w-full bg-white px-5 py-8 lg:w-[368px]">
+            <div className="w-full bg-white px-8 py-8 lg:w-[368px]">
               <CheckCicle
                 width={44}
                 height={44}
@@ -88,7 +88,7 @@ export default function PdtAcademyRoad() {
                   alt=""
                 />
               </div>
-              <div className="w-full bg-white px-4 py-8 lg:w-[368px]">
+              <div className="w-full bg-white px-8 py-8 lg:w-[368px]">
                 <CheckCicle
                   width={44}
                   height={44}
@@ -100,40 +100,39 @@ export default function PdtAcademyRoad() {
             </div>
           </motion.div>
         </div>
-      </div>
+        <div className="container relative mt-16 rounded-[20px] bg-white py-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <p className="text-2xl font-medium text-[#202222] lg:text-[32px]">
+              Đồng hành trọn vẹn hành trình của học sinh
+            </p>
+          </motion.div>
 
-      <div className="container mt-14 rounded-[20px] bg-[#6DC9CB] py-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <p className="text-2xl font-medium lg:text-[32px]">
-            Đồng hành trọn vẹn hành trình của học sinh
-          </p>
-        </motion.div>
-
-        <div className="mt-10 grid grid-cols-1 gap-y-10 lg:grid-cols-4">
-          {roadData.map(({ desc, title }, index) => (
-            <div
-              key={index}
-              className="relative before:absolute before:left-0 before:top-4 before:hidden before:h-[2px] before:w-full before:bg-white last:before:hidden lg:before:block"
-            >
-              <span className="relative rounded-[20px] bg-[#0036AF] px-5 py-2 text-lg font-medium">
-                Bước {index + 1}
-              </span>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 * index }}
-                // viewport={{ once: true }}
-                className="mt-6 w-5/6 rounded-[20px] bg-white px-5 py-3"
+          <div className="mt-10 grid grid-cols-1 gap-y-10 lg:grid-cols-4">
+            {roadData.map(({ desc, title }, index) => (
+              <div
+                key={index}
+                className="relative before:absolute before:left-0 before:top-4 before:hidden before:h-[2px] before:w-full before:bg-[#DAF3F4] last:before:hidden lg:before:block"
               >
-                <p className="text-lg font-bold text-[#202222]">{title}</p>
-                <p className="text-base font-normal text-[#525757]">{desc}</p>
-              </motion.div>
-            </div>
-          ))}
+                <span className="relative rounded-[20px] bg-[#0036AF] px-5 py-2 text-lg font-medium">
+                  Bước {index + 1}
+                </span>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 * index }}
+                  // viewport={{ once: true }}
+                  className="mt-6 w-5/6 rounded-[20px] bg-[#DAF3F4] px-5 py-3"
+                >
+                  <p className="text-lg font-bold text-[#202222]">{title}</p>
+                  <p className="text-base font-normal text-[#525757]">{desc}</p>
+                </motion.div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

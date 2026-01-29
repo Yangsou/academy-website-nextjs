@@ -91,7 +91,7 @@ export default function Footer() {
               <TikTokIcon />
             </Link>
           </div>
-          <div className="col-span-12 mt-16 flex w-full flex-col items-center justify-between gap-4 border-b-2 border-[#EEEEEE] pb-4 lg:flex-row">
+          <div className="col-span-12 mt-16 flex w-full flex-col items-center justify-between gap-4 border-b-[1px] border-[#EEEEEE] pb-4 lg:flex-row">
             <div className="flex items-end justify-start gap-4">
               <img
                 src="/footer/logo-footer.svg"
@@ -102,7 +102,7 @@ export default function Footer() {
                 Reflect, Not Replace
               </div>
             </div>
-            <div className="flex hidden gap-4">
+            <div className="hidden gap-4">
               <Link href="/">
                 <div className="align-middle font-[Manrope] text-[16px] font-bold uppercase leading-[150%] tracking-[0%] text-[#EEEEEE]">
                   {t('home')}

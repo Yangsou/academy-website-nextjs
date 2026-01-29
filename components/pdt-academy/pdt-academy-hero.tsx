@@ -41,7 +41,7 @@ export default function PdtAcademyHero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="mt-2 lg:mt-7"
           >
-            <span className="bg-[#A0DCDD] text-3xl font-semibold text-white lg:text-[42px]">
+            <span className="bg-[#6DC9CB] text-3xl font-semibold text-white lg:text-[42px]">
               {t('highlight')}
             </span>
           </motion.p>

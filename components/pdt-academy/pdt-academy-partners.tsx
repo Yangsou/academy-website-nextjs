@@ -61,7 +61,7 @@ export default function PdtAcademyPartners() {
           <Button
             size="lg"
             asChild
-            className="font-spaceGrotesk group h-[64px] rounded-none border-0 bg-[#6DC9CB] px-[30px] align-middle font-[Manrope] text-[18px] font-semibold leading-[150%] tracking-[0%] text-white transition-all duration-300 hover:bg-[#A0DCDD] hover:shadow-cyan-500/25 [&_svg]:size-6"
+            className="font-spaceGrotesk group h-[64px] rounded-[20px] border-0 bg-[#6DC9CB] px-[30px] align-middle font-[Manrope] text-[18px] font-semibold leading-[150%] tracking-[0%] text-white transition-all duration-300 hover:bg-[#A0DCDD] hover:shadow-cyan-500/25 [&_svg]:size-6"
           >
             <Link href="/contact">
               {t('contact_us')}
