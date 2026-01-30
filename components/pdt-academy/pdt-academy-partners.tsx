@@ -34,7 +34,7 @@ function Items() {
 }
 function BgWithMask() {
   return (
-    <div className="absolute left-0 top-0 h-full w-full">
+    <div className="absolute left-0 top-0 z-20 h-full w-full">
       <div className="relative h-full w-full">
         <svg
           className="absolute bottom-0 left-0"
@@ -115,7 +115,7 @@ export default function PdtAcademyPartners() {
           src="/product/pdt-aca-footer-bg.png"
           alt="AI and human connection"
           fill
-          className="z-10 object-cover object-center opacity-20"
+          className="z-10 object-cover object-center opacity-60"
           priority
         />
         <BgWithMask />
