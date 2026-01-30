@@ -64,35 +64,35 @@ export default function PdtAcademyHero() {
           </motion.div>
         </div>
 
-        <div className="absolute -left-10 top-16 hidden h-[86px] w-[86px] lg:block">
+        <div className="absolute top-16 hidden h-[86px] w-[86px] lg:left-0 lg:block 2xl:-left-10">
           <Image
             src="/product/pdt-aca-hero-icon-01.png"
             fill
             alt=""
           />
         </div>
-        <div className="absolute bottom-16 left-0 hidden h-[86px] w-[86px] lg:block">
+        <div className="absolute bottom-16 left-0 hidden h-[124px] w-[124px] lg:block">
           <Image
             src="/product/pdt-aca-hero-icon-02.png"
             fill
             alt=""
           />
         </div>
-        <div className="absolute bottom-32 left-[calc(50%_-_86px)] hidden h-[86px] w-[86px] lg:block">
+        <div className="absolute bottom-56 left-[calc(50%_-_170px)] hidden h-[86px] w-[86px] lg:block">
           <Image
             src="/product/pdt-aca-hero-icon-03.png"
             fill
             alt=""
           />
         </div>
-        <div className="absolute right-[calc(30%_-_86px)] top-32 hidden h-[86px] w-[86px] lg:block">
+        <div className="absolute hidden h-[86px] w-[86px] lg:block xl:right-52 xl:top-14 2xl:right-44 2xl:top-28">
           <Image
             src="/product/pdt-aca-hero-icon-04.png"
             fill
             alt=""
           />
         </div>
-        <div className="absolute right-0 top-1/2 hidden h-[86px] w-[86px] lg:block">
+        <div className="absolute -right-[40px] hidden h-[86px] w-[86px] lg:right-0 lg:block xl:top-52 2xl:top-1/2">
           <Image
             src="/product/pdt-aca-hero-icon-05.png"
             fill

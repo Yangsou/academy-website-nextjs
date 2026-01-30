@@ -89,7 +89,7 @@ export default function PdtAcademyRoad() {
             </div>
           </div>
         </div>
-        <div className="container relative mt-16 rounded-[20px] bg-white py-10">
+        <div className="container relative mt-16 rounded-[20px] bg-white py-10 lg:px-28">
           <div>
             <p className="text-2xl font-medium text-[#202222] lg:text-[32px]">
               Đồng hành trọn vẹn hành trình của học sinh

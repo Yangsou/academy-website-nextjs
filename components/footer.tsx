@@ -109,7 +109,7 @@ export default function Footer() {
                 Reflect, Not Replace
               </div>
             </div>
-            <div className="hidden gap-4">
+            <div className="flex gap-4">
               <Link href="/">
                 <div className="align-middle font-[Manrope] text-[16px] font-bold uppercase leading-[150%] tracking-[0%] text-[#EEEEEE]">
                   {t('home')}
@@ -120,18 +120,6 @@ export default function Footer() {
                   {t('about')}
                 </div>
               </Link>
-              <Link href="/products">
-                <div className="align-middle font-[Manrope] text-[16px] font-bold uppercase leading-[150%] tracking-[0%] text-[#EEEEEE]">
-                  {t('solutions')}
-                </div>
-              </Link>
-              {process.env.disableCareer !== 'true' && (
-                <Link href="/career">
-                  <div className="align-middle font-[Manrope] text-[16px] font-bold uppercase leading-[150%] tracking-[0%] text-[#EEEEEE]">
-                    {t('career')}
-                  </div>
-                </Link>
-              )}
               <Link href="/blog">
                 <div className="align-middle font-[Manrope] text-[16px] font-bold uppercase leading-[150%] tracking-[0%] text-[#EEEEEE]">
                   {t('blog')}

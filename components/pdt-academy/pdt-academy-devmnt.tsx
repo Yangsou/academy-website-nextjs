@@ -168,12 +168,12 @@ học sinh thi thử và nhận phản hồi tức thời từ AI (hỏi, đáp,
                   text={title}
                   className="text-xl font-medium text-[#202222]"
                 />
-                <p className="mt-1 text-base font-normal text-[#525757] lg:max-w-[464px]">{sub}</p>
+                <p className="mt-1 text-base font-normal text-[#525757]">{sub}</p>
               </div>
             ))}
           </div>
         </div>
-        <div className="relative mt-6 h-[192px] max-w-[732px] md:h-[376px] lg:mt-0 lg:h-[386px] lg:w-3/5">
+        <div className="relative mt-6 h-[192px] max-w-[762px] md:h-[376px] lg:mt-0 lg:h-[386px] lg:w-3/5">
           <Image
             src="/product/pdt-aca-ai-image-03.png"
             objectFit="cover"
