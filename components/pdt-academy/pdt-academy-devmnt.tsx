@@ -129,7 +129,7 @@ học sinh thi thử và nhận phản hồi tức thời từ AI (hỏi, đáp,
       <div className="mt-12 gap-6 space-y-6 lg:flex lg:space-y-0">
         <div className="relative h-[186px] w-[340px] rounded-[20px]">
           <Image
-            src="/product/pdt-aca-ai-icon-03.jpg"
+            src="/product/pdt-aca-ai-icon-03.png"
             fill
             alt=""
             objectFit="cover"
@@ -139,7 +139,7 @@ học sinh thi thử và nhận phản hồi tức thời từ AI (hỏi, đáp,
         </div>
         <div className="relative h-[186px] w-[340px] rounded-[20px]">
           <Image
-            src="/product/pdt-aca-ai-icon-04.jpg"
+            src="/product/pdt-aca-ai-icon-04.png"
             objectFit="cover"
             objectPosition="top"
             className="rounded-[20px]"
