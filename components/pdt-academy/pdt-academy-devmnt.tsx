@@ -19,14 +19,16 @@ function BlockItems({
   title,
   items,
   itemClassName,
+  titleClassName,
 }: {
   title: string
   items: string[]
   itemClassName?: string
+  titleClassName?: string
 }) {
   return (
     <>
-      <p className="text-xl font-medium text-[#202222]">{title}</p>
+      <p className={cn('text-xl font-medium text-[#202222]', titleClassName)}>{title}</p>
       <div className="mt-3 space-y-2">
         {items.map((item, index) => (
           <div
@@ -124,7 +126,7 @@ học sinh thi thử và nhận phản hồi tức thời từ AI (hỏi, đáp,
         </div>
       </div>
 
-      <div className="mt-12 gap-12 space-y-6 lg:flex lg:space-y-0">
+      <div className="mt-12 gap-6 space-y-6 lg:flex lg:space-y-0">
         <div className="relative h-[186px] w-[340px] rounded-[20px]">
           <Image
             src="/product/pdt-aca-ai-icon-03.jpg"
@@ -149,7 +151,8 @@ học sinh thi thử và nhận phản hồi tức thời từ AI (hỏi, đáp,
           <BlockItems
             items={dataSection3.items}
             title={dataSection3.title}
-            itemClassName="text-[#202222] font-medium"
+            titleClassName="text-[32px] font-normal"
+            itemClassName="text-[#202222] text-[20px] font-medium"
           />
         </div>
       </div>

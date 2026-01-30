@@ -1,5 +1,4 @@
 'use client'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 import CheckCicle from '../icons/check-circle'
@@ -39,19 +38,14 @@ export default function PdtAcademyRoad() {
         </div>
 
         <div className="container relative z-10">
-          <motion.p className="text-3xl font-semibold text-white lg:text-[42px]">
+          <p className="text-3xl font-semibold text-white lg:text-[42px]">
             Tư vấn hướng nghiệp và du học thông minh
-          </motion.p>
+          </p>
           <p className="mt-4 text-2xl font-semibold text-white lg:text-[32px] lg:leading-normal">
             Hệ thống AI Career & Scholarship Matching
           </p>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="border-1 mt-12 flex w-full max-w-[1062px] flex-col overflow-hidden rounded-[20px] border-solid border-[#fff] lg:h-[356px] lg:flex-row"
-          >
+          <div className="mt-12 flex w-full max-w-[1062px] flex-col overflow-hidden rounded-[20px] border-[5px] border-solid border-white border-opacity-30 lg:h-[356px] lg:flex-row">
             <div className="relative h-[356px] w-full bg-[#D4ECFF] lg:flex-1">
               <Image
                 src="/product/pdt-aca-image-04.png"
@@ -70,15 +64,10 @@ export default function PdtAcademyRoad() {
                 Học sinh được định hướng sớm, tự tin chọn ngành nghề
               </p>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 1.6 }}
-            className="flex justify-end"
-          >
-            <div className="border-1 mt-10 flex w-[1062px] flex-col overflow-hidden rounded-[20px] border-solid border-[#fff] lg:h-[356px] lg:flex-row-reverse">
+          <div className="flex justify-end">
+            <div className="mt-10 flex w-[1062px] flex-col overflow-hidden rounded-[20px] border-[5px] border-solid border-[#fff] border-opacity-30 lg:h-[356px] lg:flex-row-reverse">
               <div className="relative h-[356px] w-full lg:flex-1">
                 <Image
                   src="/product/pdt-aca-image-05.png"
@@ -98,18 +87,14 @@ export default function PdtAcademyRoad() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
         <div className="container relative mt-16 rounded-[20px] bg-white py-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div>
             <p className="text-2xl font-medium text-[#202222] lg:text-[32px]">
               Đồng hành trọn vẹn hành trình của học sinh
             </p>
-          </motion.div>
+          </div>
 
           <div className="mt-10 grid grid-cols-1 gap-y-10 lg:grid-cols-4">
             {roadData.map(({ desc, title }, index) => (
@@ -120,16 +105,10 @@ export default function PdtAcademyRoad() {
                 <span className="relative rounded-[20px] bg-[#0036AF] px-5 py-2 text-lg font-medium">
                   Bước {index + 1}
                 </span>
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6 * index }}
-                  // viewport={{ once: true }}
-                  className="mt-6 w-5/6 rounded-[20px] bg-[#DAF3F4] px-5 py-3"
-                >
+                <div className="mt-6 w-5/6 rounded-[20px] bg-[#DAF3F4] px-5 py-3">
                   <p className="text-lg font-bold text-[#202222]">{title}</p>
                   <p className="text-base font-normal text-[#525757]">{desc}</p>
-                </motion.div>
+                </div>
               </div>
             ))}
           </div>

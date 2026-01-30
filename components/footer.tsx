@@ -36,20 +36,20 @@ export default function Footer() {
   return (
     <footer className="flex justify-center bg-[#0036AF] py-16">
       <div className="container">
-        <div className="grid grid-cols-12 gap-4">
+        <div className="grid grid-cols-12 gap-7">
           {data.map((item) => (
             <div
               key={item.key}
               className="col-span-12 flex flex-col justify-between lg:col-span-3"
             >
-              <div className="min-h-[36px] align-middle font-[Manrope] text-2xl font-bold leading-[150%] tracking-[0%] text-[#EEEEEE]">
+              <div className="min-h-[36px] align-middle font-[Manrope] text-2xl font-bold leading-[150%] tracking-[0] text-[#EEEEEE]">
                 {item.title}
               </div>
               <div className="flex-1">
-                <div className="font-manrope mt-3 whitespace-pre-line align-middle font-[Manrope] text-lg font-bold leading-[150%] tracking-[0%] text-[#EEEEEE]">
+                <div className="font-manrope mt-3 whitespace-pre-line align-middle font-[Manrope] text-lg font-bold leading-[150%] tracking-[0] text-[#EEEEEE]">
                   {item.content}
                 </div>
-                <p className="mt-2 whitespace-pre-line font-[Manrope] text-base font-normal leading-[150%] tracking-[0%] text-[#EEEEEE]">
+                <p className="mt-2 whitespace-pre-line font-[Manrope] text-base font-normal leading-[150%] tracking-[0] text-[#EEEEEE]">
                   {item.address}
                 </p>
               </div>
