@@ -1,5 +1,4 @@
 'use client'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useId } from 'react'
@@ -36,28 +35,21 @@ export default function PdtAcademyStatistic() {
   return (
     <>
       <div className="container pb-20 pt-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+        <div>
           <p className="mb-10 text-center text-2xl font-normal text-[#202222] lg:text-[32px]">
             {data.title}
           </p>
-        </motion.div>
+        </div>
 
         <div className="relative grid grid-cols-1 gap-y-4 rounded-[20px] border-[1px] border-solid border-border py-9 pl-6 lg:grid-cols-4 lg:pl-16">
-          {data.stats.map(({ key, label, value }, index) => (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 * index }}
+          {data.stats.map(({ key, label, value }) => (
+            <div
               key={key}
               className="relative pl-6 before:absolute before:left-0 before:top-0 before:block before:h-full before:w-1 before:bg-[#6DC9CB]"
             >
               <p className="text-4xl text-[#0036AF]">{value}</p>
               <p className="text-sm text-[#525757]">{label}</p>
-            </motion.div>
+            </div>
           ))}
 
           <div className="absolute bottom-0 right-4">

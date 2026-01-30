@@ -1,5 +1,4 @@
 'use client'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
@@ -20,40 +19,19 @@ export default function PdtAcademyHero() {
 
       <div className="container relative z-10 h-full grid-cols-2 lg:grid">
         <div className="flex-col pt-12 lg:pl-10 lg:pt-48 xl:pl-20">
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-3xl font-semibold text-white lg:text-[42px]"
-          >
-            {t('title')}
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-2 lg:mt-7"
-          >
+          <p className="text-3xl font-semibold text-white lg:text-[42px]">{t('title')}</p>
+          <p className="mt-2 lg:mt-7">
             <span className="bg-[#6DC9CB] text-3xl font-semibold text-white lg:text-[42px]">
               {t('highlight')}
             </span>
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
+          </p>
+          <div>
             <p className="mt-4 max-w-[460px] text-lg font-normal">{t('description')}</p>
-          </motion.div>
+          </div>
         </div>
 
         <div className="flex items-end justify-end">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative h-[300px] w-full max-w-[730px] lg:h-[390px]"
-          >
+          <div className="relative h-[300px] w-full max-w-[730px] lg:h-[390px]">
             <Image
               fill
               alt="academy"
@@ -61,7 +39,7 @@ export default function PdtAcademyHero() {
               objectFit="contain"
               objectPosition="bottom"
             />
-          </motion.div>
+          </div>
         </div>
 
         <div className="absolute top-16 hidden h-[86px] w-[86px] lg:left-0 lg:block 2xl:-left-10">
