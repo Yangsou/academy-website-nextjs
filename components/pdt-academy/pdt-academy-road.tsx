@@ -96,16 +96,16 @@ export default function PdtAcademyRoad() {
             </p>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-y-10 lg:grid-cols-4">
+          <div className="mt-10 block gap-10 space-y-10 lg:flex lg:space-y-0">
             {roadData.map(({ desc, title }, index) => (
               <div
                 key={index}
-                className="relative before:absolute before:left-0 before:top-4 before:hidden before:h-[2px] before:w-full before:bg-[#DAF3F4] last:before:hidden lg:before:block"
+                className="relative before:absolute before:left-0 before:top-4 before:hidden before:h-[2px] before:w-[calc(100%_+_40px)] before:bg-[#DAF3F4] last:before:hidden lg:before:block"
               >
                 <span className="relative rounded-[20px] bg-[#0036AF] px-5 py-2 text-lg font-medium">
                   Bước {index + 1}
                 </span>
-                <div className="mt-6 w-[calc(100%_-_40px)] rounded-[20px] bg-[#DAF3F4] py-3 pl-6 pr-5">
+                <div className="mt-6 w-full rounded-[20px] bg-[#DAF3F4] py-3 pl-6 pr-5">
                   <p className="text-lg font-bold text-[#202222]">{title}</p>
                   <p className="text-base font-normal text-[#525757]">{desc}</p>
                 </div>
