@@ -89,7 +89,7 @@ export default function PdtAcademyRoad() {
             </div>
           </div>
         </div>
-        <div className="container relative mt-16 rounded-[20px] bg-white py-10 lg:px-28">
+        <div className="container relative mt-16 rounded-[20px] bg-white py-10 lg:px-[76px]">
           <div>
             <p className="text-2xl font-medium text-[#202222] lg:text-[32px]">
               Đồng hành trọn vẹn hành trình của học sinh
@@ -105,7 +105,7 @@ export default function PdtAcademyRoad() {
                 <span className="relative rounded-[20px] bg-[#0036AF] px-5 py-2 text-lg font-medium">
                   Bước {index + 1}
                 </span>
-                <div className="mt-6 w-5/6 rounded-[20px] bg-[#DAF3F4] px-5 py-3">
+                <div className="mt-6 w-[calc(100%_-_40px)] rounded-[20px] bg-[#DAF3F4] py-3 pl-6 pr-5">
                   <p className="text-lg font-bold text-[#202222]">{title}</p>
                   <p className="text-base font-normal text-[#525757]">{desc}</p>
                 </div>

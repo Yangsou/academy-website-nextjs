@@ -41,7 +41,7 @@ export default function PdtAcademyStatistic() {
           </p>
         </div>
 
-        <div className="relative grid grid-cols-1 gap-y-4 rounded-[20px] border-[1px] border-solid border-border py-9 pl-6 lg:grid-cols-4 lg:pl-16">
+        <div className="relative grid grid-cols-1 gap-y-4 rounded-[20px] border-[1px] border-solid border-border py-9 pl-6 lg:grid-cols-4 lg:pl-16 xl:pl-[76px]">
           {data.stats.map(({ key, label, value }) => (
             <div
               key={key}
@@ -67,7 +67,7 @@ export default function PdtAcademyStatistic() {
 
       <div className="bg-[#EEF4FF] py-14">
         <div className="container">
-          <div className="gap-12 lg:flex">
+          <div className="gap-16 lg:flex">
             <div className="w-full max-w-[516px]">
               <AspectRatio ratio={2 / 1}>
                 <Image
