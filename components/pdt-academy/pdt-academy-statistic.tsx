@@ -73,7 +73,7 @@ export default function PdtAcademyStatistic() {
                 <Image
                   src="/product/pdt-aca-ai-image-01.png"
                   fill
-                  className="object-cover"
+                  className="rounded-[20px] object-cover"
                   alt=""
                 />
               </AspectRatio>
