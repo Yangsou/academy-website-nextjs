@@ -78,7 +78,7 @@ export default function PdtAcademyStatistic() {
                 />
               </AspectRatio>
             </div>
-            <div className="max-w-[640px] space-y-4 pt-4">
+            <div className="max-w-[640px] flex-col justify-center space-y-4 pt-4 xl:flex xl:pt-0">
               <p className="text-2xl text-[#202222] lg:text-[32px]">
                 Công nghệ phụng sự giáo dục vì con người
               </p>
