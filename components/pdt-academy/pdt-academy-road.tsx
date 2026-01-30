@@ -7,19 +7,19 @@ export default function PdtAcademyRoad() {
   const roadData = [
     {
       title: `Khai vấn tiềm năng`,
-      desc: `Được định hướng ngành nghề, lộ trình học bổng và tài chính du học`,
+      desc: `Được định hướng ngành nghề, lộ trình học bổng và tài chính du học.`,
     },
     {
       title: `Tối ưu tố chất`,
-      desc: `Làm giàu năng lực học sinh bằng các khoá học, chứng chỉ quốc tế`,
+      desc: `Làm giàu năng lực học sinh bằng các khoá học, chứng chỉ quốc tế.`,
     },
     {
       title: `Đồng hành thành công`,
-      desc: `Cá nhân hoá hồ sơ học tập, giúp học sinh chinh phục học bổng`,
+      desc: `Cá nhân hoá hồ sơ học tập, giúp học sinh chinh phục học bổng.`,
     },
     {
       title: `Trang bị vững vàng`,
-      desc: `Đào tạo kỹ năng du học thiết yếu và tinh thần công dân toàn cầu`,
+      desc: `Đào tạo kỹ năng du học thiết yếu và tinh thần công dân toàn cầu.`,
     },
   ]
   return (

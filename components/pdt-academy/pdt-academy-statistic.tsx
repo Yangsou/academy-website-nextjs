@@ -73,6 +73,7 @@ export default function PdtAcademyStatistic() {
                 <Image
                   src="/product/pdt-aca-ai-image-01.png"
                   fill
+                  className="object-cover"
                   alt=""
                 />
               </AspectRatio>
@@ -87,7 +88,7 @@ export default function PdtAcademyStatistic() {
                 </div>
                 <p className="text-base text-[#525757]">
                   AI là một công cụ mạnh mẽ không nhằm thay thế con người, mà là trợ lực để giải
-                  phóng tiềm năng sáng tạo của giảng viên và học viên
+                  phóng tiềm năng sáng tạo của giảng viên và học viên.
                 </p>
               </div>
               <div className="relative pl-10">
@@ -96,7 +97,7 @@ export default function PdtAcademyStatistic() {
                 </div>
                 <p className="text-[#525757]">
                   AI nâng tầm giá trị nhân văn, giúp con người phát triển toàn diện và giữ vững thấu
-                  cảm cùng tư duy phản biện trong học tập
+                  cảm cùng tư duy phản biện trong học tập.
                 </p>
               </div>
             </div>
