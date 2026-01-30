@@ -7,26 +7,19 @@ export default function PdtAcademyHero() {
   const t = useTranslations('AcademyPage.Hero')
 
   return (
-    <div className="relative w-full lg:h-[420px]">
+    <div className="relative w-full lg:h-[560px] 2xl:h-[740px]">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/home/bg-hero-section.png"
+          src="/product/bg-hero-section.png"
           alt="AI and human connection"
           fill
-          className="z-10 object-cover object-center opacity-20"
+          className="z-10 object-cover object-center"
           priority
-        />
-        {/* Dark overlay for better text readability */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(180deg, #0036AF 0%, #001749 100%)',
-          }}
         />
       </div>
 
       <div className="container relative z-10 h-full grid-cols-2 lg:grid">
-        <div className="flex-col justify-center pt-24 lg:flex lg:pt-0">
+        <div className="flex-col justify-center pt-24 lg:flex lg:pl-10 lg:pt-0 xl:pl-20">
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -64,11 +57,47 @@ export default function PdtAcademyHero() {
             <Image
               fill
               alt="academy"
-              src="/product/pdt-aca-banner-hero.png"
+              src="/product/hero-section.png"
               objectFit="contain"
               objectPosition="bottom"
             />
           </motion.div>
+        </div>
+
+        <div className="absolute -left-10 top-16 h-[86px] w-[86px]">
+          <Image
+            src="/product/pdt-aca-hero-icon-01.png"
+            fill
+            alt=""
+          />
+        </div>
+        <div className="absolute bottom-16 left-0 h-[86px] w-[86px]">
+          <Image
+            src="/product/pdt-aca-hero-icon-02.png"
+            fill
+            alt=""
+          />
+        </div>
+        <div className="absolute bottom-32 left-[calc(50%_-_86px)] h-[86px] w-[86px]">
+          <Image
+            src="/product/pdt-aca-hero-icon-03.png"
+            fill
+            alt=""
+          />
+        </div>
+        <div className="absolute right-[calc(30%_-_86px)] top-32 h-[86px] w-[86px]">
+          <Image
+            src="/product/pdt-aca-hero-icon-04.png"
+            fill
+            alt=""
+          />
+        </div>
+        <div className="absolute right-0 top-1/2 h-[86px] w-[86px]">
+          <Image
+            src="/product/pdt-aca-hero-icon-05.png"
+            fill
+            alt=""
+          />
         </div>
       </div>
     </div>
