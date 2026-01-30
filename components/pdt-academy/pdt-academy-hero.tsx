@@ -70,7 +70,7 @@ export default function PdtAcademyHero() {
             alt=""
           />
         </div>
-        <div className="absolute -right-[40px] hidden h-[86px] w-[86px] lg:right-0 lg:block xl:top-52 2xl:top-1/2">
+        <div className="absolute -right-[40px] hidden h-[86px] w-[86px] lg:block xl:top-36 2xl:top-80">
           <Image
             src="/product/pdt-aca-hero-icon-05.png"
             fill
