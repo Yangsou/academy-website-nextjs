@@ -1,4 +1,5 @@
 'use client'
+import { Mail } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Link } from '@/i18n/navigation'
@@ -57,39 +58,45 @@ export default function Footer() {
               </p>
             </div>
           ))}
-          <div className="align-start col-span-12 flex justify-start gap-8 lg:col-span-3 lg:justify-end">
-            <Link
-              href="https://www.facebook.com/aidijsc"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="aidijsc"
-            >
-              <FacebookIcon />
-            </Link>
-            <Link
-              href="https://www.linkedin.com/company/ai-di-world/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="ai-di-world"
-            >
-              <LinkedInIcon />
-            </Link>
-            <Link
-              href="https://www.youtube.com/@AiplusDiJSC"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="AiplusDiJSC"
-            >
-              <YouTubeIcon />
-            </Link>
-            <Link
-              href="https://www.tiktok.com/@aidiworld"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="aidiworld"
-            >
-              <TikTokIcon />
-            </Link>
+          <div className="col-span-12 flex flex-col justify-between lg:col-span-3">
+            <div className="flex w-full justify-start gap-8 lg:justify-end">
+              <Link
+                href="https://www.facebook.com/aidijsc"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="aidijsc"
+              >
+                <FacebookIcon />
+              </Link>
+              <Link
+                href="https://www.linkedin.com/company/ai-di-world/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="ai-di-world"
+              >
+                <LinkedInIcon />
+              </Link>
+              <Link
+                href="https://www.youtube.com/@AiplusDiJSC"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="AiplusDiJSC"
+              >
+                <YouTubeIcon />
+              </Link>
+              <Link
+                href="https://www.tiktok.com/@aidiworld"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="aidiworld"
+              >
+                <TikTokIcon />
+              </Link>
+            </div>
+            <p className="mt-2 text-right font-[Manrope] text-base font-normal leading-[150%] tracking-[0%] text-[#EEEEEE]">
+              <Mail className="mr-2 inline" />
+              <Link href="mailto:contact@aidi.world">contact@aidi.world</Link>
+            </p>
           </div>
           <div className="col-span-12 mt-16 flex w-full flex-col items-center justify-between gap-4 border-b-[1px] border-[#EEEEEE] pb-4 lg:flex-row">
             <div className="flex items-end justify-start gap-4">
