@@ -26,12 +26,11 @@ export default function PdtAcademyRoad() {
     <div>
       <div className="relative py-20">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[#6DC9CB]" />
           <Image
-            src="/product/pdt-aca-road-bg.png"
+            src="/product/pdt-aca-road-bg-green.png"
             alt="AI and human connection"
             fill
-            className="z-10 object-cover object-center opacity-20"
+            className="z-10 object-cover object-center"
             priority
           />
           {/* Dark overlay for better text readability */}
